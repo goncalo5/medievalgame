@@ -5,37 +5,36 @@ Meanings:
 no() - put some instance already create in that class
 
 Logic:
-World()  |Galaxy()   |PlanetarySystem()  |Planet()
-            |Player()	|Planet     |Resource()
-            |           |           |Mine() |Resource
-            |           |		    |Storage()  |Resource
-		    |		    |		    |Factory()  |Building
-		    |		    |		    |Hangar()   |SpaceShip()    |Weapon
-		    |		    |		    |		    |			    |Shield
-		    |		    |		    |		    |			    |Engine
-		    |		    |		    |		    |Defense()		|Weapon
-		    |		    |		    |		    |			    |Shield
-		    |		    |		    |		    |Weapon()
-		    |		    |		    |		    |Shield()
-		    |		    |		    |		    |Engine()
-            |           |           |           |Fleet()    |Flight()
-		    |		    |		    |ResearchLab()  |Research()
-		    |		    |		    |Defense
+World()     |Field()
+            |Player()	|Coin
+		    |           |Village()  |Resource(Mine, Storage, HidingPlace, Market)
+            |           |           |Villager(Farm)
+		    |		    |		    |MainBuilding(Building)
+            |           |           |Mine()
+            |           |		    |Storage()
+            |           |           |HidingPlace()
+            |           |           |Market()
+		    |           |           |Farm()
+		    |           |           |Academy()    |Coin()
+		    |		    |		    |Military(Villager, Weapon) |Soldier()    |Weapon
+		    |		    |		    |		    			    |Shield
+		    |		    |		    |		    			    |Engine
+		    |		    |		    |RallyPoint()   |Army()
+		    |           |           |               |Campaign()
+		    |		    |		    |Smithy()     |Weapon()
+		    |           |           |Wall()
 		    |		    |		    |Battle()   |Forces()
-            |           |           |Fleet
-		    |		    |Research
-		    |
+            |           |           |Army
+		    |		    |
             |Battle
 
 Presentation()  |Resources()
 			    |Menu() |Overview() |Player
-				|		|           |Planet
+				|		|           |Village
 			    |		|Buildings()    |Header()
 			    |		|			    |Fill()     |Planet
-			    |		|Merchant()     |Resources
-			    |		|Researches()
-			    |		|Hangar()
-			    |		|Defenses()
-			    |		|Fleet()
-			    |		|Universe()
-			    |		|Alliance()
+			    |		|Market()     |Resources
+			    |		|Military()
+			    |		|RallyPoint()
+			    |		|World()
+			            |Statue()
