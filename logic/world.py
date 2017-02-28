@@ -51,5 +51,5 @@ class PlanetarySystem(object):
         self.villages = []
         for i in xrange(self.n_villages):
             coord = self.coordinates
-            coord['planet'] = i
+            coord['village'] = i
             self.villages.append(Village(coord))

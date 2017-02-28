@@ -5,12 +5,12 @@ from buildings import Buildings
 
 
 class Menu(object):
-    def __init__(self, root, menu, screen, planet, resources, row_i, column_i):
+    def __init__(self, root, menu, screen, village, resources, row_i, column_i):
         # attributes
         self.root = root
         self.f_menu = menu
         self.f_screen = screen
-        self.planet = planet
+        self.village = village
         self.resources = resources
         # null attributes
         self.overview = self.buildings = None
@@ -28,8 +28,8 @@ class Menu(object):
         self.b_quit.grid(row=row_i + len(constants.MENU) + 1, column=column_i)
 
     def quit(self):
-        self.planet.save()
-        self.planet.run = False
+        self.village.save()
+        self.village.run = False
         self.root.destroy()
 
     def clean_screen(self):
@@ -43,9 +43,9 @@ class Menu(object):
     def change2overview(self):
         self.clean_screen()
         self.overview = Overview(root=self.f_screen,
-                                 planet=self.planet, row_i=3, column_i=1)
+                                 village=self.village, row_i=3, column_i=1)
 
     def change2buildings(self):
         self.clean_screen()
-        self.buildings = Buildings(root=self.f_screen, planet=self.planet,
+        self.buildings = Buildings(root=self.f_screen, village=self.village,
                                    resources=self.resources, row_i=3, column_i=1)

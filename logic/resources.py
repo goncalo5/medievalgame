@@ -20,7 +20,7 @@ class Resource(object):
     # Data Base
     # GET
     def see_total_in_db(self):
-        self.total = database.RESOURCES[self.name]
+        self.total = constants.RESOURCES[self.name]['total']
 
     # PUT
     def save_total_in_db(self):

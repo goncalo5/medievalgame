@@ -5,4 +5,4 @@ class Player(object):
         village.run = True
         village.empty = False
         village.updating_total()
-        self.planets = [village]
+        self.villages = [village]

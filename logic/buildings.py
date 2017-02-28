@@ -20,7 +20,7 @@ class Building(object):
 
         # initial methods
         self.see_level_in_db()
-        self.see_metal_in_db()
+        self.see_wood_in_db()
 
         self.calculate_cost()
         self.calculate_time2build()
@@ -32,10 +32,10 @@ class Building(object):
     # Data Base
     # GET
     def see_level_in_db(self):
-        self.level = database.BUILDINGS[self.name]['level']
+        self.level = 0
 
-    def see_metal_in_db(self):
-        self.metal = database.RESOURCES['metal']
+    def see_wood_in_db(self):
+        self.metal = constants.RESOURCES['wood']['total']
 
     # calculators
     def calculate_cost(self):

@@ -8,26 +8,23 @@ class Village(object):
     def __init__(self, coordinates):
         self.coordinates = coordinates
         self.empty = True
-        self.star_distance = self.coordinates['village'] + 1
-        self.total_fields = self.star_distance * \
-                            constants.WORLD['village']['rate_field'] + \
-                            constants.WORLD['village']['fields']
+        self.total_fields = constants.WORLD['village']['fields']
         self.fields_left = self.total_fields
         self.fields_occupied = 0
         # Resources
         # create resources's objects
-        self.metal = Resource('metal')
-        self.resources = [self.metal]
+        self.wood = Resource('wood')
+        self.resources = [self.wood]
         self.n_resources = len(self.resources)
 
         # Buildings
         # create buildings's objects
-        self.metal_mine = Mine('metal_mine', self.metal)
-        self.metal_storage = Storage('metal_storage', self.metal)
-        self.robot_factory = Factory('robot_factory')
-        self.mines = [self.metal_mine]
-        self.storages = [self.metal_storage]
-        self.factories = [self.robot_factory]
+        self.forest = Mine('forest', self.wood)
+        self.storage = Storage('storage', self.wood)
+        self.main_building = Factory('main_building')
+        self.mines = [self.forest]
+        self.storages = [self.storage]
+        self.factories = [self.main_building]
         self.buildings = self.mines + self.storages + self.factories
 
         self.run = False
@@ -40,9 +37,9 @@ class Village(object):
         #up_total.start()
 
     def updating_total(self):
-        self.metal.total += self.metal.per_s
+        self.wood.total += self.wood.per_s
         if self.run:
-            self.metal_storage.check_storage()
+            self.storage.check_storage()
             t = threading.Timer(interval=1, function=self.updating_total)
             t.start()
 
@@ -53,13 +50,13 @@ class Village(object):
 
     def check_if_can_evolve(self, building):
         if not self.is_evolving:
-            if self.metal >= building.cost and not building.is_evolving:
+            if self.wood >= building.cost and not building.is_evolving:
                 return True
         else:
             pass
 
     def take_resources2evolve(self, building):
-        self.metal.total -= building.cost
+        self.wood.total -= building.cost
         building.evolving = True
 
     def up1level(self, building):
