@@ -1,8 +1,8 @@
 # import constants
-from universe import  Universe
+from world import World
 
 
 class Logic(object):
     def __init__(self):
         # new Universe
-        self.universe = Universe()
+        self.world = World()

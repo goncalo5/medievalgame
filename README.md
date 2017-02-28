@@ -16,12 +16,14 @@ World()     |Field()
             |           |           |Market()
 		    |           |           |Farm()
 		    |           |           |Academy()    |Coin()
+		    |		    |		    |RallyPoint()   |Army()
+		    |           |           |               |Campaign()
+		    |           |           |Statue()
 		    |		    |		    |Military(Villager, Weapon) |Soldier()    |Weapon
 		    |		    |		    |		    			    |Shield
 		    |		    |		    |		    			    |Engine
-		    |		    |		    |RallyPoint()   |Army()
-		    |           |           |               |Campaign()
 		    |		    |		    |Smithy()     |Weapon()
+		    |           |           |WatchTower()
 		    |           |           |Wall()
 		    |		    |		    |Battle()   |Forces()
             |           |           |Army
@@ -37,4 +39,4 @@ Presentation()  |Resources()
 			    |		|Military()
 			    |		|RallyPoint()
 			    |		|World()
-			            |Statue()
+			            |Tribe()
