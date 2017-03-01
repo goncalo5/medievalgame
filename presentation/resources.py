@@ -23,7 +23,7 @@ class Resources(object):
 
     def update(self, resource):
         resource.l_total['text'] = int(self.village.wood.total)
-        resource.l_per_s['text'] = resource.per_s
+        resource.l_per_s['text'] = int(resource.per_s)
 
     def update_all(self):
         for r in self.village.resources:

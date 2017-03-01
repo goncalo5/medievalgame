@@ -3,9 +3,9 @@ from fill import Fill
 
 
 class Buildings(object):
-    def __init__(self, root, planet, resources, row_i, column_i):
+    def __init__(self, root, village, resources, row_i, column_i):
         self.root = root
-        self.planet = planet
+        self.village = village
 
-        self.header = Header(self.root, planet, row_i, column_i)
-        self.fill = Fill(self.root, planet, resources, self.header, row_i + self.header.n_rows, column_i)
+        self.header = Header(self.root, village, row_i, column_i)
+        self.fill = Fill(self.root, village, resources, self.header, row_i + self.header.n_rows, column_i)
