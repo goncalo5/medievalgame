@@ -2,14 +2,14 @@ from Tkinter import *
 
 
 class Fill(object):
-    def __init__(self, root, planet, resources, header, row_i, column_i):
+    def __init__(self, root, village, resources, header, row_i, column_i):
         self.root = root
-        # initiate planet
-        self.planet = planet
+        # initiate village
+        self.village = village
         self.resources = resources
         self.header = header
 
-        for n, building in enumerate(self.planet.buildings):
+        for n, building in enumerate(self.village.buildings):
             l = row_i + n
             Label(self.root, text=building.name). \
                 grid(row=l, column=column_i)
@@ -21,7 +21,7 @@ class Fill(object):
             building.l_cost.grid(row=l, column=column_i + 2)
             # evolving time
             building.l_t = Label(self.root, text=int(building.time))
-            building.l_t.grid(row=l, column=column_i + 2 + self.planet.n_resources)
+            building.l_t.grid(row=l, column=column_i + 2 + self.village.n_resources)
             # evolving
 
         self.updating()
@@ -29,7 +29,7 @@ class Fill(object):
         # create buttons
         l = self.header.l + 2
         self.b_buildings = []
-        for i, building in enumerate(self.planet.buildings):
+        for i, building in enumerate(self.village.buildings):
             self.b_buildings.append(
                 Button(self.root, text=building.type, command=lambda b=building: self.evolve_building(b)))
             self.b_buildings[-1].grid(row=l + i, column=self.header.c_evol)
@@ -37,7 +37,7 @@ class Fill(object):
         self.resources.updating()
 
     def evolve_building(self, building):
-        self.planet.evolve_building(building)
+        self.village.evolve_building(building)
         self.update(building)
 
     def update(self, building):
@@ -45,9 +45,9 @@ class Fill(object):
         self.resources.update_all()
 
     def quit(self):
-        self.planet.save()
-        self.planet.metal.total = 40
-        self.planet.run = False
+        self.village.save()
+        self.village.metal.total = 40
+        self.village.run = False
         self.root.destroy()
 
     def update(self, building):
@@ -56,7 +56,7 @@ class Fill(object):
         building.l_t['text'] = int(building.left)
 
     def update_all(self):
-        for building in self.planet.buildings:
+        for building in self.village.buildings:
             self.update(building)
 
     def updating(self):

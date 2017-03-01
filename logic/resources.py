@@ -18,11 +18,11 @@ class Resource(object):
     # Data Base
     # GET
     def see_total_in_db(self):
-        self.total = constants.RESOURCES[self.name]['total']
+        pass
 
     # PUT
     def save_total_in_db(self):
-        database.BUILDINGS[self.name]['total'] = self.total
+        pass
 
     def updating_total_in_db(self):
         self.save_total_in_db()

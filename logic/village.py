@@ -25,6 +25,7 @@ class Village(object):
         self.n_resources = len(self.resources)
 
         # Buildings
+        self.forest = self.storage = self.main_building = None
         # create buildings's objects
         buildings = constants.BUILDINGS_UPPER
         for building in buildings:
@@ -60,7 +61,9 @@ class Village(object):
         #up_total.start()
 
     def updating_total(self):
-        self.wood.total += self.wood.per_s
+        for r in self.resources:
+            resource = self.resources[r]
+            resource.total += resource.per_s
         if self.run:
             self.storage.check_storage()
             t = threading.Timer(interval=1, function=self.updating_total)
