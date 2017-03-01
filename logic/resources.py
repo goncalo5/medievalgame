@@ -4,18 +4,16 @@ import constants
 
 
 class Resource(object):
-    def __init__(self, name):
+    def __init__(self, index, name, total, per_s, rate_per_s):
+        self.index = index
         self.name = name
+        self.total = total
+        self.per_s0 = self.per_s = per_s
+        self.rate_per_s = rate_per_s
 
         # Null variables
-        self.total = self.per_s = None
-
-        # constants
-        self.per_s0 = self.per_s = constants.RESOURCES[self.name]['per_s']
-        self.rate_per_s = constants.RESOURCES[self.name]['rate_per_s']
 
         # initial methods
-        self.see_total_in_db()
 
     # Data Base
     # GET
@@ -28,5 +26,5 @@ class Resource(object):
 
     def updating_total_in_db(self):
         self.save_total_in_db()
-        time.sleep(constants.TIME2UPDATE_DB)
+        time.sleep(10)
         self.updating_total_in_db()

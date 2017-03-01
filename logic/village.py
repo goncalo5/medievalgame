@@ -1,7 +1,7 @@
 import threading
 import constants
 from resources import Resource
-from buildings import Mine, Storage, Factory
+from buildings import Building, Mine, Storage, Factory
 
 
 class Village(object):
@@ -13,15 +13,38 @@ class Village(object):
         self.fields_occupied = 0
         # Resources
         # create resources's objects
-        self.wood = Resource('wood')
-        self.resources = [self.wood]
+        self.wood = self.clay = self.iron = None
+        resources = constants.RESOURCES
+        for resource in resources:
+            obj = self
+            name = resource
+            value = Resource(**resources[resource])
+            setattr(obj, name, value)
+        del resources
+        self.resources = {'wood': self.wood, 'clay': self.clay, 'iron': self.iron}
         self.n_resources = len(self.resources)
 
         # Buildings
         # create buildings's objects
-        self.forest = Mine('forest', self.wood)
-        self.storage = Storage('storage', self.wood)
-        self.main_building = Factory('main_building')
+        buildings = constants.BUILDINGS_UPPER
+        for building in buildings:
+            obj = self
+            name = building['name']
+            if building['type'] == 'mine':
+                resource = getattr(self, building['resource'])
+                value = Mine(resource_obj=resource, **building)
+                setattr(obj, name, value)
+            elif building['type'] == 'storage':
+                resource = getattr(self, building['resource'])
+                value = Storage(resource_obj=resource, **building)
+                setattr(obj, name, value)
+            elif building['type'] == 'factory':
+                value = Factory(**building)
+                setattr(obj, name, value)
+            else:
+                value = Building(**building)
+                setattr(obj, name, value)
+        del buildings
         self.mines = [self.forest]
         self.storages = [self.storage]
         self.factories = [self.main_building]

@@ -3,15 +3,16 @@ import constants
 
 
 class Building(object):
-    def __init__(self, name):
+    def __init__(self, index, name, type, cost, rate_cost, time, rate_time):
         # initiate variables
+        self.index = index
         self.name = name
-        self.type = constants.BUILDINGS[self.name]['type']
+        self.type = type
         # get constants
-        self.cost_lv0 = constants.BUILDINGS[self.name]['cost']
-        self.rate_cost = constants.BUILDINGS[self.name]['rate_cost']
-        self.time_lv0 = constants.BUILDINGS[self.name]['time']
-        self.rate_time = constants.BUILDINGS[self.name]['rate_time']
+        self.cost_lv0 = cost
+        self.rate_cost = rate_cost
+        self.time_lv0 = time
+        self.rate_time = rate_time
         # Null variables
         self.level = None
         self.cost  = None
@@ -46,19 +47,19 @@ class Building(object):
 
 
 class Mine(Building):
-    def __init__(self, name, resource):
-        super(Mine, self).__init__(name)
-        self.resource = resource
+    def __init__(self, index, name, type, cost, rate_cost, time, rate_time, resource_obj, resource):
+        super(Mine, self).__init__(index, name, type, cost, rate_cost, time, rate_time)
+        self.resource = resource_obj
 
     def update_per_s(self):
         self.resource.per_s = self.resource.per_s0 * self.resource.rate_per_s ** self.level
 
 
 class Factory(Building):
-    def __init__(self, name):
-        super(Factory, self).__init__(name)
-        self.factor0 = constants.BUILDINGS[self.name]['factor']
-        self.rate_factor = constants.BUILDINGS[self.name]['rate_factor']
+    def __init__(self, index, name, type, cost, rate_cost, time, rate_time, factor, rate_factor):
+        super(Factory, self).__init__(index, name, type, cost, rate_cost, time, rate_time)
+        self.factor0 = factor
+        self.rate_factor = rate_factor
         self.factor = None
 
     def calculate_factor(self):
@@ -67,12 +68,12 @@ class Factory(Building):
 
 
 class Storage(Building):
-    def __init__(self, name, resource):
-        super(Storage, self).__init__(name)
+    def __init__(self, index, name, type, cost, rate_cost, time, rate_time, capacity, rate_capacity, resource_obj, resource):
+        super(Storage, self).__init__(index, name, type, cost, rate_cost, time, rate_time)
         self.name = name
-        self.resource = resource
-        self.capacity = self.capacity0 = constants.BUILDINGS[self.name]['capacity']
-        self.rate_capacity = constants.BUILDINGS[self.name]['rate_capacity']
+        self.resource = resource_obj
+        self.capacity = self.capacity0 = capacity
+        self.rate_capacity = rate_capacity
 
     def is_full(self):
         return self.resource.total > self.capacity

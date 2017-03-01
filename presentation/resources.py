@@ -13,8 +13,9 @@ class Resources(object):
         Label(self.root, text='Total').grid(row=row_i + 1, column=column_i)
         Label(self.root, text='per sec').grid(row=row_i + 2, column=column_i)
         for n, r in enumerate(self.village.resources):
+            r = self.village.resources[r]
             Label(self.root, text=r.name).grid(row=row_i, column=column_i + 1 + n)
-            r.l_total = Label(self.root, text=self.village.wood.total)
+            r.l_total = Label(self.root, text=r.total)
             r.l_total.grid(row=row_i + 1, column=column_i + 1)
             r.l_per_s = Label(self.root, text=r.per_s)
             r.l_per_s.grid(row=row_i + 2, column=column_i + 1 + n)
@@ -27,6 +28,7 @@ class Resources(object):
 
     def update_all(self):
         for r in self.village.resources:
+            r = self.village.resources[r]
             self.update(r)
 
     def updating(self):
