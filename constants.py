@@ -2,40 +2,30 @@
 WOOD = {'index': 1, 'name': 'wood', 'total': 500, 'per_s': 1, 'rate_per_s': 1.5}
 CLAY = {'index': 2, 'name': 'clay', 'total': 500, 'per_s': 1, 'rate_per_s': 1.5}
 IRON = {'index': 3, 'name': 'iron', 'total': 500, 'per_s': 1, 'rate_per_s': 1.5}
-RESOURCES = {'wood': WOOD, 'clay': CLAY,'iron': IRON}
+RESOURCES = {'wood': WOOD, 'clay': CLAY, 'iron': IRON}
 
 # buildings
-MAIN_BUILDING = {'index': 1, 'name': 'main_building', 'cost': 10, 'rate_cost': 2, 'time': 3, 'rate_time': 1.5,
-                 'type': 'factory', 'factor': 2, 'rate_factor': 2}
-FOREST = {'index': 2, 'name': 'forest', 'type': 'mine', 'cost': 10, 'rate_cost': 1.5, 'time': 3, 'rate_time': 1.5, 'resource': 'wood'}
-CLAY_PIT = {'index': 3, 'name':  'clay_pit', 'cost': 10, 'rate_cost': 1.5, 'time': 3, 'rate_time': 1.5, 'type': 'mine', 'resource': 'clay'}
-IRON_MINE = {'index': 4, 'name': 'iron_mine', 'cost': 10, 'rate_cost': 1.5, 'time': 3, 'rate_time': 1.5, 'type': 'mine', 'resource': 'iron'}
-STORAGE = {'index': 5, 'name': 'storage', 'cost': 10, 'rate_cost': 2, 'time': 3, 'rate_time': 1.5,
+MAIN_BUILDING = {'index': 1, 'name': 'main_building', 'type': 'factory',
+                 'cost': {'wood': 10, 'clay': 10, 'iron': 10}, 'rate_cost': {'wood': 2, 'clay': 2, 'iron': 2},
+                 'time': 3, 'rate_time': 1.5, 'factor': 2, 'rate_factor': 2}
+FOREST = {'index': 2, 'name': 'forest', 'type': 'mine', 'time': 3, 'rate_time': 1.5, 'resource': 'wood',
+          'cost': {'wood': 10, 'clay': 10, 'iron': 10}, 'rate_cost': {'wood': 2, 'clay': 2, 'iron': 2}}
+CLAY_PIT = {'index': 3, 'name':  'clay_pit', 'cost': {'wood': 10, 'clay': 10, 'iron': 10}, 'rate_cost': {'wood': 2, 'clay': 2, 'iron': 2}, 'time': 3, 'rate_time': 1.5, 'type': 'mine', 'resource': 'clay'}
+IRON_MINE = {'index': 4, 'name': 'iron_mine', 'cost': {'wood': 10, 'clay': 10, 'iron': 10}, 'rate_cost': {'wood': 2, 'clay': 2, 'iron': 2}, 'time': 3, 'rate_time': 1.5, 'type': 'mine', 'resource': 'iron'}
+STORAGE = {'index': 5, 'name': 'storage', 'cost': {'wood': 10, 'clay': 10, 'iron': 10}, 'rate_cost': {'wood': 2, 'clay': 2, 'iron': 2}, 'time': 3, 'rate_time': 1.5,
            'type': 'storage', 'capacity': 1500, 'rate_capacity': 1.5, 'resource': 'wood'}
-HIDING_PLACE = {'index': 6, 'name': 'hiding_place', 'cost': 10, 'rate_cost': 2, 'time': 3, 'rate_time': 1.5,
-                'type': 'None'}
-MARKET = {'index': 7, 'name': 'market', 'cost': 10, 'rate_cost': 2, 'time': 3, 'rate_time': 1.5,
-          'type': 'None'}
-FARM = {'index': 8, 'name': 'farm', 'cost': 10, 'rate_cost': 2, 'time': 3, 'rate_time': 1.5,
-        'type': 'None'}
-ACADEMY = {'index': 9, 'name': 'academy', 'cost': 10, 'rate_cost': 2, 'time': 3, 'rate_time': 1.5,
-           'type': 'None'}
-RALLY_POINT = {'index': 10, 'name': 'rally_point', 'cost': 10, 'rate_cost': 2, 'time': 3, 'rate_time': 1.5,
-                               'type': 'None'}
-STATUE = {'index': 11, 'name': 'statue', 'cost': 10, 'rate_cost': 2, 'time': 3, 'rate_time': 1.5,
-                               'type': 'None'}
-BARRACK = {'index': 12, 'name': 'barracks', 'cost': 10, 'rate_cost': 2, 'time': 3, 'rate_time': 1.5,
-                               'type': 'None'}
-STABLE = {'index': 13, 'name': 'stable', 'cost': 10, 'rate_cost': 2, 'time': 3, 'rate_time': 1.5,
-                               'type': 'None'}
-WORKSHOP = {'index': 14, 'name': 'workshop', 'cost': 10, 'rate_cost': 2, 'time': 3, 'rate_time': 1.5,
-                               'type': 'None'}
-SMITHY = {'index': 15, 'name': 'smithy', 'cost': 10, 'rate_cost': 2, 'time': 3, 'rate_time': 1.5,
-                               'type': 'None'}
-WATCHTOWER = {'index': 16, 'name': 'watchtower', 'cost': 10, 'rate_cost': 2, 'time': 3, 'rate_time': 1.5,
-                               'type': 'None'}
-WALL = {'index': 17, 'name': 'wall', 'cost': 10, 'rate_cost': 2, 'time': 3, 'rate_time': 1.5,
-                               'type': 'None'}
+HIDING_PLACE = {'index': 6, 'name': 'hiding_place', 'cost': {'wood': 10, 'clay': 10, 'iron': 10}, 'rate_cost': {'wood': 2, 'clay': 2, 'iron': 2}, 'time': 3, 'rate_time': 1.5, 'type': 'None'}
+MARKET = {'index': 7, 'name': 'market', 'cost': {'wood': 10, 'clay': 10, 'iron': 10}, 'rate_cost': {'wood': 2, 'clay': 2, 'iron': 2}, 'time': 3, 'rate_time': 1.5, 'type': 'None'}
+FARM = {'index': 8, 'name': 'farm', 'cost': {'wood': 10, 'clay': 10, 'iron': 10}, 'rate_cost': {'wood': 2, 'clay': 2, 'iron': 2}, 'time': 3, 'rate_time': 1.5, 'type': 'None'}
+ACADEMY = {'index': 9, 'name': 'academy', 'cost': {'wood': 10, 'clay': 10, 'iron': 10}, 'rate_cost': {'wood': 2, 'clay': 2, 'iron': 2}, 'time': 3, 'rate_time': 1.5, 'type': 'None'}
+RALLY_POINT = {'index': 10, 'name': 'rally_point', 'cost': {'wood': 10, 'clay': 10, 'iron': 10}, 'rate_cost': {'wood': 2, 'clay': 2, 'iron': 2}, 'time': 3, 'rate_time': 1.5, 'type': 'None'}
+STATUE = {'index': 11, 'name': 'statue', 'cost': {'wood': 10, 'clay': 10, 'iron': 10}, 'rate_cost': {'wood': 2, 'clay': 2, 'iron': 2}, 'time': 3, 'rate_time': 1.5, 'type': 'None'}
+BARRACK = {'index': 12, 'name': 'barracks', 'cost': {'wood': 10, 'clay': 10, 'iron': 10}, 'rate_cost': {'wood': 2, 'clay': 2, 'iron': 2}, 'time': 3, 'rate_time': 1.5, 'type': 'None'}
+STABLE = {'index': 13, 'name': 'stable', 'cost': {'wood': 10, 'clay': 10, 'iron': 10}, 'rate_cost': {'wood': 2, 'clay': 2, 'iron': 2}, 'time': 3, 'rate_time': 1.5, 'type': 'None'}
+WORKSHOP = {'index': 14, 'name': 'workshop', 'cost': {'wood': 10, 'clay': 10, 'iron': 10}, 'rate_cost': {'wood': 2, 'clay': 2, 'iron': 2}, 'time': 3, 'rate_time': 1.5, 'type': 'None'}
+SMITHY = {'index': 15, 'name': 'smithy', 'cost': {'wood': 10, 'clay': 10, 'iron': 10}, 'rate_cost': {'wood': 2, 'clay': 2, 'iron': 2}, 'time': 3, 'rate_time': 1.5, 'type': 'None'}
+WATCHTOWER = {'index': 16, 'name': 'watchtower', 'cost': {'wood': 10, 'clay': 10, 'iron': 10}, 'rate_cost': {'wood': 2, 'clay': 2, 'iron': 2}, 'time': 3, 'rate_time': 1.5, 'type': 'None'}
+WALL = {'index': 17, 'name': 'wall', 'cost': {'wood': 10, 'clay': 10, 'iron': 10}, 'rate_cost': {'wood': 2, 'clay': 2, 'iron': 2}, 'time': 3, 'rate_time': 1.5, 'type': 'None'}
 BUILDINGS_UPPER = [MAIN_BUILDING, FARM,
               FOREST, CLAY_PIT, IRON_MINE, STORAGE, HIDING_PLACE, MARKET,
               ACADEMY, RALLY_POINT, STATUE, BARRACK, STABLE, WORKSHOP,

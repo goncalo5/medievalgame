@@ -9,22 +9,22 @@ World()     |Field()
             |Player()	|Coin
 		    |           |Village()  |Resource(Mine, Storage, HidingPlace, Market)
             |           |           |Villager(Farm)
-		    |		    |		    |MainBuilding(Building)
-            |           |           |Mine()
-            |           |		    |Storage()
-            |           |           |HidingPlace()
-            |           |           |Market()
-		    |           |           |Farm()
-		    |           |           |Academy()    |Coin()
-		    |		    |		    |RallyPoint()   |Army()
-		    |           |           |               |Campaign()
-		    |           |           |Statue()
-		    |		    |		    |Military(Villager, Weapon) |Soldier()    |Weapon
-		    |		    |		    |		    			    |Shield
-		    |		    |		    |		    			    |Engine
-		    |		    |		    |Smithy()     |Weapon()
-		    |           |           |WatchTower()
-		    |           |           |Wall()
+		    |		    |		    |MainBuilding(Village)
+            |           |           |Mine(Village)
+            |           |		    |Storage(Village)
+            |           |           |HidingPlace(Village)
+            |           |           |Market(Village)
+		    |           |           |Farm(Village)
+		    |           |           |Academy(Village)    |Coin()
+		    |		    |		    |RallyPoint(Village)   |Army()
+		    |           |           |                       |Campaign()
+		    |           |           |Statue(Village)
+		    |		    |		    |Military(Village)  |Soldier()    |Weapon
+		    |		    |		    |		    	    |Shield
+		    |		    |		    |		    		|Engine
+		    |		    |		    |Smithy(Village)     |Weapon()
+		    |           |           |WatchTower(Village)
+		    |           |           |Wall(Village)
 		    |		    |		    |Battle()   |Forces()
             |           |           |Army
 		    |		    |

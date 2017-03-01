@@ -33,14 +33,14 @@ class Village(object):
             name = building['name']
             if building['type'] == 'mine':
                 resource = getattr(self, building['resource'])
-                value = Mine(resource_obj=resource, **building)
+                value = Mine(village=self, resource_obj=resource, **building)
                 setattr(obj, name, value)
             elif building['type'] == 'storage':
                 resource = getattr(self, building['resource'])
-                value = Storage(resource_obj=resource, **building)
+                value = Storage(village=self, resource_obj=resource, **building)
                 setattr(obj, name, value)
             elif building['type'] == 'factory':
-                value = Factory(**building)
+                value = Factory(village=self, **building)
                 setattr(obj, name, value)
             else:
                 value = Building(**building)
@@ -57,8 +57,6 @@ class Village(object):
         if not self.run and not self.empty:
             self.run = True
             self.updating_total()
-        #up_total = threading.Timer(interval=1, function=self.updating_total)
-        #up_total.start()
 
     def updating_total(self):
         for r in self.resources:
