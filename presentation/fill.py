@@ -17,8 +17,13 @@ class Fill(object):
             building.l_lv = Label(self.root, text=building.level)
             building.l_lv.grid(row=l, column=column_i + 1)
             # evolving cost
-            building.l_cost = Label(self.root, text=int(building.cost))
-            building.l_cost.grid(row=l, column=column_i + 2)
+            building.l_cost = {}
+            for i, r in enumerate(self.village.resources):  # r = resource name
+                text = building.cost[r]
+                building.l_cost[r] = Label(self.root, text=int(text))
+                building.l_cost[r].grid(row=l, column=column_i + i + 2)
+            #self.l_cost = LabelCost(self.village.forest.cost)
+            #print '\n\n\n\n', self.l_cost.wood
             # evolving time
             building.l_t = Label(self.root, text=int(building.time))
             building.l_t.grid(row=l, column=column_i + 2 + self.village.n_resources)
@@ -31,12 +36,13 @@ class Fill(object):
         self.b_buildings = []
         for i, building in enumerate(self.village.buildings):
             self.b_buildings.append(
-                Button(self.root, text=building.type, command=lambda b=building: self.evolve_building(b)))
+                Button(self.root, text=building.kind, command=lambda b=building: self.evolve_building(b)))
             self.b_buildings[-1].grid(row=l + i, column=self.header.c_evol)
 
         self.resources.updating()
 
     def evolve_building(self, building):
+        print building.name, building.level
         self.village.evolve_building(building)
         self.update(building)
 
@@ -52,7 +58,9 @@ class Fill(object):
 
     def update(self, building):
         building.l_lv['text'] = int(building.level)
-        building.l_cost['text'] = int(building.cost)
+        for i, r in enumerate(self.village.resources):  # r = resource name
+            building.l_cost[r]['text'] = building.cost[r]
+            #getattr(building.l_cost, r)['text'] = int(getattr(building.cost, r))
         building.l_t['text'] = int(building.left)
 
     def update_all(self):

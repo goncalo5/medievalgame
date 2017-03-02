@@ -3,37 +3,40 @@ import constants
 
 
 class Building(object):
-    def __init__(self, village, index, name, type, cost, rate_cost, time, rate_time):
+    def __init__(self, village, index, name, kind, cost, rate_cost, time, rate_time):
+        # initiate objects
         self.village = village
         # initiate variables
         self.index = index
         self.name = name
-        self.type = type
-        # get constants
+        self.kind = kind
+        # Null variables
+        self.level = None
+        self.cost_lv0 = dict(cost)
+        self.cost = cost
+        self.rate_cost = rate_cost
+        self.time = None
 
-        class Cost:
-            def __init__(self, resources):
-                for r in resources:
+        # get constants
+        """class Cost:  # cost and rate_cost
+            def __init__(self, resources):  # resources = {'wood': 10, ...}
+                for r in resources:  # r = resource name
                     obj = self
                     name = r
-                    value = cost[r]
+                    value = resources[r]
                     setattr(self, name, value)
-        self.cost_lv0 = Cost(cost)
-        for r in self.village.resources:
+
+        self.cost_lv0 = self.cost = Cost(cost)
+        self.rate_cost = Cost(rate_cost)"""
+        """for r in self.village.resources:
             obj = self.cost_lv0
             name = r
             value = cost[r]
-            print obj, name, value
-            setattr(obj, name, value)
-        self.cost_lv0 = cost
-        self.rate_cost = rate_cost
+            setattr(obj, name, value)"""
+        #self.cost_lv0 = cost
+        #self.rate_cost = rate_cost
         self.time_lv0 = time
         self.rate_time = rate_time
-        # Null variables
-        self.level = None
-        self.cost  = None
-        self.time = None
-        self.metal = None
 
         # initial methods
         self.see_level_in_db()
@@ -57,16 +60,22 @@ class Building(object):
     # calculators
     def calculate_cost(self):
         for r in self.village.resources:
-
-        self.cost['wood'] = self.cost_lv0 * self.rate_cost**self.level
+            cost_lv0 = self.cost_lv0[r]#getattr(self.cost_lv0, r)  # self.cost_lv0.wood ...
+            rate_cost = self.rate_cost[r]#getattr(self.rate_cost, r)  # self.rate_cost.wood ...
+            self.cost[r] = cost_lv0 * rate_cost**self.level
+            """obj = self.cost
+            name = r
+            value = cost_lv0 * rate_cost**self.level  # value = cost
+            setattr(obj, name, value)"""
+        #self.cost['wood'] = self.cost_lv0 * self.rate_cost**self.level
 
     def calculate_time2build(self):
         self.time = self.time_lv0 * self.rate_time**self.level
 
 
 class Mine(Building):
-    def __init__(self, village, index, name, type, cost, rate_cost, time, rate_time, resource_obj, resource):
-        super(Mine, self).__init__(village, index, name, type, cost, rate_cost, time, rate_time)
+    def __init__(self, village, index, name, kind, cost, rate_cost, time, rate_time, resource_obj, resource):
+        super(Mine, self).__init__(village, index, name, kind, cost, rate_cost, time, rate_time)
         self.resource = resource_obj
 
     def update_per_s(self):
@@ -74,8 +83,8 @@ class Mine(Building):
 
 
 class Factory(Building):
-    def __init__(self, village, index, name, type, cost, rate_cost, time, rate_time, factor, rate_factor):
-        super(Factory, self).__init__(village, index, name, type, cost, rate_cost, time, rate_time)
+    def __init__(self, village, index, name, kind, cost, rate_cost, time, rate_time, factor, rate_factor):
+        super(Factory, self).__init__(village, index, name, kind, cost, rate_cost, time, rate_time)
         self.factor0 = factor
         self.rate_factor = rate_factor
         self.factor = None
@@ -86,8 +95,8 @@ class Factory(Building):
 
 
 class Storage(Building):
-    def __init__(self, village, index, name, type, cost, rate_cost, time, rate_time, capacity, rate_capacity, resource_obj, resource):
-        super(Storage, self).__init__(village, index, name, type, cost, rate_cost, time, rate_time)
+    def __init__(self, village, index, name, kind, cost, rate_cost, time, rate_time, capacity, rate_capacity, resource_obj, resource):
+        super(Storage, self).__init__(village, index, name, kind, cost, rate_cost, time, rate_time)
         self.name = name
         self.resource = resource_obj
         self.capacity = self.capacity0 = capacity

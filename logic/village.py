@@ -31,19 +31,19 @@ class Village(object):
         for building in buildings:
             obj = self
             name = building['name']
-            if building['type'] == 'mine':
+            if building['kind'] == 'mine':
                 resource = getattr(self, building['resource'])
                 value = Mine(village=self, resource_obj=resource, **building)
                 setattr(obj, name, value)
-            elif building['type'] == 'storage':
+            elif building['kind'] == 'storage':
                 resource = getattr(self, building['resource'])
                 value = Storage(village=self, resource_obj=resource, **building)
                 setattr(obj, name, value)
-            elif building['type'] == 'factory':
+            elif building['kind'] == 'factory':
                 value = Factory(village=self, **building)
                 setattr(obj, name, value)
             else:
-                value = Building(**building)
+                value = Building(village=self, **building)
                 setattr(obj, name, value)
         del buildings
         self.mines = [self.forest]
@@ -68,19 +68,27 @@ class Village(object):
             t.start()
 
     def evolve_building(self, building):
+        #print 'evolve_building', building.name, building.cost
         if self.check_if_can_evolve(building):
+            #print 'ok'
             self.take_resources2evolve(building)
             self.loop_evolve(building)  # time to built
+            #print 'finish'
 
     def check_if_can_evolve(self, building):
+        #print 'check_if_can_evolve'
         if not self.is_evolving:
-            if self.wood >= building.cost and not building.is_evolving:
-                return True
-        else:
-            pass
+            #print 'not evolving'
+            #print self.wood
+            for r in self.resources:
+                #print self.resources[r].total
+                if self.resources[r].total < building.cost[r]:
+                    return False
+            return True
 
     def take_resources2evolve(self, building):
-        self.wood.total -= building.cost
+        for r in self.resources:
+            self.resources[r].total -= building.cost[r]
         building.evolving = True
 
     def up1level(self, building):
@@ -127,9 +135,12 @@ class Village(object):
         if building.evolving:
             building.left -= 1
             if building.left <= 0:
+                #print 'its over'
                 building.left = building.time
                 self.is_evolving = building.is_evolving = False
+                #print building.cost
                 self.up1level(building)
+                #print building.cost
                 building.left = building.time
                 return
             t = threading.Timer(interval=1, function=self.loop_evolve, kwargs={'building': building})
