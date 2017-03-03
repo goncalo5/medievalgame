@@ -12,8 +12,8 @@ class Village(object):
         self.fields_left = self.total_fields
         self.fields_occupied = 0
         # Resources
-        # create resources's objects
         self.wood = self.clay = self.iron = None
+        # create resources's objects
         self.resources = []
         resources = constants.RESOURCES
         for resource in resources:
@@ -23,13 +23,16 @@ class Village(object):
             setattr(obj, name, value)
             self.resources.append(getattr(obj, name))
         del resources
-        #self.resources = {'wood': self.wood, 'clay': self.clay, 'iron': self.iron}
         self.n_resources = len(self.resources)
 
         # Buildings
         self.forest = self.storage = self.main_building = None
         # create buildings's objects
-        buildings = constants.BUILDINGS_UPPER
+        self.factories = []
+        self.mines = []
+        self.storages = []
+        self.buildings = []
+        buildings = constants.BUILDINGS
         for building in buildings:
             obj = self
             name = building['name']
@@ -37,21 +40,21 @@ class Village(object):
                 resource = getattr(self, building['resource'])
                 value = Mine(village=self, resource_obj=resource, **building)
                 setattr(obj, name, value)
+                self.mines.append(getattr(obj, name))
             elif building['kind'] == 'storage':
                 resource = getattr(self, building['resource'])
                 value = Storage(village=self, resource_obj=resource, **building)
                 setattr(obj, name, value)
+                self.storages.append(getattr(obj, name))
             elif building['kind'] == 'factory':
                 value = Factory(village=self, **building)
                 setattr(obj, name, value)
+                self.factories.append(getattr(obj, name))
             else:
                 value = Building(village=self, **building)
                 setattr(obj, name, value)
+            self.buildings.append(getattr(obj, name))
         del buildings
-        self.mines = [self.forest]
-        self.storages = [self.storage]
-        self.factories = [self.main_building]
-        self.buildings = self.mines + self.storages + self.factories
 
         self.run = False
         self.is_evolving = False  # just 1 building at the same time
