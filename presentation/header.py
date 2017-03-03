@@ -18,10 +18,9 @@ class Header(object):
         self.c_costs = self.c + 2
         Label(self.root, text='evolving cost'). \
             grid(row=self.l, column=self.c_costs, columnspan=self.village.n_resources)
-        for n, r in enumerate(self.village.resources):
-            r = self.village.resources[r]
+        for n, resource in enumerate(self.village.resources):
             # costs
-            Label(self.root, text=r.name).grid(row=self.l + 1, column=self.c_costs + n)
+            Label(self.root, text=resource.name).grid(row=self.l + 1, column=self.c_costs + n)
         # Column of construction times
         self.c_t = self.c_costs + self.village.n_resources
         Label(self.root, text='Time'). \

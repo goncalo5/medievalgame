@@ -14,14 +14,16 @@ class Village(object):
         # Resources
         # create resources's objects
         self.wood = self.clay = self.iron = None
+        self.resources = []
         resources = constants.RESOURCES
         for resource in resources:
             obj = self
-            name = resource
-            value = Resource(**resources[resource])
+            name = resource['name']
+            value = Resource(**resource)
             setattr(obj, name, value)
+            self.resources.append(getattr(obj, name))
         del resources
-        self.resources = {'wood': self.wood, 'clay': self.clay, 'iron': self.iron}
+        #self.resources = {'wood': self.wood, 'clay': self.clay, 'iron': self.iron}
         self.n_resources = len(self.resources)
 
         # Buildings
@@ -59,8 +61,7 @@ class Village(object):
             self.updating_total()
 
     def updating_total(self):
-        for r in self.resources:
-            resource = self.resources[r]
+        for resource in self.resources:
             resource.total += resource.per_s
         if self.run:
             self.storage.check_storage()
@@ -80,15 +81,15 @@ class Village(object):
         if not self.is_evolving:
             #print 'not evolving'
             #print self.wood
-            for r in self.resources:
+            for i, resource in enumerate(self.resources):
                 #print self.resources[r].total
-                if self.resources[r].total < building.cost[r]:
+                if resource.total < building.cost[i]:
                     return False
             return True
 
     def take_resources2evolve(self, building):
-        for r in self.resources:
-            self.resources[r].total -= building.cost[r]
+        for i, resource in enumerate(self.resources):
+            resource.total -= building.cost[i]
         building.evolving = True
 
     def up1level(self, building):

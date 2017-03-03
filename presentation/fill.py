@@ -18,10 +18,10 @@ class Fill(object):
             building.l_lv.grid(row=l, column=column_i + 1)
             # evolving cost
             building.l_cost = {}
-            for i, r in enumerate(self.village.resources):  # r = resource name
-                text = building.cost[r]
-                building.l_cost[r] = Label(self.root, text=int(text))
-                building.l_cost[r].grid(row=l, column=column_i + i + 2)
+            for i, resource in enumerate(self.village.resources):  # r = resource name
+                text = building.cost[i]
+                building.l_cost[i] = Label(self.root, text=int(text))
+                building.l_cost[i].grid(row=l, column=column_i + i + 2)
             #self.l_cost = LabelCost(self.village.forest.cost)
             #print '\n\n\n\n', self.l_cost.wood
             # evolving time
@@ -58,8 +58,8 @@ class Fill(object):
 
     def update(self, building):
         building.l_lv['text'] = int(building.level)
-        for i, r in enumerate(self.village.resources):  # r = resource name
-            building.l_cost[r]['text'] = building.cost[r]
+        for i, resource in enumerate(self.village.resources):  # r = resource name
+            building.l_cost[i]['text'] = building.cost[i]
             #getattr(building.l_cost, r)['text'] = int(getattr(building.cost, r))
         building.l_t['text'] = int(building.left)
 

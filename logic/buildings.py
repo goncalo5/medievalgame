@@ -12,7 +12,7 @@ class Building(object):
         self.kind = kind
         # Null variables
         self.level = None
-        self.cost_lv0 = dict(cost)
+        self.cost_lv0 = list(cost)  # make a copy, for change the assign
         self.cost = cost
         self.rate_cost = rate_cost
         self.time = None
@@ -59,10 +59,11 @@ class Building(object):
 
     # calculators
     def calculate_cost(self):
-        for r in self.village.resources:
-            cost_lv0 = self.cost_lv0[r]#getattr(self.cost_lv0, r)  # self.cost_lv0.wood ...
-            rate_cost = self.rate_cost[r]#getattr(self.rate_cost, r)  # self.rate_cost.wood ...
-            self.cost[r] = cost_lv0 * rate_cost**self.level
+        self.cost = []
+        for i, resource in enumerate(self.village.resources):
+            cost_lv0 = self.cost_lv0[i]#getattr(self.cost_lv0, r)  # self.cost_lv0.wood ...
+            rate_cost = self.rate_cost[i]#getattr(self.rate_cost, r)  # self.rate_cost.wood ...
+            self.cost.append(cost_lv0 * rate_cost**self.level)
             """obj = self.cost
             name = r
             value = cost_lv0 * rate_cost**self.level  # value = cost
