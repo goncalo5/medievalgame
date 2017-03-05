@@ -1,44 +1,46 @@
 # resources
+FOOD = {'index': 0, 'name': 'food', 'total': 500, 'per_s': 1, 'rate_per_s': 1.5}
 WOOD = {'index': 1, 'name': 'wood', 'total': 500, 'per_s': 1, 'rate_per_s': 1.5}
 STONE = {'index': 2, 'name': 'stone', 'total': 500, 'per_s': 1, 'rate_per_s': 1.5}
 IRON = {'index': 3, 'name': 'iron', 'total': 500, 'per_s': 1, 'rate_per_s': 1.5}
-RESOURCES = [WOOD, STONE, IRON]
+GOLD = {'index': 4, 'name': 'gold', 'total': 500, 'per_s': 1, 'rate_per_s': 1.5}
+RESOURCES = [FOOD, WOOD, STONE, IRON, GOLD]
 
 # buildings
 MAIN_BUILDING = {'index': 1, 'name': 'main_building', 'kind': 'factory', 'time': 3, 'rate_time': 1.5,
-                 'cost': [60, 100, 50], 'rate_cost': [2, 2, 2], 'factor': 2, 'rate_factor': 2}
+                 'cost': [0, 60, 100, 50, 0], 'rate_cost': [0, 2, 2, 2, 0], 'factor': 2, 'rate_factor': 2}
 FOREST = {'index': 2, 'name': 'forest', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
-          'cost': [20, 0, 10], 'rate_cost': [2, 2, 2], 'resource': 'wood'}
+          'cost': [0, 20, 0, 10, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': 'wood'}
 QUARRY = {'index': 3, 'name': 'quarry', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
-            'cost': [10, 10, 10], 'rate_cost': [2, 2, 2], 'resource': 'stone'}
+            'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': 'stone'}
 MINE = {'index': 4, 'name': 'mine', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
-             'cost': [10, 10, 10], 'rate_cost': [2, 2, 2], 'resource': 'iron'}
+             'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': 'iron'}
 STORAGE = {'index': 5, 'name': 'storage', 'kind': 'storage', 'time': 3, 'rate_time': 1.5,
-           'cost': [100, 150, 70], 'rate_cost': [2, 2, 2], 'capacity': 1500, 'rate_capacity': 1.5, 'resource': 'wood'}
+           'cost': [0, 100, 150, 70, 0], 'rate_cost': [0, 2, 2, 2, 0], 'capacity': 1500, 'rate_capacity': 1.5, 'resource': 'wood'}
 HIDING_PLACE = {'index': 6, 'name': 'hiding_place', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
-                'cost': [10, 10, 10], 'rate_cost': [2, 2, 2]}
+                'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 MARKET = {'index': 7, 'name': 'market', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
-          'cost': [10, 10, 10], 'rate_cost': [2, 2, 2]}
+          'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 FARM = {'index': 8, 'name': 'farm', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
-        'cost': [10, 10, 10], 'rate_cost': [2, 2, 2]}
+        'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 ACADEMY = {'index': 9, 'name': 'academy', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
-           'cost': [10, 10, 10], 'rate_cost': [2, 2, 2]}
+           'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 RALLY_POINT = {'index': 10, 'name': 'rally_point', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
-               'cost': [10, 10, 10], 'rate_cost': [2, 2, 2]}
+               'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 STATUE = {'index': 11, 'name': 'statue', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
-          'cost': [10, 10, 10], 'rate_cost': [2, 2, 2]}
+          'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 BARRACK = {'index': 12, 'name': 'barracks', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
-           'cost': [10, 10, 10], 'rate_cost': [2, 2, 2]}
+           'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 STABLE = {'index': 13, 'name': 'stable', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
-          'cost': [10, 10, 10], 'rate_cost': [2, 2, 2]}
+          'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 WORKSHOP = {'index': 14, 'name': 'workshop', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
-            'cost': [10, 10, 10], 'rate_cost': [2, 2, 2]}
+            'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 SMITHY = {'index': 15, 'name': 'smithy', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
-          'cost': [10, 10, 10], 'rate_cost': [2, 2, 2]}
+          'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 WATCHTOWER = {'index': 16, 'name': 'watchtower', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
-              'cost': [10, 10, 10], 'rate_cost': [2, 2, 2]}
+              'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 WALL = {'index': 17, 'name': 'wall', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
-        'cost': [10, 10, 10], 'rate_cost': [2, 2, 2]}
+        'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 BUILDINGS = [MAIN_BUILDING, FARM, FOREST,QUARRY, MINE, STORAGE, HIDING_PLACE, MARKET,
              ACADEMY, RALLY_POINT, STATUE, BARRACK, STABLE, WORKSHOP, SMITHY, WATCHTOWER, WALL]
 

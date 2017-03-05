@@ -61,14 +61,9 @@ class Building(object):
     def calculate_cost(self):
         self.cost = []
         for i, resource in enumerate(self.village.resources):
-            cost_lv0 = self.cost_lv0[i]#getattr(self.cost_lv0, r)  # self.cost_lv0.wood ...
-            rate_cost = self.rate_cost[i]#getattr(self.rate_cost, r)  # self.rate_cost.wood ...
+            cost_lv0 = self.cost_lv0[i]
+            rate_cost = self.rate_cost[i]
             self.cost.append(cost_lv0 * rate_cost**self.level)
-            """obj = self.cost
-            name = r
-            value = cost_lv0 * rate_cost**self.level  # value = cost
-            setattr(obj, name, value)"""
-        #self.cost['wood'] = self.cost_lv0 * self.rate_cost**self.level
 
     def calculate_time2build(self):
         self.time = self.time_lv0 * self.rate_time**self.level
