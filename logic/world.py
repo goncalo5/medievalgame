@@ -15,15 +15,15 @@ class World(object):
             self.continents.append(self.continent)
 
     def create_player(self, name):
-        planet = self.find_a_planet()
-        self.players.append(Player(name, planet))
+        village = self.find_a_village()
+        self.players.append(Player(name, village))
 
-    def find_a_planet(self):
-        for c in self.continents:
-            for z in c.zones:
-                for v in z.villages:
-                    if not v.run:
-                        return v
+    def find_a_village(self):
+        for continent in self.continents:
+            for zone in continent.zones:
+                for village in zone.villages:
+                    if not village.run:
+                        return village
 
     def coordinates2planet(self, coordinates):
         for c in self.continents:
