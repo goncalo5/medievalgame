@@ -18,23 +18,6 @@ class Building(object):
         self.time = None
 
         # get constants
-        """class Cost:  # cost and rate_cost
-            def __init__(self, resources):  # resources = {'wood': 10, ...}
-                for r in resources:  # r = resource name
-                    obj = self
-                    name = r
-                    value = resources[r]
-                    setattr(self, name, value)
-
-        self.cost_lv0 = self.cost = Cost(cost)
-        self.rate_cost = Cost(rate_cost)"""
-        """for r in self.village.resources:
-            obj = self.cost_lv0
-            name = r
-            value = cost[r]
-            setattr(obj, name, value)"""
-        #self.cost_lv0 = cost
-        #self.rate_cost = rate_cost
         self.time_lv0 = time
         self.rate_time = rate_time
 

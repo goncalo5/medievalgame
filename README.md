@@ -7,7 +7,8 @@ no() - put some instance already create in that class
 Logic:
 World()     |Field()
             |Player()	|Coin
-		    |           |Village()  |Resource(Mine, Storage, HidingPlace, Market)
+		    |           |Village()  |Population(Resource)
+            |           |           |Resource(Mine, Storage, HidingPlace, Market)
             |           |           |Villager(Farm)
 		    |		    |		    |MainBuilding(Village)
             |           |           |Mine(Village)

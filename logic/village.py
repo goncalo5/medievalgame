@@ -1,11 +1,12 @@
 import threading
 import constants
-from resources import Resource
+from resources import Resource, Population
 from buildings import Building, Mine, Storage, Factory
 
 
 class Village(object):
     def __init__(self, coordinates):
+        print 'Village'
         self.coordinates = coordinates
         self.empty = True
         self.total_fields = constants.WORLD['village']['fields']
@@ -24,6 +25,8 @@ class Village(object):
             self.resources.append(getattr(obj, name))
         del resources
         self.n_resources = len(self.resources)
+        # create population's object
+        self.population = Population(village=self, **constants.POPULATION)
 
         # Buildings
         self.forest = self.storage = self.main_building = None

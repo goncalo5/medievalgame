@@ -1,4 +1,5 @@
-# resources
+# population and resources
+POPULATION = {'name': 'population', 'total': 10, 'rate': 0.001}
 FOOD = {'index': 0, 'name': 'food', 'total': 500, 'per_s': 1, 'rate_per_s': 1.5}
 WOOD = {'index': 1, 'name': 'wood', 'total': 500, 'per_s': 1, 'rate_per_s': 1.5}
 STONE = {'index': 2, 'name': 'stone', 'total': 500, 'per_s': 1, 'rate_per_s': 1.5}
