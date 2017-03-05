@@ -12,17 +12,18 @@ class Population(object):
         self.rate = rate
         self.happiness = None
         self.calculate_happiness()
-        self.per_s = self.total * self.happiness * self.rate
+        self.calculate_per_s()
 
     def calculate_happiness(self):
+        self.happiness = 10
         for resource in self.village.resources:
-            if resource.name == 'food':
-                if resource.total > 0:
-                    self.happiness = 10
-                else:
-                    self.happiness = -10
-        print 'not found food in resources'
+            print resource.name.lower()
+            if resource.name.lower() == 'food':
+                if resource.total <= 0:
+                    self.happiness *= -1
 
+    def calculate_per_s(self):
+        self.per_s = self.total * self.happiness * self.rate
 
 class Resource(object):
     def __init__(self, index, name, total, per_s, rate_per_s):

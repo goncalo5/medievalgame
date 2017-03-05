@@ -31,13 +31,16 @@ class Resources(object):
 
         self.updating()
 
-    def update(self, resource):
+    def update_resource(self, resource):
         resource.l_total['text'] = int(resource.total)
         resource.l_per_s['text'] = int(resource.per_s)
 
     def update_all(self):
+        population =self.village.population
+        population.l_total['text'] = int(population.total)
+        population.l_happiness['text'] = int(population.happiness)
         for resource in self.village.resources:
-            self.update(resource)
+            self.update_resource(resource)
 
     def updating(self):
         if self.village.run:

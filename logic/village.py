@@ -62,6 +62,8 @@ class Village(object):
         del buildings
 
     def updating_total(self):
+        print self.population.total
+        self.population.total += self.population.per_s
         for resource in self.resources:
             resource.total += resource.per_s
         if self.run:
