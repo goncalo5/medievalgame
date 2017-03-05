@@ -1,17 +1,17 @@
 # resources
 WOOD = {'index': 1, 'name': 'wood', 'total': 500, 'per_s': 1, 'rate_per_s': 1.5}
-CLAY = {'index': 2, 'name': 'clay', 'total': 500, 'per_s': 1, 'rate_per_s': 1.5}
+STONE = {'index': 2, 'name': 'stone', 'total': 500, 'per_s': 1, 'rate_per_s': 1.5}
 IRON = {'index': 3, 'name': 'iron', 'total': 500, 'per_s': 1, 'rate_per_s': 1.5}
-RESOURCES = [WOOD, CLAY, IRON]
+RESOURCES = [WOOD, STONE, IRON]
 
 # buildings
 MAIN_BUILDING = {'index': 1, 'name': 'main_building', 'kind': 'factory', 'time': 3, 'rate_time': 1.5,
                  'cost': [60, 100, 50], 'rate_cost': [2, 2, 2], 'factor': 2, 'rate_factor': 2}
 FOREST = {'index': 2, 'name': 'forest', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
           'cost': [20, 0, 10], 'rate_cost': [2, 2, 2], 'resource': 'wood'}
-CLAY_PIT = {'index': 3, 'name': 'clay_pit', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
-            'cost': [10, 10, 10], 'rate_cost': [2, 2, 2], 'resource': 'clay'}
-IRON_MINE = {'index': 4, 'name': 'iron_mine', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
+QUARRY = {'index': 3, 'name': 'quarry', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
+            'cost': [10, 10, 10], 'rate_cost': [2, 2, 2], 'resource': 'stone'}
+MINE = {'index': 4, 'name': 'mine', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
              'cost': [10, 10, 10], 'rate_cost': [2, 2, 2], 'resource': 'iron'}
 STORAGE = {'index': 5, 'name': 'storage', 'kind': 'storage', 'time': 3, 'rate_time': 1.5,
            'cost': [100, 150, 70], 'rate_cost': [2, 2, 2], 'capacity': 1500, 'rate_capacity': 1.5, 'resource': 'wood'}
@@ -39,8 +39,8 @@ WATCHTOWER = {'index': 16, 'name': 'watchtower', 'kind': 'None', 'time': 3, 'rat
               'cost': [10, 10, 10], 'rate_cost': [2, 2, 2]}
 WALL = {'index': 17, 'name': 'wall', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
         'cost': [10, 10, 10], 'rate_cost': [2, 2, 2]}
-BUILDINGS = [MAIN_BUILDING, FARM, FOREST, CLAY_PIT, IRON_MINE, STORAGE, HIDING_PLACE, MARKET,
-              ACADEMY, RALLY_POINT, STATUE, BARRACK, STABLE, WORKSHOP, SMITHY, WATCHTOWER, WALL]
+BUILDINGS = [MAIN_BUILDING, FARM, FOREST,QUARRY, MINE, STORAGE, HIDING_PLACE, MARKET,
+             ACADEMY, RALLY_POINT, STATUE, BARRACK, STABLE, WORKSHOP, SMITHY, WATCHTOWER, WALL]
 
 WORLD = {'fields': 100, 'village': {'fields': 100}}
 
