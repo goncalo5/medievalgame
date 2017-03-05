@@ -6,15 +6,18 @@ from buildings import Building, Mine, Storage, Factory
 
 class Village(object):
     def __init__(self, coordinates):
-        print 'Village'
+        print 'Village', threading.active_count()
         self.coordinates = coordinates
-        self.empty = True
+        self.run = False
+        self.is_evolving = False  # just 1 building at the same time
         self.total_fields = constants.WORLD['village']['fields']
         self.fields_left = self.total_fields
         self.fields_occupied = 0
-        # Resources
-        self.wood = self.clay = self.iron = None
-        # create resources's objects
+        # Null
+        self.food = self.wood = self.stone = self.iron = self.gold = None
+        self.forest = self.storage = self.main_building = None
+
+    def create_resources_objects(self):
         self.resources = []
         resources = constants.RESOURCES
         for resource in resources:
@@ -25,12 +28,11 @@ class Village(object):
             self.resources.append(getattr(obj, name))
         del resources
         self.n_resources = len(self.resources)
-        # create population's object
+
+    def create_population_object(self):
         self.population = Population(village=self, **constants.POPULATION)
 
-        # Buildings
-        self.forest = self.storage = self.main_building = None
-        # create buildings's objects
+    def create_buildings_objects(self):
         self.factories = []
         self.mines = []
         self.storages = []
@@ -58,13 +60,6 @@ class Village(object):
                 setattr(obj, name, value)
             self.buildings.append(getattr(obj, name))
         del buildings
-
-        self.run = False
-        self.is_evolving = False  # just 1 building at the same time
-        # start updating resources
-        if not self.run and not self.empty:
-            self.run = True
-            self.updating_total()
 
     def updating_total(self):
         for resource in self.resources:

@@ -5,46 +5,46 @@ from village import Village
 
 class World(object):
     def __init__(self):
-        self.n_galaxies = 9
-        self.galaxies = []
+        self.n_continents = 9
+        self.continents = []
 
         self.players = []
 
-        for i in xrange(self.n_galaxies):
-            self.galaxy = Galaxy({'galaxy': i})
-            self.galaxies.append(self.galaxy)
+        for i in xrange(self.n_continents):
+            self.continent = Continent({'continent': i})
+            self.continents.append(self.continent)
 
     def create_player(self, name):
         planet = self.find_a_planet()
         self.players.append(Player(name, planet))
 
     def find_a_planet(self):
-        for g in self.galaxies:
-            for ps in g.planetary_systems:
-                for p in ps.villages:
-                    if p.empty:
-                        return p
+        for c in self.continents:
+            for z in c.zones:
+                for v in z.villages:
+                    if not v.run:
+                        return v
 
     def coordinates2planet(self, coordinates):
-        for g in self.galaxies:
-            for ps in g.planetary_systems:
-                for p in ps.villages:
-                    if p.coordinates == coordinates:
-                        return p
+        for c in self.continents:
+            for z in c.zones:
+                for v in z.villages:
+                    if v.coordinates == coordinates:
+                        return v
 
 
-class Galaxy(object):
+class Continent(object):
     def __init__(self, coordinates):
         self.coordinates = coordinates
-        self.n_planetary_system = 9
-        self.planetary_systems = []
-        for i in xrange(self.n_planetary_system):
+        self.n_zone = 9
+        self.zones = []
+        for i in xrange(self.n_zone):
             coord = self.coordinates
-            coord['planetary_systems'] = i
-            self.planetary_systems.append(PlanetarySystem(coord))
+            coord['zones'] = i
+            self.zones.append(Zone(coord))
 
 
-class PlanetarySystem(object):
+class Zone(object):
     def __init__(self, coordinates):
         self.coordinates = coordinates
         self.n_villages = 5
