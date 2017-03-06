@@ -13,11 +13,12 @@ MAIN_BUILDING = {'index': 1, 'name': 'main_building', 'kind': 'factory', 'time':
 FOREST = {'index': 2, 'name': 'forest', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
           'cost': [0, 20, 0, 10, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': 'wood'}
 QUARRY = {'index': 3, 'name': 'quarry', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
-            'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': 'stone'}
+          'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': 'stone'}
 MINE = {'index': 4, 'name': 'mine', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
-             'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': 'iron'}
+        'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': 'iron'}
 STORAGE = {'index': 5, 'name': 'storage', 'kind': 'storage', 'time': 3, 'rate_time': 1.5,
-           'cost': [0, 100, 150, 70, 0], 'rate_cost': [0, 2, 2, 2, 0], 'capacity': 1500, 'rate_capacity': 1.5, 'resource': 'wood'}
+           'cost': [0, 100, 150, 70, 0], 'rate_cost': [0, 2, 2, 2, 0], 'capacity': 1500, 'rate_capacity': 1.5,
+           'resource': 'wood'}
 HIDING_PLACE = {'index': 6, 'name': 'hiding_place', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
                 'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 MARKET = {'index': 7, 'name': 'market', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
@@ -42,13 +43,13 @@ WATCHTOWER = {'index': 16, 'name': 'watchtower', 'kind': 'None', 'time': 3, 'rat
               'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 WALL = {'index': 17, 'name': 'wall', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
         'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
-BUILDINGS = [MAIN_BUILDING, FARM, FOREST,QUARRY, MINE, STORAGE, HIDING_PLACE, MARKET,
+BUILDINGS = [MAIN_BUILDING, FARM, FOREST, QUARRY, MINE, STORAGE, HIDING_PLACE, MARKET,
              ACADEMY, RALLY_POINT, STATUE, BARRACK, STABLE, WORKSHOP, SMITHY, WATCHTOWER, WALL]
 
 WORLD = {'fields': 100, 'village': {'fields': 100}}
 
 # Trader
-TRADER = {'ratios': {'food': 1,'wood': 1,'stone': 2, 'iron': 10, 'gold': 100},
+TRADER = {'ratios': {'food': 1, 'wood': 1, 'stone': 2, 'iron': 10, 'gold': 100},
           'profit': 0.1}
 
 WEAPONS = {'spear': 10, 'sword': 25, 'axe': 40}

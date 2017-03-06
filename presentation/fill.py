@@ -22,9 +22,6 @@ class Fill(object):
                 text = building.cost[i]
                 building.l_cost[i] = Label(self.root, text=int(text))
                 building.l_cost[i].grid(row=l, column=column_i + i + 2)
-            #self.l_cost = LabelCost(self.village.forest.cost)
-            #print '\n\n\n\n', self.l_cost.wood
-            # evolving time
             building.l_t = Label(self.root, text=int(building.time))
             building.l_t.grid(row=l, column=column_i + 2 + self.village.n_resources)
             # evolving

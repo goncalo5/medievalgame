@@ -5,7 +5,6 @@ import constants
 
 class Population(object):
     def __init__(self, village, name, total, rate):
-        print 'Population'
         self.village = village
         self.name = name
         self.total = total
@@ -17,7 +16,6 @@ class Population(object):
     def calculate_happiness(self):
         self.happiness = 10
         for resource in self.village.resources:
-            print resource.name.lower()
             if resource.name.lower() == 'food':
                 if resource.total <= 0:
                     self.happiness *= -1

@@ -3,7 +3,7 @@ from buildings import Building
 
 
 class Market(Building):
-    def __init__(self, world, village, index, name, kind, cost, rate_cost, time, rate_time, resource_obj):
+    def __init__(self, world, village, index, name, kind, cost, rate_cost, time, rate_time):
         super(Market, self).__init__(village, index, name, kind, cost, rate_cost, time, rate_time)
         self.world = world
         self.village = village
@@ -43,6 +43,7 @@ class Offer(object):
         self.village = village
         self.resource_wanted = resource_wanted
         self.resource_offer = resource_offer
+        self.ratio = None
 
     def calculate_ratio(self):
         self.ratio = self.resource_wanted['total'] / self.resource_offer['total']

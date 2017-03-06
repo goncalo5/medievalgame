@@ -6,7 +6,6 @@ from buildings import Building, Mine, Storage, Factory
 
 class Village(object):
     def __init__(self, coordinates):
-        print 'Village', threading.active_count()
         self.coordinates = coordinates
         self.run = False
         self.is_evolving = False  # just 1 building at the same time
@@ -62,7 +61,6 @@ class Village(object):
         del buildings
 
     def updating_total(self):
-        print self.population.total
         self.population.total += self.population.per_s
         for resource in self.resources:
             resource.total += resource.per_s
@@ -72,20 +70,13 @@ class Village(object):
             t.start()
 
     def evolve_building(self, building):
-        #print 'evolve_building', building.name, building.cost
         if self.check_if_can_evolve(building):
-            #print 'ok'
             self.take_resources2evolve(building)
             self.loop_evolve(building)  # time to built
-            #print 'finish'
 
     def check_if_can_evolve(self, building):
-        #print 'check_if_can_evolve'
         if not self.is_evolving:
-            #print 'not evolving'
-            #print self.wood
             for i, resource in enumerate(self.resources):
-                #print self.resources[r].total
                 if resource.total < building.cost[i]:
                     return False
             return True
@@ -139,12 +130,9 @@ class Village(object):
         if building.evolving:
             building.left -= 1
             if building.left <= 0:
-                #print 'its over'
                 building.left = building.time
                 self.is_evolving = building.is_evolving = False
-                #print building.cost
                 self.up1level(building)
-                #print building.cost
                 building.left = building.time
                 return
             t = threading.Timer(interval=1, function=self.loop_evolve, kwargs={'building': building})

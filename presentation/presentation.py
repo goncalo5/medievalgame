@@ -9,7 +9,7 @@ class Presentation(object):
     def __init__(self, logic=Logic()):
         # initiate screen
         self.root = Tk()
-        self.root.title('SPACEgame')
+        self.root.title('SPACEGame')
         self.root.geometry(constants.SCREEN)
         self.root.configure(background='black')
         # create frames
@@ -32,7 +32,7 @@ class Presentation(object):
 
         # create MENU
         self.menu = Menu(root=self.root, menu=self.f_menu, screen=self.f_screen,
-                         village=self.village, resources=self.resources,
+                         world=self.logic.world, village=self.village, resources=self.resources,
                          row_i=0, column_i=0)
 
         self.root.mainloop()
