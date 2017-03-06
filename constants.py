@@ -47,6 +47,10 @@ BUILDINGS = [MAIN_BUILDING, FARM, FOREST,QUARRY, MINE, STORAGE, HIDING_PLACE, MA
 
 WORLD = {'fields': 100, 'village': {'fields': 100}}
 
+# Trader
+TRADER = {'ratios': {'food': 1,'wood': 1,'stone': 2, 'iron': 10, 'gold': 100},
+          'profit': 0.1}
+
 WEAPONS = {'spear': 10, 'sword': 25, 'axe': 40}
 SHIELD = {'simple': 10}
 ARMOR = {'simple': 10}

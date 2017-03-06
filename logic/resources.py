@@ -25,8 +25,9 @@ class Population(object):
     def calculate_per_s(self):
         self.per_s = self.total * self.happiness * self.rate
 
+
 class Resource(object):
-    def __init__(self, index, name, total, per_s, rate_per_s):
+    def __init__(self, index, name, total, per_s=None, rate_per_s=None):
         self.index = index
         self.name = name
         self.total = total
