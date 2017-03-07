@@ -18,6 +18,7 @@ class Village(object):
 
     def create_resources_objects(self):
         self.resources = []
+        self.resources_dict = {}
         resources = constants.RESOURCES
         for resource in resources:
             obj = self
@@ -25,7 +26,7 @@ class Village(object):
             value = Resource(**resource)
             setattr(obj, name, value)
             self.resources.append(getattr(obj, name))
-        del resources
+            self.resources_dict[name] = getattr(obj, name)
         self.n_resources = len(self.resources)
 
     def create_population_object(self):
@@ -58,7 +59,6 @@ class Village(object):
                 value = Building(village=self, **building)
                 setattr(obj, name, value)
             self.buildings.append(getattr(obj, name))
-        del buildings
 
     def updating_total(self):
         self.population.total += self.population.per_s

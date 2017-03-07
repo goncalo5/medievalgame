@@ -1,6 +1,7 @@
 import constants
 from player import Player
 from village import Village
+from market import Trader
 
 
 class World(object):
@@ -9,6 +10,8 @@ class World(object):
         self.continents = []
 
         self.players = []
+
+        self.trader = Trader()
 
         for i in xrange(self.n_continents):
             self.continent = Continent({'continent': i})

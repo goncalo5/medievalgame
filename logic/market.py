@@ -27,15 +27,15 @@ class Trader(object):
         self.offers = {}
 
     # his own offers
-    # resource = {'name': 'food', 'total': '1000'}
+    # resource_send, resource_receive = 'wood', 'food'
     def calculate_ratio(self, resource_send, resource_receive):
-        return self.profit * \
-               self.ratios[resource_send['name']] / \
-               self.ratios[resource_receive['name']]
+        return (1 + self.profit) * self.ratios[resource_send] / self.ratios[resource_receive]
 
-    def calculate_receive(self, resource_receive, resource_send):
-        ratio = self.calculate_ratio(resource_receive, resource_send)
-        return resource_send / ratio
+    # resource = 1000
+    def calculate_receive(self, resource_send, ratio=None):
+        if ratio == None:
+            ratio = self.calculate_ratio(resource_send, resource_send)
+        return float(resource_send) / ratio
 
 
 class Offer(object):
