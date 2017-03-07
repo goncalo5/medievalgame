@@ -37,6 +37,7 @@ class Village(object):
         self.mines = []
         self.storages = []
         self.buildings = []
+        self.buildings_dict = {}
         buildings = constants.BUILDINGS
         for building in buildings:
             obj = self
@@ -59,6 +60,7 @@ class Village(object):
                 value = Building(village=self, **building)
                 setattr(obj, name, value)
             self.buildings.append(getattr(obj, name))
+            self.buildings_dict[name] = getattr(obj, name)
 
     def updating_total(self):
         self.population.total += self.population.per_s

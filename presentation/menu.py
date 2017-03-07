@@ -25,7 +25,8 @@ class Menu(object):
 
         self.functions = {'overview': self.change2overview,
                           'buildings': self.change2buildings,
-                          'market': self.change2market}
+                          'market': self.change2market,
+                          'military': self.change2military}
 
 
         self.b_quit = Button(self.f_menu, text='quit', command=self.quit)
@@ -42,20 +43,21 @@ class Menu(object):
         self.f_screen.pack()
 
     def change_screen(self, item):
+        self.clean_screen()
         self.functions[item]()
 
     def change2overview(self):
-        self.clean_screen()
         self.overview = Overview(root=self.f_screen,
                                  village=self.village, row_i=3, column_i=1)
 
     def change2buildings(self):
-        self.clean_screen()
         self.buildings = Buildings(root=self.f_screen, village=self.village,
                                    resources=self.resources, row_i=3, column_i=1)
 
     def change2market(self):
-        self.clean_screen()
         self.buildings = Market(world=self.world, village=self.village,
                                 root=self.f_screen, resources=self.resources,
                                 row_i=3, column_i=1)
+
+    def change2military(self):
+        pass
