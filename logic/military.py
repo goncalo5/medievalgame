@@ -1,34 +1,46 @@
 import constants
 from buildings import Building
 from army import Army
-from troop import Troop
+from troop import Unit
 
 
-# where de the spaceships is built and stored
-class Hangar(Building):
-    def __init__(self, name):
-        super(Hangar, self).__init__(name)
-        self.spaceships = {}
-        for i, spaceship in enumerate(constants.TROOPS):
-            new = Troop(spaceship['name'])
-            self.spaceships[new.name] = new
-        self.fleet = {}
+# Where the soldiers are trained
+class Barracks(Building):
+    def __init__(self, village, index, name, kind, cost, rate_cost, time, rate_time):
+        super(Barracks, self).__init__(village, index, name, kind, cost, rate_cost, time, rate_time)
+        self.soldiers = {}  # {spear_fighter: 5, ... obj_soldier: n_soldier}
+        for i, soldier in enumerate(constants.TROOPS):
+            new_soldier = Unit(**soldier)
+            self.soldiers[new_soldier] = 0  # there are no soldiers at first
 
-    def build_spaceships(self, name, number=1):
-        self.spaceships[name].n += number
 
-    def destroy_spaceships(self, name, number=1):
-        self.spaceships[name].n -= number
+    def training_soldiers(self, soldier, number=1):
+        try:
+            self.soldiers[soldier].n += number
+        except AttributeError:
+            self.soldiers[soldier].n = number
 
-    def create_fleet(self, num_of_spaceships):
-        # num_of_spaceships = {'light_fighter': 1...}
-        for spaceship in self.spaceships:
-            num = num_of_spaceships[spaceship.name]
-            spaceship.n -= num
-            spaceship_fleet = Troop(spaceship.name)
-            spaceship_fleet.n = num
-            self.fleet[spaceship.name] = spaceship_fleet
-        self.fleet = Army(self.fleet)
+    def to_fire_soldiers(self, soldier, number=1):
+        self.soldiers[soldier].n -= number
 
-    def delete_fleet(self):
-        self.fleet = {}
+
+# where the army is created and organized
+class RallyPoint(Building):
+    def __init__(self, village, index, name, kind, cost, rate_cost, time, rate_time):
+        super(RallyPoint, self).__init__(village, index, name, kind, cost, rate_cost, time, rate_time)
+        self.village = village
+
+
+    def create_army(self, num_of_units):
+        # num_of_units = {'light_fighter': 1...}
+        self.army = Army(village=self.village, num_of_units=num_of_units)
+
+    def delete_army(self):
+        self.army = {}
+
+    def start_flight(self, coordinates_target_planet):
+        target_planet = self.universe.coordinates2planet(coordinates_target_planet)
+        Campaign(fleet=self, planet=self.planet, target_planet=target_planet)
+
+    def flight_back(self):
+        pass

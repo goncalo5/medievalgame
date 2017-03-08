@@ -31,7 +31,7 @@ RALLY_POINT = {'index': 10, 'name': 'rally_point', 'kind': 'None', 'time': 3, 'r
                'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 STATUE = {'index': 11, 'name': 'statue', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
           'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
-BARRACK = {'index': 12, 'name': 'barracks', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
+BARRACKS = {'index': 12, 'name': 'barracks', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
            'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 STABLE = {'index': 13, 'name': 'stable', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
           'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
@@ -44,7 +44,7 @@ WATCHTOWER = {'index': 16, 'name': 'watchtower', 'kind': 'None', 'time': 3, 'rat
 WALL = {'index': 17, 'name': 'wall', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
         'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 BUILDINGS = [MAIN_BUILDING, FARM, FOREST, QUARRY, MINE, STORAGE, HIDING_PLACE, MARKET,
-             ACADEMY, RALLY_POINT, STATUE, BARRACK, STABLE, WORKSHOP, SMITHY, WATCHTOWER, WALL]
+             ACADEMY, RALLY_POINT, STATUE, BARRACKS, STABLE, WORKSHOP, SMITHY, WATCHTOWER, WALL]
 
 WORLD = {'fields': 100, 'village': {'fields': 100}}
 

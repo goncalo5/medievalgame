@@ -1,36 +1,35 @@
 from campaign import Campaign
 
-class all_Army(object):
-    def __init__(self, planet, forces):
-        self.forces = forces
+
+class VillageForces(object):  # village's army + military building (watch-tower ...)
+    def __init__(self, village, num_of_units):
         self.attack = 0
         self.shield = 0
         self.structure = 0
         # null attributes
         self.damage = self.rate_destroyed = None
+        self.village = village
+        self.army = {}  # {spear_fighter: 5, ... obj_soldier: n_soldier}
+        # num_of_units = {'light_fighter': 1...}
+        for unit in self.village.units:
+            num = num_of_units[unit.name]
+            unit.n -= num
+            self.army[unit] = num
 
-        for machine in self.forces:
-            self.attack += machine.attack * machine.n
-            self.shield += machine.shield * machine.n
-            self.structure += machine.structure * machine.n
+        for unit in self.army:
+            self.attack += unit.attack * unit.n
+            self.shield += unit.shield * unit.n
+            self.structure += unit.structure * unit.n
 
 
-class Army(all_Army):
-    def __init__(self, planet, forces, universe):
-        super(Army, self).__init__(planet, forces)
-        self.universe = universe
-        self.planet = planet
-        self.fleet = forces
+class Army(VillageForces):
+    def __init__(self, village, num_of_units):
+        super(Army, self).__init__(village, num_of_units)
         self.speed = 0
 
     def calc_speed(self):
-        for spaceship in self.fleet:
-            if spaceship.speed > self.speed:
-                self.speed = spaceship.speed
+        for unit in self.village.units:
+            if unit.speed > self.speed:
+                self.speed = unit.speed
 
-    def start_flight(self, coordinates_target_planet):
-        target_planet = self.universe.coordinates2planet(coordinates_target_planet)
-        Campaign(fleet=self, planet=self.planet, target_planet=target_planet)
 
-    def flight_back(self):
-        pass
