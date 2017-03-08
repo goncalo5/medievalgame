@@ -3,6 +3,7 @@ import constants
 from overview import Overview
 from buildings import Buildings
 from market import Market
+from barracks import Barracks
 
 
 class Menu(object):
@@ -60,4 +61,6 @@ class Menu(object):
                                 row_i=3, column_i=1)
 
     def change2military(self):
-        pass
+        self.barracks = Barracks(village=self.village,
+                                 root=self.f_screen, resources=self.resources,
+                                 row_i=3, column_i=1)
