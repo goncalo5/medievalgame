@@ -56,23 +56,23 @@ WEAPONS = {'spear': 10, 'sword': 25, 'axe': 40}
 SHIELD = {'simple': 10}
 ARMOR = {'simple': 10}
 
-SPEAR_FIGHTER = {'index': 2, 'name': 'spear_fighter', 'time': 3, 'cost': [50, 30, 10],
+SPEAR_FIGHTER = {'index': 2, 'name': 'spear_fighter', 'time': 3, 'costs': [50, 30, 10],
                  'weapon': 'spear', 'shield': 'simple', 'armor': 'simple', 'speed': 18, 'cargo_capacity': 25}
-SWORDSMAN = {'index': 2, 'name': 'swordsman', 'time': 3, 'cost': [50, 30, 10],
+SWORDSMAN = {'index': 2, 'name': 'swordsman', 'time': 3, 'costs': [50, 30, 10],
              'weapon': 'spear', 'shield': 'simple', 'armor': 'simple', 'speed': 18, 'cargo_capacity': 25}
-AXEMAN = {'index': 2, 'name': 'axeman', 'time': 3, 'cost': [50, 30, 10],
+AXEMAN = {'index': 2, 'name': 'axeman', 'time': 3, 'costs': [50, 30, 10],
           'weapon': 'spear', 'shield': 'simple', 'armor': 'simple', 'speed': 18, 'cargo_capacity': 25}
-LIGHT_CAVALRY = {'index': 2, 'name': 'light_cavalry', 'time': 3, 'cost': [50, 30, 10],
+LIGHT_CAVALRY = {'index': 2, 'name': 'light_cavalry', 'time': 3, 'costs': [50, 30, 10],
                  'weapon': 'spear', 'shield': 'simple', 'armor': 'simple', 'speed': 18, 'cargo_capacity': 25}
-HEAVY_CAVALRY = {'index': 2, 'name': 'heavy_cavalry', 'time': 3, 'cost': [50, 30, 10],
+HEAVY_CAVALRY = {'index': 2, 'name': 'heavy_cavalry', 'time': 3, 'costs': [50, 30, 10],
                  'weapon': 'spear', 'shield': 'simple', 'armor': 'simple', 'speed': 18, 'cargo_capacity': 25}
-RAM = {'index': 2, 'name': 'ram', 'time': 3, 'cost': [50, 30, 10],
+RAM = {'index': 2, 'name': 'ram', 'time': 3, 'costs': [50, 30, 10],
        'weapon': 'spear', 'shield': 'simple', 'armor': 'simple', 'speed': 18, 'cargo_capacity': 25}
-CATAPULT = {'index': 2, 'name': 'catapult', 'time': 3, 'cost': [50, 30, 10],
+CATAPULT = {'index': 2, 'name': 'catapult', 'time': 3, 'costs': [50, 30, 10],
             'weapon': 'spear', 'shield': 'simple', 'armor': 'simple', 'speed': 18, 'cargo_capacity': 25}
-SCOUT = {'index': 2, 'name': 'scout', 'time': 3, 'cost': [50, 30, 10],
+SCOUT = {'index': 2, 'name': 'scout', 'time': 3, 'costs': [50, 30, 10],
          'weapon': 'spear', 'shield': 'simple', 'armor': 'simple', 'speed': 18, 'cargo_capacity': 25}
-NOBLE = {'index': 2, 'name': 'noble', 'time': 3, 'cost': [50, 30, 10],
+NOBLE = {'index': 2, 'name': 'noble', 'time': 3, 'costs': [50, 30, 10],
          'weapon': 'spear', 'shield': 'simple', 'armor': 'simple', 'speed': 18, 'cargo_capacity': 25}
 TROOPS = [SPEAR_FIGHTER, SWORDSMAN, AXEMAN, LIGHT_CAVALRY, HEAVY_CAVALRY, RAM, CATAPULT, SCOUT, NOBLE]
 

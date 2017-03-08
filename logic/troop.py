@@ -1,41 +1,99 @@
 import constants
 
 
-class Machine(object):
-    def __init__(self, name):
+# Infantry, Cavalry, Artillery
+class Unit(object):  # or Troop
+    def __init__(self, index, name, time, costs, weapon, shield, armor, speed, cargo_capacity):
+        self.index = index
         self.name = name
-        self.n = 0  # number of machines
-        self.attack = constants.MACHINES[self.name]['attack']
-        self.shield = constants.MACHINES[self.name]['shield']
-        self.structure = 0
-        self.cost_metal = constants.MACHINES[self.name]['cost']['metal']
-        self.cost_crystal = constants.MACHINES[self.name]['cost']['crystal']
-        self.costs = [self.cost_metal, self.cost_crystal]
-        self.time2build = 5  # constants.SPACESHIPS[self.name]['time2built']
-        self.calculate_structure()
-
-    def calculate_structure(self):
-        for resource_cost in constants.MACHINES[self.name]['cost']:
-            self.structure += constants.MACHINES[self.name]['cost'][resource_cost]
+        self.time = time  # time2build
+        self.costs = costs
+        self.attack = self.weapon = weapon
+        self.shield = shield
+        self.armor = armor
+        self.speed = speed
+        self.cargo_capacity = cargo_capacity
+        self.n = 0  # number of TROOPS
 
 
-class SpaceShip(Machine):
-    def __init__(self, name):
-        super(SpaceShip, self).__init__(name)
-        self.cargo_capacity = constants.SPACESHIPS[self.name]['cargo_capacity']
-        self.speed = None
-        self.engine = Engine(constants.SPACESHIPS[self.name]['motor'])
+class Infantry(Unit):
+    def __init__(self, soldier, index, name, time, costs, weapon, shield, armor, speed, cargo_capacity):
+        super(Infantry, self).__init__(index, name, time, costs, weapon, shield, armor, speed, cargo_capacity)
+        self.soldier = soldier
+
+
+class Cavalry(Unit):
+    def __init__(self, soldier, worse, index, name, time, costs, weapon, shield, armor, speed, cargo_capacity):
+        super(Cavalry, self).__init__(index, name, time, costs, weapon, shield, armor, speed, cargo_capacity)
+        self.soldier = soldier
+        self.worse = worse
+        self.speed = self.worse.speed
+
+
+class Artillery(Unit):
+    def __init__(self, soldiers, machine, index, name, time, costs, weapon, shield, armor, speed, cargo_capacity):
+        super(Artillery, self).__init__(index, name, time, costs, weapon, shield, armor, speed, cargo_capacity)
+        self.soldiers = soldiers  # {spear_fighter: 5, ... obj_soldier: n_soldier}
+        self.machine = machine
+        self.calculate_speed()
 
     def calculate_speed(self):
-        self.speed = self.engine.power / self.structure
+        speed_slowest_soldier = 999
+        for soldier in self.soldiers:
+            if soldier.speed < speed_slowest_soldier:
+                speed_slowest_soldier = soldier.speed
+        self.speed = min(speed_slowest_soldier, self.machine.speed)
 
 
-class Defense(Machine):
+# Person, Horse
+class LivingBeing(object):
+    def __init__(self):
+        pass
+
+
+class Person(LivingBeing):
+    def __init__(self):
+        super(Person, self).__init__()
+
+
+class Soldier(Person):
+    def __init__(self):
+        super(Soldier, self).__init__()
+
+
+class Horse(LivingBeing):
+    def __init__(self):
+        super(Horse, self).__init__()
+
+
+class Machine(object):
     def __init__(self, name):
-        super(Defense, self).__init__(name)
+        pass
 
 
-class Engine(object):
-    def __init__(self, name):
+# Weapons, shield, armor
+class MilitaryObject(object):
+    def __init__(self):
+        pass
+
+
+class Weapon(MilitaryObject):
+    def __init__(self, name, power):
+        super(Weapon, self).__init__()
         self.name = name
-        self.power = constants.ENGINE[self.name]
+        self.power = power
+
+
+class Shield(MilitaryObject):
+    def __init__(self, name):
+        super(Shield, self).__init__()
+        self.name = name
+        self.shield = constants.SHIELD[self.name]
+
+
+class Armor(MilitaryObject):
+    def __init__(self, name):
+        super(Armor, self).__init__()
+        self.name = name
+        self.shield = constants.ARMOR[self.name]
+
