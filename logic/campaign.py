@@ -1,20 +1,24 @@
+import threading
 import constants
 
 
-class Flight(object):
-    def __init__(self, fleet, planet, target_planet):
-        self.fleet = fleet
-        self.planet = planet
-        self.target_planet = target_planet
+class Campaign(object):
+    def __init__(self, world, army, village, target_village):
+        self.world = world
+        self.army = army
+        self.village = village
+        self.target_village = target_village
         self.distance = 0.
         self.calc_distance()
-        self.left = self.distance / self.fleet.speed
+        self.left = self.distance / self.army.speed
 
-    def flight_loop(self):
-        while self.left
+    def travel_loop(self):
+        if self.left > 0:
+            self.left -= 1
+            t = threading.Timer(interval=1, function=self.travel_loop)
+            t.start()
+
 
     def calc_distance(self):
-        self.distance = max(
-            abs(self.target_planet.coordinates['galaxy'] - self.planet.coordinates['galaxy']) * constants.DISTANCES['GALAXIES'],
-            abs(self.target_planet.coordinates['planetary_system'] - self.planet.coordinates['planetary_system']) * constants.DISTANCES['PLANETARYSYSTEMS'],
-            abs(self.target_planet.coordinates['planet'] - self.planet.coordinates['planet']) * constants.DISTANCES['PLANETS'])
+        self.distance = self.world.find_distance_between2villages(
+            self.village.coordinates, self.target_village.coordinates)

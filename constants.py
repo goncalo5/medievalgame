@@ -46,7 +46,7 @@ WALL = {'index': 17, 'name': 'wall', 'kind': 'None', 'time': 3, 'rate_time': 1.5
 BUILDINGS = [MAIN_BUILDING, FARM, FOREST, QUARRY, MINE, STORAGE, HIDING_PLACE, MARKET,
              ACADEMY, RALLY_POINT, STATUE, BARRACKS, STABLE, WORKSHOP, SMITHY, WATCHTOWER, WALL]
 
-WORLD = {'fields': 100, 'village': {'fields': 100}}
+WORLD = {'n_continents': 9, 'n_zones4continent': 9, 'n_villages4zone': 9, 'village': {'fields': 100}}
 
 # Trader
 TRADER = {'ratios': {'food': 1, 'wood': 1, 'stone': 2, 'iron': 10, 'gold': 100},
