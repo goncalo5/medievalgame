@@ -69,14 +69,11 @@ class Village(object):
             self.buildings_dict[name] = getattr(obj, name)
 
     def create_units_objects(self):
-        print 'create_units_object'
         # constants.units = {'spear_fighter': {...}, ... name_unit: {characteristics}}
         self.units = {}  # {spear_fighter: 5, ... obj_unit: n_soldier}
         for i, unit in enumerate(constants.UNITS):
-            print unit
             new_unit = Unit(**unit)
             self.units[new_unit] = 0  # there are no soldiers at first
-        print self.units
 
     def updating_total(self):
         self.population.total += self.population.per_s

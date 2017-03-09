@@ -6,11 +6,11 @@ class Buildings(object):
         self.root = root
         self.village = village
 
-        self.header = Header(self.root, village, row_i, column_i)
-        self.fill = Fill(self.root, village, resources, self.header, row_i + self.header.n_rows, column_i)
+        self.header = BuildingsHeader(self.root, village, row_i, column_i)
+        self.fill = BuildingsFill(self.root, village, resources, self.header, row_i + self.header.n_rows, column_i)
 
 
-class Header(object):
+class BuildingsHeader(object):
     def __init__(self, root, village, row_i, column_i):
         self.root = root
         # initiate village
@@ -39,7 +39,7 @@ class Header(object):
             grid(row=self.l, column=self.c_evol, rowspan=2)
 
 
-class Fill(object):
+class BuildingsFill(object):
     def __init__(self, root, village, resources, header, row_i, column_i):
         self.root = root
         # initiate village
@@ -77,7 +77,6 @@ class Fill(object):
         self.resources.updating()
 
     def evolve_building(self, building):
-        print building.name, building.level
         self.village.evolve_building(building)
         self.update(building)
 
