@@ -43,12 +43,22 @@ class Available(object):
     def __init__(self, village, root, i, j):
         self.village = village
         self.root = root
-        self.i = i
-        self.j = j
-        self.create_header_unit4training()
-        self.create_all_unit_available()
+        self.i, self.j = i, j
+        self.create_header()
+        self.create_fill()
 
-    def create_header_unit4training(self):
+    def create_header(self):
+        AvailableHeader(village=self.village, root=self.root, i=self.i, j=self.j)
+
+    def create_fill(self):
+        AvailableFill(village=self.village, root=self.root, i=self.i, j=self.j)
+
+
+class AvailableHeader(object):
+    def __init__(self, village, root, i, j):
+        self.village = village
+        self.root = root
+        self.i, self.j = i, j
         self.i = 6
         Label(self.root, text='Unit').\
             grid(row=self.i, column=self.j)
@@ -69,20 +79,22 @@ class Available(object):
         for i, resource in enumerate(self.village.resources):
             Label(self.root, text=resource.name). \
                 grid(row=self.i + 1, column=self.j + i + 1)
-        Label(self.root, text='time').\
+        Label(self.root, text='time'). \
             grid(row=self.i + 1,
                  column=self.j + self.village.n_resources + 1)
 
-    def create_all_unit_available(self):
-        print 'create all unit aval', self.village.units
+
+class AvailableFill(object):
+    def __init__(self, village, root, i, j):
+        self.village = village
+        self.root = root
+        self.i, self.j = i, j
         for i, unit in enumerate(self.village.units):
-            print unit.name
             self.create_n_available_type(i, unit, self.village.units[unit])
 
     def create_n_available_type(self, i, unit, n_units):
-        print unit.name
         Label(self.root, text=unit.name).grid(row=self.i + i + 2, column=self.j)
-        print unit.costs
         for j, cost in enumerate(unit.costs):
             Label(self.root, text=cost).grid(row=self.i + i + 2, column= self.j + j + 1)
         Label(self.root, text=unit.time).grid(row=self.i + i + 2, column=self.j + self.village.n_resources + 1)
+
