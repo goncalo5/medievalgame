@@ -31,7 +31,7 @@ RALLY_POINT = {'index': 10, 'name': 'rally_point', 'kind': 'None', 'time': 3, 'r
                'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 STATUE = {'index': 11, 'name': 'statue', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
           'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
-BARRACKS = {'index': 12, 'name': 'barracks', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
+BARRACKS = {'index': 12, 'name': 'barracks', 'kind': 'military', 'time': 3, 'rate_time': 1.5,
            'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 STABLE = {'index': 13, 'name': 'stable', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
           'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
@@ -74,7 +74,7 @@ SCOUT = {'index': 2, 'name': 'scout', 'time': 3, 'costs': [50, 30, 10],
          'weapon': 'spear', 'shield': 'simple', 'armor': 'simple', 'speed': 18, 'cargo_capacity': 25}
 NOBLE = {'index': 2, 'name': 'noble', 'time': 3, 'costs': [50, 30, 10],
          'weapon': 'spear', 'shield': 'simple', 'armor': 'simple', 'speed': 18, 'cargo_capacity': 25}
-TROOPS = [SPEAR_FIGHTER, SWORDSMAN, AXEMAN, LIGHT_CAVALRY, HEAVY_CAVALRY, RAM, CATAPULT, SCOUT, NOBLE]
+UNITS = [SPEAR_FIGHTER, SWORDSMAN, AXEMAN, LIGHT_CAVALRY, HEAVY_CAVALRY, RAM, CATAPULT, SCOUT, NOBLE]
 
 N_ROUNDS = 1
 DISTANCES = {'ORTHOGONAL': 1, 'DIAGONAL': 1.4}

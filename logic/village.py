@@ -2,6 +2,8 @@ import threading
 import constants
 from resources import Resource, Population
 from buildings import Building, Mine, Storage, Factory
+from military import Barracks
+from troop import Unit
 
 
 class Village(object):
@@ -56,11 +58,25 @@ class Village(object):
                 value = Factory(village=self, **building)
                 setattr(obj, name, value)
                 self.factories.append(getattr(obj, name))
+            elif building['kind'] == 'military':
+                value = Barracks(village=self, units=constants.UNITS, **building)
+                setattr(obj, name, value)
+                self.factories.append(getattr(obj, name))
             else:
                 value = Building(village=self, **building)
                 setattr(obj, name, value)
             self.buildings.append(getattr(obj, name))
             self.buildings_dict[name] = getattr(obj, name)
+
+    def create_units_objects(self):
+        print 'create_units_object'
+        # constants.units = {'spear_fighter': {...}, ... name_unit: {characteristics}}
+        self.units = {}  # {spear_fighter: 5, ... obj_unit: n_soldier}
+        for i, unit in enumerate(constants.UNITS):
+            print unit
+            new_unit = Unit(**unit)
+            self.units[new_unit] = 0  # there are no soldiers at first
+        print self.units
 
     def updating_total(self):
         self.population.total += self.population.per_s

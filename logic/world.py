@@ -15,6 +15,9 @@ class World(object):
 
         self.trader = Trader()
 
+        self.create_zones()
+
+    def create_zones(self):
         for i in xrange(self.length):
             for j in xrange(self.length):
                 coord = str(i) + str(j)

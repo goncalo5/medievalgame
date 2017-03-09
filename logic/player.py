@@ -6,5 +6,6 @@ class Player(object):
         village.create_resources_objects()
         village.create_population_object()
         village.create_buildings_objects()
+        village.create_units_objects()
         village.updating_total()
         self.villages = [village]

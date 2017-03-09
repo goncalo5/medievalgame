@@ -3,7 +3,7 @@ import constants
 
 
 class Campaign(object):
-    def __init__(self, world, army, village, target_village):
+    def __init__(self, world, village, army, target_village):
         self.world = world
         self.army = army
         self.village = village
