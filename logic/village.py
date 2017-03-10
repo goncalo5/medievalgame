@@ -1,8 +1,8 @@
 import threading
 import constants
+from buildings.buildings import Building, Mine, Storage, Factory
+from buildings.military import Barracks
 from resources import Resource, Population
-from buildings import Building, Mine, Storage, Factory
-from military import Barracks
 from troop import Unit
 
 

@@ -2,7 +2,6 @@ import math
 import constants
 from player import Player
 from village import Village
-from market import Trader
 
 
 class World(object):
@@ -79,3 +78,22 @@ class Zone(object):
             coord = self.coordinates
             coord['village'] = i
             self.villages.append(Village(coordinates=coord))
+
+
+# to control all market's offers and do his own offers
+class Trader(object):
+    def __init__(self):
+        self.ratios = constants.TRADER['ratios']
+        self.profit = constants.TRADER['profit']
+        self.offers = {}
+
+    # his own offers
+    # resource_send, resource_receive = 'wood', 'food'
+    def calculate_ratio(self, resource_send, resource_receive):
+        return (1 + self.profit) * self.ratios[resource_send] / self.ratios[resource_receive]
+
+    # resource = 1000
+    def calculate_receive(self, resource_send, ratio=None):
+        if ratio == None:
+            ratio = self.calculate_ratio(resource_send, resource_send)
+        return float(resource_send) / ratio

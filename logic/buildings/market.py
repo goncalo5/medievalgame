@@ -1,5 +1,5 @@
 import constants
-from buildings import Building
+from logic.buildings.buildings import Building
 
 
 class Market(Building):
@@ -17,25 +17,6 @@ class Market(Building):
     def delete_offer(self, offer_i):
         self.world.trader.offers[self.village].pop(offer_i)
         self.offers.pop(offer_i)
-
-
-# to control all market's offers and do his own offers
-class Trader(object):
-    def __init__(self):
-        self.ratios = constants.TRADER['ratios']
-        self.profit = constants.TRADER['profit']
-        self.offers = {}
-
-    # his own offers
-    # resource_send, resource_receive = 'wood', 'food'
-    def calculate_ratio(self, resource_send, resource_receive):
-        return (1 + self.profit) * self.ratios[resource_send] / self.ratios[resource_receive]
-
-    # resource = 1000
-    def calculate_receive(self, resource_send, ratio=None):
-        if ratio == None:
-            ratio = self.calculate_ratio(resource_send, resource_send)
-        return float(resource_send) / ratio
 
 
 class Offer(object):

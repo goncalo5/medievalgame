@@ -1,8 +1,6 @@
-import constants
-from buildings import Building
-from army import Army
-from troop import Unit
-from campaign import Campaign
+from logic.army import Army
+from logic.campaign import Campaign
+from logic.buildings.buildings import Building
 
 
 # Where the soldiers are trained

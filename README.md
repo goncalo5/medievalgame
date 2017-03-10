@@ -2,34 +2,38 @@
 
 Meanings:
 () - create a instance in that class
-no() - put some instance already create in that class
+no() - put/use some instance already create in that class
 
 Logic:
-World()     |Field()
-            |Player()	|Coin
-		    |           |Village()  |Population(Resource)
-            |           |           |Resource(Mine, Storage, HidingPlace, Market)
-            |           |           |Villager(Farm)
-		    |		    |		    |MainBuilding(Village)
-            |           |           |Mine(Village)
-            |           |		    |Storage(Village)
-            |           |           |HidingPlace(Village)
-            |           |           |Market(Village)
-		    |           |           |Farm(Village)
-		    |           |           |Academy(Village)    |Coin()
-		    |		    |		    |RallyPoint(Village)   |Army()
-		    |           |           |                       |Campaign()
-		    |           |           |Statue(Village)
-		    |		    |		    |Military(Village)  |Soldier()    |Weapon
-		    |		    |		    |		    	    |Shield
-		    |		    |		    |		    		|Engine
-		    |		    |		    |Smithy(Village)     |Weapon()
-		    |           |           |WatchTower(Village)
-		    |           |           |Wall(Village)
-		    |		    |		    |Battle()   |Forces()
-            |           |           |Army
-		    |		    |
-            |Battle
+World()     |Continent()    |Zone() |Village()
+            |Field()
+            |Player()	|Village    |Population()   |Villagers()    |Villager
+            |           |           |               |Units()    |Unit
+            |           |           |Resources()    |Resource
+            |           |           |Buildings()    |MainBuilding()
+            |           |           |               |Farm() |Villager()
+		    |		    |		    |               |Mine()     |Resource()
+            |           |           |               |HidingPlace()
+            |           |		    |               |Storage()
+            |           |           |               |Market()
+		    |           |           |               |Academy()  |Coin()
+		    |		    |		    |               |RallyPoint()   |Army()
+		    |           |           |               |               |Campaign()
+		    |           |           |               |Statue()
+		    |		    |		    |               |Barracks()  |Unit()    |Weapon
+		    |		    |		    |               |		    	        |Shield
+		    |		    |		    |               |		    		    |Engine
+		    |		    |		    |               |Smithy()   |Weapon()
+		    |		    |		    |               |		    |Shield()
+		    |		    |		    |               |		    |Engine()
+		    |           |           |               |WatchTower()
+		    |           |           |               |Wall()
+		    |		    |		    |Battle()   |Forces()   |Units
+            |           |           |           |           |WatchTower
+		    |           |           |           |           |Wall
+            |           |           |           |Army
+		    |		    |Coin
+
 
 Presentation()  |Resources()
 			    |Menu() |Overview() |Player
