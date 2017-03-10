@@ -1,27 +1,22 @@
-import time
-import database
 import constants
 
 
-class Population(object):
-    def __init__(self, village, name, total, rate):
-        self.village = village
-        self.name = name
-        self.total = total
-        self.rate = rate
-        self.happiness = None
-        self.calculate_happiness()
-        self.calculate_per_s()
+class Resources(object):
+    def __init__(self):
+        self.list = []
+        self.dictionary = {}
+        self.n = None
+        self.create_resources_objects()
 
-    def calculate_happiness(self):
-        self.happiness = 10
-        for resource in self.village.resources:
-            if resource.name.lower() == 'food':
-                if resource.total <= 0:
-                    self.happiness *= -1
-
-    def calculate_per_s(self):
-        self.per_s = self.total * self.happiness * self.rate
+    def create_resources_objects(self):
+        for resource in constants.RESOURCES:
+            obj = self
+            name = resource['name']
+            value = Resource(**resource)
+            setattr(obj, name, value)
+            self.list.append(getattr(obj, name))
+            self.__dict__[name] = getattr(obj, name)
+        self.n = len(self.list)
 
 
 class Resource(object):
@@ -46,6 +41,4 @@ class Resource(object):
         pass
 
     def updating_total_in_db(self):
-        self.save_total_in_db()
-        time.sleep(10)
-        self.updating_total_in_db()
+        pass

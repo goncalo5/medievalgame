@@ -2,7 +2,8 @@ import threading
 import constants
 from buildings.buildings import Building, Mine, Storage, Factory
 from buildings.military import Barracks
-from resources import Resource, Population
+from resources import Resources
+from population import Population
 from troop import Unit
 
 
@@ -19,7 +20,9 @@ class Village(object):
         self.forest = self.storage = self.main_building = None
 
     def create_resources_objects(self):
-        self.resources = []
+        self.resources = Resources().list
+        print self.resources
+        """self.resources = []
         self.resources_dict = {}
         resources = constants.RESOURCES
         for resource in resources:
@@ -29,7 +32,7 @@ class Village(object):
             setattr(obj, name, value)
             self.resources.append(getattr(obj, name))
             self.resources_dict[name] = getattr(obj, name)
-        self.n_resources = len(self.resources)
+        self.n_resources = len(self.resources)"""
 
     def create_population_object(self):
         self.population = Population(village=self, **constants.POPULATION)
