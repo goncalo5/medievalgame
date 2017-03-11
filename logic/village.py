@@ -21,18 +21,6 @@ class Village(object):
 
     def create_resources_objects(self):
         self.resources = Resources()
-        print self.resources
-        """self.resources = []
-        self.resources_dict = {}
-        resources = constants.RESOURCES
-        for resource in resources:
-            obj = self
-            name = resource['name']
-            value = Resource(**resource)
-            setattr(obj, name, value)
-            self.resources.append(getattr(obj, name))
-            self.resources_dict[name] = getattr(obj, name)
-        self.n_resources = len(self.resources)"""
 
     def create_population_object(self):
         self.population = Population(village=self, **constants.POPULATION)
