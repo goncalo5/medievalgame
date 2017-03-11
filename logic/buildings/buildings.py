@@ -80,12 +80,13 @@ class Storage(Building):
         self.capacity = self.capacity0 = capacity
         self.rate_capacity = rate_capacity
 
-    def is_full(self):
-        return self.resource.total > self.capacity
+    def is_full(self, resource):
+        return resource.total > self.capacity
 
     def update_storage_capacity(self):
         self.capacity = self.capacity0 * self.rate_capacity ** self.level
 
     def check_storage(self):
-        if self.is_full():
-            self.resource.total = self.capacity
+        for resource in self.village.resources:
+            if self.is_full(resource):
+                self.resource.total = self.capacity

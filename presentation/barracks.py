@@ -65,23 +65,23 @@ class AvailableHeader(object):
         self.create_requirements()
         Label(self.root, text='In the \nvillage/total'). \
             grid(row=self.i,
-                 column=self.j + self.village.n_resources + 2,
+                 column=self.j + len(self.village.resources) + 2,
                  rowspan=2)
         Label(self.root, text='Recruit'). \
             grid(row=self.i,
-                 column=self.j + self.village.n_resources + 3,
+                 column=self.j + len(self.village.resources) + 3,
                  columnspan=2)
 
     def create_requirements(self):
         Label(self.root, text='Requirements'). \
             grid(row=self.i, column=self.j + 1,
-                 columnspan=self.village.n_resources + 1)  # + 1, because of time
+                 columnspan=len(self.village.resources) + 1)  # + 1, because of time
         for i, resource in enumerate(self.village.resources):
             Label(self.root, text=resource.name). \
                 grid(row=self.i + 1, column=self.j + i + 1)
         Label(self.root, text='time'). \
             grid(row=self.i + 1,
-                 column=self.j + self.village.n_resources + 1)
+                 column=self.j + len(self.village.resources) + 1)
 
 
 class AvailableFill(object):
@@ -96,5 +96,5 @@ class AvailableFill(object):
         Label(self.root, text=unit.name).grid(row=self.i + i + 2, column=self.j)
         for j, cost in enumerate(unit.costs):
             Label(self.root, text=cost).grid(row=self.i + i + 2, column= self.j + j + 1)
-        Label(self.root, text=unit.time).grid(row=self.i + i + 2, column=self.j + self.village.n_resources + 1)
+        Label(self.root, text=unit.time).grid(row=self.i + i + 2, column=self.j + len(self.village.resources) + 1)
 

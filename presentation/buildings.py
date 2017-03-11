@@ -25,12 +25,12 @@ class BuildingsHeader(object):
         # initial costs column
         self.c_costs = self.c + 2
         Label(self.root, text='evolving cost'). \
-            grid(row=self.l, column=self.c_costs, columnspan=self.village.n_resources)
+            grid(row=self.l, column=self.c_costs, columnspan=len(self.village.resources))
         for n, resource in enumerate(self.village.resources):
             # costs
             Label(self.root, text=resource.name).grid(row=self.l + 1, column=self.c_costs + n)
         # Column of construction times
-        self.c_t = self.c_costs + self.village.n_resources
+        self.c_t = self.c_costs + len(self.village.resources)
         Label(self.root, text='Time'). \
             grid(row=self.l, column=self.c_t, rowspan=2)
         # evolving column
@@ -61,7 +61,7 @@ class BuildingsFill(object):
                 building.l_cost[i] = Label(self.root, text=int(text))
                 building.l_cost[i].grid(row=l, column=column_i + i + 2)
             building.l_t = Label(self.root, text=int(building.time))
-            building.l_t.grid(row=l, column=column_i + 2 + self.village.n_resources)
+            building.l_t.grid(row=l, column=column_i + 2 + len(self.village.resources))
             # evolving
 
         self.updating()
