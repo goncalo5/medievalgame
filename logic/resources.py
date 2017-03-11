@@ -10,22 +10,23 @@ class Resources(object):
 
     def create_resources_objects(self):
         for resource in constants.RESOURCES:
-            obj = self
-            name = resource['name']
-            value = Resource(**resource)
-            setattr(obj, name, value)
-            self.list.append(getattr(obj, name))
-            self.dictionary[name] = getattr(obj, name)
+            self.add_resource(resource)
         self.n = len(self.list)
+
+    def add_resource(self, resource):
+        self.list.append(Resource(**resource))
+        new = self.list[-1]
+        self.__dict__[new.name] = new
+        self.dictionary[new.name] = new
+
+    def __iter__(self):
+        return iter(self.list)
 
 
 class Resource(object):
     def __init__(self, index, name, total, per_s=None, rate_per_s=None):
-        self.index = index
-        self.name = name
-        self.total = total
-        self.per_s0 = self.per_s = per_s
-        self.rate_per_s = rate_per_s
+        self.index, self.name, self.total, self.per_s, self.rate_per_s =\
+            index, name, total, per_s, rate_per_s
 
         # Null variables
 
