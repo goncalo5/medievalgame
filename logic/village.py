@@ -20,7 +20,7 @@ class Village(object):
         self.forest = self.storage = self.main_building = None
 
     def create_resources_objects(self):
-        self.resources = Resources().list
+        self.resources = Resources()
         print self.resources
         """self.resources = []
         self.resources_dict = {}
@@ -80,7 +80,7 @@ class Village(object):
 
     def updating_total(self):
         self.population.total += self.population.per_s
-        for resource in self.resources:
+        for resource in self.resources.list:
             resource.total += resource.per_s
         if self.run:
             self.storage.check_storage()

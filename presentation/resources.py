@@ -6,7 +6,7 @@ class Resources(object):
         self.root = root
         # initiate village
         self.village = village
-        n_resources = len(self.village.resources)
+        n_resources = self.village.resources.n
 
 
         # Population and Available Resources
@@ -22,7 +22,7 @@ class Resources(object):
         pop.l_happiness.grid(row=row_i + 3, column=column_i + 1)
         # resources
         Label(self.root, text='resource').grid(row=row_i, column=column_i + 2, columnspan=n_resources)
-        for n, resource in enumerate(self.village.resources):
+        for n, resource in enumerate(self.village.resources.list):
             Label(self.root, text=resource.name).grid(row=row_i + 1, column=column_i + 2 + n)
             resource.l_total = Label(self.root, text=resource.total)
             resource.l_total.grid(row=row_i + 2, column=column_i + n + 2)
@@ -39,7 +39,7 @@ class Resources(object):
         population =self.village.population
         population.l_total['text'] = int(population.total)
         population.l_happiness['text'] = int(population.happiness)
-        for resource in self.village.resources:
+        for resource in self.village.resources.list:
             self.update_resource(resource)
 
     def updating(self):

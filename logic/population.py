@@ -12,7 +12,7 @@ class Population(object):
 
     def calculate_happiness(self):
         self.happiness = 10
-        for resource in self.village.resources:
+        for resource in self.village.resources.list:
             if resource.name.lower() == 'food':
                 if resource.total <= 0:
                     self.happiness *= -1

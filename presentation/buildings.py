@@ -25,12 +25,12 @@ class BuildingsHeader(object):
         # initial costs column
         self.c_costs = self.c + 2
         Label(self.root, text='evolving cost'). \
-            grid(row=self.l, column=self.c_costs, columnspan=len(self.village.resources))
-        for n, resource in enumerate(self.village.resources):
+            grid(row=self.l, column=self.c_costs, columnspan=self.village.resources.n)
+        for n, resource in enumerate(self.village.resources.list):
             # costs
             Label(self.root, text=resource.name).grid(row=self.l + 1, column=self.c_costs + n)
         # Column of construction times
-        self.c_t = self.c_costs + len(self.village.resources)
+        self.c_t = self.c_costs + self.village.resources.n
         Label(self.root, text='Time'). \
             grid(row=self.l, column=self.c_t, rowspan=2)
         # evolving column
@@ -56,12 +56,12 @@ class BuildingsFill(object):
             building.l_lv.grid(row=l, column=column_i + 1)
             # evolving cost
             building.l_cost = {}
-            for i, resource in enumerate(self.village.resources):  # r = resource name
+            for i, resource in enumerate(self.village.resources.list):  # r = resource name
                 text = building.cost[i]
                 building.l_cost[i] = Label(self.root, text=int(text))
                 building.l_cost[i].grid(row=l, column=column_i + i + 2)
             building.l_t = Label(self.root, text=int(building.time))
-            building.l_t.grid(row=l, column=column_i + 2 + len(self.village.resources))
+            building.l_t.grid(row=l, column=column_i + 2 + self.village.resources.n)
             # evolving
 
         self.updating()
@@ -92,7 +92,7 @@ class BuildingsFill(object):
 
     def update(self, building):
         building.l_lv['text'] = int(building.level)
-        for i, resource in enumerate(self.village.resources):  # r = resource name
+        for i, resource in enumerate(self.village.resources.list):  # r = resource name
             building.l_cost[i]['text'] = building.cost[i]
             #getattr(building.l_cost, r)['text'] = int(getattr(building.cost, r))
         building.l_t['text'] = int(building.left)

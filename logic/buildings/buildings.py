@@ -42,7 +42,7 @@ class Building(object):
     # calculators
     def calculate_cost(self):
         self.cost = []
-        for i, resource in enumerate(self.village.resources):
+        for i, resource in enumerate(self.village.resources.list):
             cost_lv0 = self.cost_lv0[i]
             rate_cost = self.rate_cost[i]
             self.cost.append(cost_lv0 * rate_cost**self.level)
@@ -87,6 +87,6 @@ class Storage(Building):
         self.capacity = self.capacity0 * self.rate_capacity ** self.level
 
     def check_storage(self):
-        for resource in self.village.resources:
+        for resource in self.village.resources.list:
             if self.is_full(resource):
                 self.resource.total = self.capacity
