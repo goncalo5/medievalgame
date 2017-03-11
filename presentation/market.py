@@ -100,7 +100,6 @@ class Market(object):
             self.add_label_receive()
             resource_send = {'name': self.resource_send['name'].get(), 'total': int(self.e_for.get())}
             resource_receive = {'name': self.resource_receive['name'].get(), 'total': int(self.l_receive['text'])}
-            print self.village.resources.dictionary
             if self.village.resources.dictionary[resource_send['name']].total > resource_send['total']:
                 self.village.resources.dictionary[resource_send['name']].total -= resource_send['total']
                 self.village.resources.dictionary[resource_receive['name']].total += resource_receive['total']
