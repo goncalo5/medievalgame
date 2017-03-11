@@ -36,10 +36,10 @@ class Market(object):
 
     def create_resources_option_to_choose(self):
         self.resource_receive['name'] = StringVar()
-        self.resource_receive['name'].set(self.village.resources[0].name)
+        self.resource_receive['name'].set(self.village.resources.list[0].name)
         self.resource_send['name'] = StringVar()
-        self.resource_send['name'].set(self.village.resources[1].name)
-        for i, resource in enumerate(self.village.resources):
+        self.resource_send['name'].set(self.village.resources.list[1].name)
+        for i, resource in enumerate(self.village.resources.list):
             Label(self.root, text=resource.name).grid(row=self.row_i, column=self.column_i + i + 1)
             self.b_want = Radiobutton(self.root, variable=self.resource_receive['name'], value=resource.name)
             self.b_want.grid(row=self.row_i + 1, column=self.column_i + i + 1)
@@ -100,6 +100,7 @@ class Market(object):
             self.add_label_receive()
             resource_send = {'name': self.resource_send['name'].get(), 'total': int(self.e_for.get())}
             resource_receive = {'name': self.resource_receive['name'].get(), 'total': int(self.l_receive['text'])}
-            if self.village.resources_dict[resource_send['name']].total > resource_send['total']:
-                self.village.resources_dict[resource_send['name']].total -= resource_send['total']
-                self.village.resources_dict[resource_receive['name']].total += resource_receive['total']
+            print self.village.resources.dictionary
+            if self.village.resources.dictionary[resource_send['name']].total > resource_send['total']:
+                self.village.resources.dictionary[resource_send['name']].total -= resource_send['total']
+                self.village.resources.dictionary[resource_receive['name']].total += resource_receive['total']

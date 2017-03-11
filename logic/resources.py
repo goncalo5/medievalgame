@@ -15,7 +15,7 @@ class Resources(object):
             value = Resource(**resource)
             setattr(obj, name, value)
             self.list.append(getattr(obj, name))
-            self.__dict__[name] = getattr(obj, name)
+            self.dictionary[name] = getattr(obj, name)
         self.n = len(self.list)
 
 
