@@ -7,12 +7,12 @@ no() - put/use some instance already create in that class
 Logic:
 World()     |Continent()    |Zone() |Village()
             |Field()
-            |Player()	|Village    |Population()   |Villagers()    |Villager
+            |Player()	|Village    |Population()   |Villagers()    |Villager()
             |           |           |               |Units()    |Unit
-            |           |           |Resources()    |Resource
+            |           |           |Resources()    |Resource()
             |           |           |Buildings()    |MainBuilding()
-            |           |           |               |Farm() |Villager()
-		    |		    |		    |               |Mine()     |Resource()
+            |           |           |               |Farm()
+		    |		    |		    |               |Mine()
             |           |           |               |HidingPlace()
             |           |		    |               |Storage()
             |           |           |               |Market()

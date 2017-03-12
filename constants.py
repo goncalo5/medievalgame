@@ -8,8 +8,10 @@ GOLD = {'index': 4, 'name': 'gold', 'total': 500, 'per_s': 1, 'rate_per_s': 1.5}
 RESOURCES = [FOOD, WOOD, STONE, IRON, GOLD]
 
 # buildings
-MAIN_BUILDING = {'index': 1, 'name': 'main_building', 'kind': 'factory', 'time': 3, 'rate_time': 1.5,
+MAIN_BUILDING = {'index': 0, 'name': 'main_building', 'kind': 'factory', 'time': 3, 'rate_time': 1.5,
                  'cost': [0, 60, 100, 50, 0], 'rate_cost': [0, 2, 2, 2, 0], 'factor': 2, 'rate_factor': 2}
+FARMER = {'index': 1, 'name': 'farmer', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
+          'cost': [0, 60, 100, 50, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': 'food'}
 FOREST = {'index': 2, 'name': 'forest', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
           'cost': [0, 20, 0, 10, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': 'wood'}
 QUARRY = {'index': 3, 'name': 'quarry', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
@@ -43,7 +45,7 @@ WATCHTOWER = {'index': 16, 'name': 'watchtower', 'kind': 'None', 'time': 3, 'rat
               'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
 WALL = {'index': 17, 'name': 'wall', 'kind': 'None', 'time': 3, 'rate_time': 1.5,
         'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0]}
-BUILDINGS = [MAIN_BUILDING, FARM, FOREST, QUARRY, MINE, STORAGE, HIDING_PLACE, MARKET,
+BUILDINGS = [MAIN_BUILDING, FARM, FARMER, FOREST, QUARRY, MINE, STORAGE, HIDING_PLACE, MARKET,
              ACADEMY, RALLY_POINT, STATUE, BARRACKS, STABLE, WORKSHOP, SMITHY, WATCHTOWER, WALL]
 
 WORLD = {'n_continents': 9, 'n_zones4continent': 9, 'n_villages4zone': 9, 'village': {'fields': 100}}

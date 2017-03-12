@@ -36,7 +36,7 @@ class Village(object):
             obj = self
             name = building['name']
             if building['kind'] == 'mine':
-                resource = getattr(self, building['resource'])
+                resource = getattr(self.resources, building['resource'])
                 value = Mine(village=self, resource_obj=resource, **building)
                 setattr(obj, name, value)
                 self.mines.append(getattr(obj, name))
@@ -52,7 +52,6 @@ class Village(object):
             elif building['kind'] == 'military':
                 value = Barracks(village=self, units=constants.UNITS, **building)
                 setattr(obj, name, value)
-                self.factories.append(getattr(obj, name))
             else:
                 value = Building(village=self, **building)
                 setattr(obj, name, value)

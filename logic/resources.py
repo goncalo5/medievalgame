@@ -27,6 +27,7 @@ class Resource(object):
     def __init__(self, index, name, total, per_s=None, rate_per_s=None):
         self.index, self.name, self.total, self.per_s, self.rate_per_s =\
             index, name, total, per_s, rate_per_s
+        self.per_s0 = self.per_s
 
         # Null variables
 
