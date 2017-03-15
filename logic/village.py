@@ -1,10 +1,10 @@
 import threading
 import constants
-from buildings.buildings import Building, Mine, Storage, Factory
-from buildings.military import Barracks
-from resources import Resources
-from population import Population
-from troop import Unit
+from .buildings.buildings import Building, Mine, Storage, Factory
+from .buildings.military import Barracks
+from .resources import Resources
+from .population import Population
+from .troop import Unit
 
 
 class Village(object):
