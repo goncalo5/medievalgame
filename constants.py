@@ -11,13 +11,13 @@ RESOURCES = [FOOD, WOOD, STONE, IRON, GOLD]
 MAIN_BUILDING = {'index': 0, 'name': 'main_building', 'kind': 'factory', 'time': 3, 'rate_time': 1.5,
                  'cost': [0, 60, 100, 50, 0], 'rate_cost': [0, 2, 2, 2, 0], 'factor': 2, 'rate_factor': 2}
 FARMER = {'index': 1, 'name': 'farmer', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
-          'cost': [0, 60, 100, 50, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': 'food'}
+          'cost': [0, 60, 100, 50, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': FOOD['name']}
 FOREST = {'index': 2, 'name': 'forest', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
-          'cost': [0, 20, 0, 10, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': 'wood'}
+          'cost': [0, 20, 0, 10, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': WOOD['name']}
 QUARRY = {'index': 3, 'name': 'quarry', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
-          'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': 'stone'}
+          'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': STONE['name']}
 MINE = {'index': 4, 'name': 'mine', 'kind': 'mine', 'time': 3, 'rate_time': 1.5,
-        'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': 'iron'}
+        'cost': [0, 10, 10, 10, 0], 'rate_cost': [0, 2, 2, 2, 0], 'resource': IRON['name']}
 STORAGE = {'index': 5, 'name': 'storage', 'kind': 'storage', 'time': 3, 'rate_time': 1.5,
            'cost': [0, 100, 150, 70, 0], 'rate_cost': [0, 2, 2, 2, 0], 'capacity': 1500, 'rate_capacity': 1.5,
            'resource': 'wood'}
