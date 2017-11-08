@@ -89,12 +89,20 @@ class AvailableFill(object):
         self.village = village
         self.root = root
         self.i, self.j = i, j
+        self.b_units = []
         for i, unit in enumerate(self.village.units):
             self.create_n_available_type(i, unit, self.village.units[unit])
 
     def create_n_available_type(self, i, unit, n_units):
+        print "create_n_available_type(%s, %s, %s)" % (i, unit.name, n_units)
         Label(self.root, text=unit.name).grid(row=self.i + i + 2, column=self.j)
         for j, cost in enumerate(unit.costs):
             Label(self.root, text=cost).grid(row=self.i + i + 2, column= self.j + j + 1)
         Label(self.root, text=unit.time).grid(row=self.i + i + 2, column=self.j + self.village.resources.n + 1)
+        Label(self.root, text=n_units).grid(row=self.i + i + 2, column=self.j + self.village.resources.n + 2)
+        self.b_units.append(Button(self.root, text="recruit", command=lambda b=unit: self.recruit_a_unit(b)))
+        self.b_units[-1].grid(row=self.i + i + 2, column=self.j + self.village.resources.n + 3)
+
+    def recruit_a_unit(self, unit):
+        print "recruit_a_unit(%s)" % unit.name
 
