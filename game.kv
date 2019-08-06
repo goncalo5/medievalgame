@@ -1,0 +1,198 @@
+
+
+<DarkLabel@Label>:
+    font_size: 26
+    color: 0, 0, 0, 1
+
+<MenuLabel@DarkLabel>:
+    width: app.width * 0.25
+    size_hint: None, None
+
+<ContentLabel@DarkLabel>:
+    width: app.width * 0.125
+    size_hint: None, None
+
+<HeaderLabel@DarkLabel>:
+    font_size: 30
+
+<Overview@Screen>:
+    GridLayout:
+        cols: 1
+        Label:
+            text: "overview"
+        Button:
+            text: "main"
+            on_press: root.manager.current = "main"
+<Main@Screen>:
+    canvas:
+        Color:
+            rgba: 1, 242/255, 179/255, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols: 1
+        GridLayout:
+            rows: 1
+            Button:
+                text: "overview"
+                on_press: root.manager.current = "overview"
+            DarkLabel:
+                text: "wood %s" % app.wood
+            DarkLabel:
+                text: "clay %s" % app.clay
+            DarkLabel:
+                text: "iron %s" % app.iron
+        Label
+        DarkLabel:
+            text: "Headquarters (Level %s)" % app.headquarters.level
+        Label:
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Buildings"
+            ContentLabel:
+                text: "Wood"
+            ContentLabel:
+                text: "Clay"
+            ContentLabel:
+                text: "Iron"
+            ContentLabel:
+                text: "Time"
+            ContentLabel:
+                text: "Pop"
+            ContentLabel:
+                text: "Construct"
+        Label:
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Headquarters\n(Level %s)" % app.headquarters.level
+            ContentLabel:
+                text: "%s" % app.headquarters.wood
+            ContentLabel:
+                text: "%s" % app.headquarters.clay
+            ContentLabel:
+                text: "%s" % app.headquarters.iron
+            ContentLabel:
+                text: "%s" % app.headquarters.time
+            ContentLabel:
+                text: "%s" % app.headquarters.population
+            Button:
+                text: "level %s" % (app.headquarters.level + 1)
+                on_press:
+                    app.upgrade_building(app.headquarters)
+        Label
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Rally point\n(Level %s)" % app.rally_point.level
+            ContentLabel:
+                text: "%s" % app.rally_point.wood
+            ContentLabel:
+                text: "%s" % app.rally_point.clay
+            ContentLabel:
+                text: "%s" % app.rally_point.iron
+            ContentLabel:
+                text: "%s" % app.rally_point.time
+            ContentLabel:
+                text: "%s" % app.rally_point.population
+        Label
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Statue\n(Level %s)" % app.statue.level
+            ContentLabel:
+                text: "%s" % app.statue.wood
+            ContentLabel:
+                text: "%s" % app.statue.clay
+            ContentLabel:
+                text: "%s" % app.statue.iron
+            ContentLabel:
+                text: "%s" % app.statue.time
+            ContentLabel:
+                text: "%s" % app.statue.population
+        Label
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Timber camp\n(Level %s)" % app.timber_camp.level
+            ContentLabel:
+                text: "%s" % app.timber_camp.wood
+            ContentLabel:
+                text: "%s" % app.timber_camp.clay
+            ContentLabel:
+                text: "%s" % app.timber_camp.iron
+            ContentLabel:
+                text: "%s" % app.timber_camp.time
+            ContentLabel:
+                text: "%s" % app.timber_camp.population
+        Label
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Clay pit\n(Level %s)" % app.clay_pit.level
+            ContentLabel:
+                text: "%s" % app.clay_pit.wood
+            ContentLabel:
+                text: "%s" % app.clay_pit.clay
+            ContentLabel:
+                text: "%s" % app.clay_pit.iron
+            ContentLabel:
+                text: "%s" % app.clay_pit.time
+            ContentLabel:
+                text: "%s" % app.clay_pit.population
+        Label
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Iron mine\n(Level %s)" % app.iron_mine.level
+            ContentLabel:
+                text: "%s" % app.iron_mine.wood
+            ContentLabel:
+                text: "%s" % app.iron_mine.clay
+            ContentLabel:
+                text: "%s" % app.iron_mine.iron
+            ContentLabel:
+                text: "%s" % app.iron_mine.time
+            ContentLabel:
+                text: "%s" % app.iron_mine.population
+
+        DarkLabel:
+            text: "Farm"
+        DarkLabel:
+            text: "Warehouse"
+        DarkLabel:
+            text: "Hiding place"
+        Label:
+        DarkLabel:
+            text: "Not yet available"
+        DarkLabel:
+            text: "Barracks"
+        DarkLabel:
+            text: "Stable"
+        DarkLabel:
+            text: "Workshop"
+        DarkLabel:
+            text: "Watchtower"
+        DarkLabel:
+            text: "Academy"
+        DarkLabel:
+            text: "Smithy"
+        DarkLabel:
+            text: "Market"
+        DarkLabel:
+            text: "Wall"
+
+<Game>:
+    id: screen_manager
+    overview: overview
+    main: main
+    Main:
+        id: main
+        name: "main"
+        manager: screen_manager
+    Overview:
+        id: overview
+        name: "overview"
+        manager: screen_manager
