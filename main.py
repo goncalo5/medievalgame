@@ -123,6 +123,10 @@ class Game(ScreenManager):
     overview = kp.ObjectProperty(None)
     main = kp.ObjectProperty(None)
 
+    def on_touch_move(self, touch):
+        print("on_touch_move", touch.y)
+        app = App.get_running_app()
+        app.offset += touch.dy
 
 class Resource(Widget):
     current = kp.NumericProperty(0)
