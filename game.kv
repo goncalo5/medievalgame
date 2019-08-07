@@ -15,14 +15,25 @@
 <HeaderLabel@DarkLabel>:
     font_size: 30
 
+<ImageButton@ButtonBehavior+Image>:
+
 <Overview@Screen>:
-    GridLayout:
-        cols: 1
-        Label:
-            text: "overview"
-        Button:
+    RelativeLayout:
+        canvas.before:
+            Color:
+                rgba: 0,.3,0,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        
+        ImageButton:
+            source: "img/Main1.png"
             text: "main"
+            size: app.width * 0.5, root.top
+            size_hint: None, None
             on_press: root.manager.current = "main"
+        
+        
 <Main@Screen>:
     canvas:
         Color:
@@ -354,11 +365,11 @@
     id: screen_manager
     overview: overview
     main: main
-    Main:
-        id: main
-        name: "main"
-        manager: screen_manager
     Overview:
         id: overview
         name: "overview"
+        manager: screen_manager
+    Main:
+        id: main
+        name: "main"
         manager: screen_manager

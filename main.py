@@ -1,7 +1,7 @@
 # external modules:
 from kivy.app import App
 from kivy.uix.widget import Widget
-from kivy.uix.screenmanager import ScreenManager
+from kivy.uix.screenmanager import ScreenManager, NoTransition
 from kivy import properties as kp
 from kivy.core.window import Window
 from kivy.clock import Clock
@@ -209,6 +209,7 @@ class Resource(Widget):
 
 class GameApp(App):
     width = kp.NumericProperty(Window.width)
+    height = kp.NumericProperty(Window.height)
     offset = kp.NumericProperty()
     # resources:
     wood = kp.ObjectProperty(Resource("WOOD"))
@@ -243,7 +244,7 @@ class GameApp(App):
 
     def build(self):
         print(Window.width)
-        self.game = Game()
+        self.game = Game(transition=NoTransition())
         self.resources = [self.wood, self.clay, self.iron]
         self.buildings =\
             [self.headquarters, self.rally_point, self.statue,
