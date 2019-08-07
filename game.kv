@@ -38,14 +38,52 @@
                 text: "overview"
                 on_press: root.manager.current = "overview"
             DarkLabel:
-                text: "wood %s" % app.wood
+                text: "wood %s" % int(app.wood.current)
             DarkLabel:
-                text: "clay %s" % app.clay
+                text: "clay %s" % int(app.clay.current)
             DarkLabel:
-                text: "iron %s" % app.iron
+                text: "iron %s" % int(app.iron.current)
         Label
         DarkLabel:
             text: "Headquarters (Level %s)" % app.headquarters.level
+        Label:
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Construction"
+            MenuLabel:
+                text: "Duration"
+            MenuLabel:
+                text: "Completation"
+            MenuLabel:
+                text: "Cancellation"
+        GridLayout:
+            rows: 1
+            # row_force_default: True
+            # row_default_height: 50
+            # pos_hint: {'center_x':.5}
+            # size_hint: (None, None)
+            # # size is updated whenever minimum_size is.
+            # size: self.minimum_size
+            # # top is updated whenever height is.
+            # top: self.height
+            MenuLabel:
+                text: "%s" % app.current_upgrading
+            MenuLabel:
+                text: "%s" % int(app.time_left) if app.time_left > 0 else ""
+            MenuLabel:
+                text: "Completation"
+            RelativeLayout:
+                Button:
+                    text: "Cancel"
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    size_hint: 0.5, 0.5
+                    on_press:
+                        app.cancel_upgrading()
+            # Button:
+            #     text: "Cancel"
+            #     on_press:
+            #         print("cancel upgrade")
         Label:
         GridLayout:
             rows: 1
@@ -69,15 +107,15 @@
             MenuLabel:
                 text: "Headquarters\n(Level %s)" % app.headquarters.level
             ContentLabel:
-                text: "%s" % app.headquarters.wood
+                text: "%s" % int(app.headquarters.wood)
             ContentLabel:
-                text: "%s" % app.headquarters.clay
+                text: "%s" % int(app.headquarters.clay)
             ContentLabel:
-                text: "%s" % app.headquarters.iron
+                text: "%s" % int(app.headquarters.iron)
             ContentLabel:
-                text: "%s" % app.headquarters.time
+                text: "%s" % int(app.headquarters.time)
             ContentLabel:
-                text: "%s" % app.headquarters.population
+                text: "%s" % int(app.headquarters.population)
             Button:
                 text: "level %s" % (app.headquarters.level + 1)
                 on_press:
@@ -88,75 +126,95 @@
             MenuLabel:
                 text: "Rally point\n(Level %s)" % app.rally_point.level
             ContentLabel:
-                text: "%s" % app.rally_point.wood
+                text: "%s" % int(app.rally_point.wood)
             ContentLabel:
-                text: "%s" % app.rally_point.clay
+                text: "%s" % int(app.rally_point.clay)
             ContentLabel:
-                text: "%s" % app.rally_point.iron
+                text: "%s" % int(app.rally_point.iron)
             ContentLabel:
-                text: "%s" % app.rally_point.time
+                text: "%s" % int(app.rally_point.time)
             ContentLabel:
-                text: "%s" % app.rally_point.population
+                text: "%s" % int(app.rally_point.population)
+            Button:
+                text: "level %s" % (app.rally_point.level + 1)
+                on_press:
+                    app.upgrade_building(app.rally_point)
         Label
         GridLayout:
             rows: 1
             MenuLabel:
                 text: "Statue\n(Level %s)" % app.statue.level
             ContentLabel:
-                text: "%s" % app.statue.wood
+                text: "%s" % int(app.statue.wood)
             ContentLabel:
-                text: "%s" % app.statue.clay
+                text: "%s" % int(app.statue.clay)
             ContentLabel:
-                text: "%s" % app.statue.iron
+                text: "%s" % int(app.statue.iron)
             ContentLabel:
-                text: "%s" % app.statue.time
+                text: "%s" % int(app.statue.time)
             ContentLabel:
-                text: "%s" % app.statue.population
+                text: "%s" % int(app.statue.population)
+            Button:
+                text: "level %s" % (app.statue.level + 1)
+                on_press:
+                    app.upgrade_building(app.statue)
         Label
         GridLayout:
             rows: 1
             MenuLabel:
                 text: "Timber camp\n(Level %s)" % app.timber_camp.level
             ContentLabel:
-                text: "%s" % app.timber_camp.wood
+                text: "%s" % int(app.timber_camp.wood)
             ContentLabel:
-                text: "%s" % app.timber_camp.clay
+                text: "%s" % int(app.timber_camp.clay)
             ContentLabel:
-                text: "%s" % app.timber_camp.iron
+                text: "%s" % int(app.timber_camp.iron)
             ContentLabel:
-                text: "%s" % app.timber_camp.time
+                text: "%s" % int(app.timber_camp.time)
             ContentLabel:
-                text: "%s" % app.timber_camp.population
+                text: "%s" % int(app.timber_camp.population)
+            Button:
+                text: "level %s" % (app.timber_camp.level + 1)
+                on_press:
+                    app.upgrade_building(app.timber_camp)
         Label
         GridLayout:
             rows: 1
             MenuLabel:
                 text: "Clay pit\n(Level %s)" % app.clay_pit.level
             ContentLabel:
-                text: "%s" % app.clay_pit.wood
+                text: "%s" % int(app.clay_pit.wood)
             ContentLabel:
-                text: "%s" % app.clay_pit.clay
+                text: "%s" % int(app.clay_pit.clay)
             ContentLabel:
-                text: "%s" % app.clay_pit.iron
+                text: "%s" % int(app.clay_pit.iron)
             ContentLabel:
-                text: "%s" % app.clay_pit.time
+                text: "%s" % int(app.clay_pit.time)
             ContentLabel:
-                text: "%s" % app.clay_pit.population
+                text: "%s" % int(app.clay_pit.population)
+            Button:
+                text: "level %s" % (app.clay_pit.level + 1)
+                on_press:
+                    app.upgrade_building(app.clay_pit)
         Label
         GridLayout:
             rows: 1
             MenuLabel:
                 text: "Iron mine\n(Level %s)" % app.iron_mine.level
             ContentLabel:
-                text: "%s" % app.iron_mine.wood
+                text: "%s" % int(app.iron_mine.wood)
             ContentLabel:
-                text: "%s" % app.iron_mine.clay
+                text: "%s" % int(app.iron_mine.clay)
             ContentLabel:
-                text: "%s" % app.iron_mine.iron
+                text: "%s" % int(app.iron_mine.iron)
             ContentLabel:
-                text: "%s" % app.iron_mine.time
+                text: "%s" % int(app.iron_mine.time)
             ContentLabel:
-                text: "%s" % app.iron_mine.population
+                text: "%s" % int(app.iron_mine.population)
+            Button:
+                text: "level %s" % (app.iron_mine.level + 1)
+                on_press:
+                    app.upgrade_building(app.iron_mine)
 
         DarkLabel:
             text: "Farm"
