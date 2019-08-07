@@ -45,6 +45,8 @@
             DarkLabel:
                 text: "iron %s" % int(app.iron.current)
             DarkLabel:
+                text: "cap %s" % int(app.max_capacity)
+            DarkLabel:
                 text: "pop %s/%s" % (int(app.current_population), int(app.max_population))
         Label
         DarkLabel:
@@ -225,6 +227,25 @@
                 text: "level %s" % (app.farm.level + 1)
                 on_press:
                     app.upgrade_building(app.farm)
+        Label
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Warehouse\n(Level %s)" % app.warehouse.level
+            ContentLabel:
+                text: "%s" % int(app.warehouse.wood)
+            ContentLabel:
+                text: "%s" % int(app.warehouse.clay)
+            ContentLabel:
+                text: "%s" % int(app.warehouse.iron)
+            ContentLabel:
+                text: "%s" % int(app.warehouse.time)
+            ContentLabel:
+                text: "%s" % int(app.warehouse.population_for_next_level)
+            Button:
+                text: "level %s" % (app.warehouse.level + 1)
+                on_press:
+                    app.upgrade_building(app.warehouse)
 
         # DarkLabel:
         #     text: "Warehouse"

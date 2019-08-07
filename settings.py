@@ -140,4 +140,22 @@ BUILDINGS = {
         "POPULATION_INIT": 240,
         "POPULATION_RATIO": 1.17,
     },
+    "WAREHOUSE": {
+        "NAME": "warehouse",
+        "LEVEL": 1,
+        "MAX_LEVEL": 30,
+        "REQUIREMENTS": {
+            "WOOD": 60,
+            "CLAY": 50,
+            "IRON": 50,
+            "TIME": 1,
+            "RATIO": 1.26,
+        },
+        "POPULATION": {
+            "BASE": 0,
+            "RATIO": 1.
+        },
+        "CAPACITY_INIT": 1000,
+        "CAPACITY_RATIO": 1.2295,
+    },
 }

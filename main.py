@@ -119,6 +119,14 @@ class Farm(Building):
         self.population_ratio = self.settings.get("POPULATION_RATIO")
 
 
+class Warehouse(Building):
+    def __init__(self):
+        self.settings = BUILDINGS.get("WAREHOUSE")
+        super().__init__()
+        self.capacity0 = self.settings.get("CAPACITY_INIT")
+        self.capacity_ratio = self.settings.get("CAPACITY_RATIO")
+
+
 class Game(ScreenManager):
     overview = kp.ObjectProperty(None)
     main = kp.ObjectProperty(None)
@@ -149,6 +157,7 @@ class GameApp(App):
     resources_ratio = kp.NumericProperty(RESOURCES.get("RATIO"))
     current_population = kp.NumericProperty(0)
     max_population = kp.NumericProperty(0)
+    max_capacity = kp.NumericProperty()
     # buildings:
     headquarters = kp.ObjectProperty(Headquarters())
     rally_point = kp.ObjectProperty(RallyPoint())
@@ -157,6 +166,7 @@ class GameApp(App):
     clay_pit = kp.ObjectProperty(ClayPit())
     iron_mine = kp.ObjectProperty(IronMine())
     farm = kp.ObjectProperty(Farm())
+    warehouse = kp.ObjectProperty(Warehouse())
     # to upgrade buildings:
     current_upgrading = kp.ObjectProperty("")
     time_left = kp.NumericProperty()
@@ -171,6 +181,7 @@ class GameApp(App):
             [self.headquarters, self.rally_point, self.statue,
             self.timber_camp, self.clay_pit, self.iron_mine]
         self.max_population = BUILDINGS.get("FARM").get("POPULATION_INIT")
+        self.max_capacity = BUILDINGS.get("WAREHOUSE").get("CAPACITY_INIT")
         self.calc_current_population()
         Clock.schedule_interval(self.update_resources, .1)
         return self.game
@@ -240,6 +251,8 @@ class GameApp(App):
             self.iron.per_s *= self.resources_ratio
         if self.current_upgrading.name == "farm":
             self.max_population *= self.farm.population_ratio
+        if self.current_upgrading.name == "warehouse":
+            self.max_capacity = self.warehouse.capacity0 * self.warehouse.capacity_ratio**(self.warehouse.level - 1)
         # update:
         self.current_upgrading = ""
         self.is_upgrading = False
@@ -252,6 +265,7 @@ class GameApp(App):
     def update_resources(self, dt):
         for resource in self.resources:
             resource.current += resource.per_s * dt
+            resource.current = min(resource.current, self.max_capacity)
 
 
 if __name__ == "__main__":
