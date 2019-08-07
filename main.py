@@ -127,6 +127,14 @@ class Warehouse(Building):
         self.capacity_ratio = self.settings.get("CAPACITY_RATIO")
 
 
+class HidingPlace(Building):
+    def __init__(self):
+        self.settings = BUILDINGS.get("HIDING_PLACE")
+        super().__init__()
+        self.capacity0 = self.settings.get("CAPACITY_INIT")
+        self.capacity_ratio = self.settings.get("CAPACITY_RATIO")
+
+
 class Game(ScreenManager):
     overview = kp.ObjectProperty(None)
     main = kp.ObjectProperty(None)
@@ -167,6 +175,7 @@ class GameApp(App):
     iron_mine = kp.ObjectProperty(IronMine())
     farm = kp.ObjectProperty(Farm())
     warehouse = kp.ObjectProperty(Warehouse())
+    hiding_place = kp.ObjectProperty(HidingPlace())
     # to upgrade buildings:
     current_upgrading = kp.ObjectProperty("")
     time_left = kp.NumericProperty()

@@ -246,11 +246,26 @@
                 text: "level %s" % (app.warehouse.level + 1)
                 on_press:
                     app.upgrade_building(app.warehouse)
+        Label
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Hiding place\n(Level %s)" % app.hiding_place.level
+            ContentLabel:
+                text: "%s" % int(app.hiding_place.wood)
+            ContentLabel:
+                text: "%s" % int(app.hiding_place.clay)
+            ContentLabel:
+                text: "%s" % int(app.hiding_place.iron)
+            ContentLabel:
+                text: "%s" % int(app.hiding_place.time)
+            ContentLabel:
+                text: "%s" % int(app.hiding_place.population_for_next_level)
+            Button:
+                text: "level %s" % (app.hiding_place.level + 1)
+                on_press:
+                    app.upgrade_building(app.hiding_place)
 
-        # DarkLabel:
-        #     text: "Warehouse"
-        # DarkLabel:
-        #     text: "Hiding place"
         # Label:
         # DarkLabel:
         #     text: "Not yet available"

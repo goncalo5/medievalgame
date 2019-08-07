@@ -158,4 +158,22 @@ BUILDINGS = {
         "CAPACITY_INIT": 1000,
         "CAPACITY_RATIO": 1.2295,
     },
+    "HIDING_PLACE": {
+        "NAME": "hiding_place",
+        "LEVEL": 0,
+        "MAX_LEVEL": 10,
+        "REQUIREMENTS": {
+            "WOOD": 50,
+            "CLAY": 60,
+            "IRON": 50,
+            "TIME": 1,
+            "RATIO": 1.26,
+        },
+        "POPULATION": {
+            "BASE": 2,
+            "RATIO": 1.16
+        },
+        "CAPACITY_INIT": 150,
+        "CAPACITY_RATIO": 1.333,
+    },
 }
