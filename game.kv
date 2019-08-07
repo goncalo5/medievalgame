@@ -265,26 +265,90 @@
                 text: "level %s" % (app.hiding_place.level + 1)
                 on_press:
                     app.upgrade_building(app.hiding_place)
-
-        # Label:
-        # DarkLabel:
-        #     text: "Not yet available"
-        # DarkLabel:
-        #     text: "Barracks"
-        # DarkLabel:
-        #     text: "Stable"
-        # DarkLabel:
-        #     text: "Workshop"
-        # DarkLabel:
-        #     text: "Watchtower"
-        # DarkLabel:
-        #     text: "Academy"
-        # DarkLabel:
-        #     text: "Smithy"
-        # DarkLabel:
-        #     text: "Market"
-        # DarkLabel:
-        #     text: "Wall"
+        Label
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Not yet available"
+            ContentLabel:
+                text: "Requirements"
+        Label
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Barracks"
+            MenuLabel:
+                color: 0.5, 0.5, 0.5, 1
+                text: "%s (%s)" % (app.barracks.unlock[0][0], app.barracks.unlock[0][1])
+        Label
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Stable"
+            MenuLabel:
+                color: 0.5, 0.5, 0.5, 1
+                text: "%s (%s)" % (app.stable.unlock[0][0], app.stable.unlock[0][1])
+            MenuLabel:
+                color: 0.5, 0.5, 0.5, 1
+                text: "%s (%s)" % (app.stable.unlock[1][0], app.stable.unlock[1][1])
+            MenuLabel:
+                color: 0.5, 0.5, 0.5, 1
+                text: "%s (%s)" % (app.stable.unlock[2][0], app.stable.unlock[2][1])
+        Label
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Workshop"
+            MenuLabel:
+                color: 0.5, 0.5, 0.5, 1
+                text: "%s (%s)" % (app.workshop.unlock[0][0], app.workshop.unlock[0][1])
+            MenuLabel:
+                color: 0.5, 0.5, 0.5, 1
+                text: "%s (%s)" % (app.workshop.unlock[1][0], app.workshop.unlock[1][1])
+        Label
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Academy"
+            MenuLabel:
+                color: 0.5, 0.5, 0.5, 1
+                text: "%s (%s)" % (app.academy.unlock[0][0], app.academy.unlock[0][1])
+            MenuLabel:
+                color: 0.5, 0.5, 0.5, 1
+                text: "%s (%s)" % (app.academy.unlock[1][0], app.academy.unlock[1][1])
+            MenuLabel:
+                color: 0.5, 0.5, 0.5, 1
+                text: "%s (%s)" % (app.academy.unlock[2][0], app.academy.unlock[2][1])
+        Label
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Smithy"
+            MenuLabel:
+                color: 0.5, 0.5, 0.5, 1
+                text: "%s (%s)" % (app.smithy.unlock[0][0], app.smithy.unlock[0][1])
+            MenuLabel:
+                color: 0.5, 0.5, 0.5, 1
+                text: "%s (%s)" % (app.smithy.unlock[1][0], app.smithy.unlock[1][1])
+        Label
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Market"
+            MenuLabel:
+                color: 0.5, 0.5, 0.5, 1
+                text: "%s (%s)" % (app.market.unlock[0][0], app.market.unlock[0][1])
+            MenuLabel:
+                color: 0.5, 0.5, 0.5, 1
+                text: "%s (%s)" % (app.market.unlock[1][0], app.market.unlock[1][1])
+        Label
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Wall"
+            MenuLabel:
+                color: 0.5, 0.5, 0.5, 1
+                text: "%s (%s)" % (app.wall.unlock[0][0], app.wall.unlock[0][1])
 
 <Game>:
     id: screen_manager

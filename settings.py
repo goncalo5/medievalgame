@@ -176,4 +176,158 @@ BUILDINGS = {
         "CAPACITY_INIT": 150,
         "CAPACITY_RATIO": 1.333,
     },
+    "BARRACKS": {
+        "NAME": "barracks",
+        "LEVEL": 0,
+        "MAX_LEVEL": 25,
+        "REQUIREMENTS": {
+            "WOOD": 200,
+            "CLAY": 170,
+            "IRON": 90,
+            "TIME": 1,
+            "RATIO": 1.26,
+        },
+        "POPULATION": {
+            "BASE": 7,
+            "RATIO": 1.16
+        },
+        "SPEED_FACTOR_INIT": 0.63,
+        "SPEED_FACTOR_RATIO": 0.95,
+        "UNLOCK": [
+            ["Headquarters", 3]
+        ]
+    },
+    "STABLE": {
+        "NAME": "stable",
+        "LEVEL": 0,
+        "MAX_LEVEL": 20,
+        "REQUIREMENTS": {
+            "WOOD": 270,
+            "CLAY": 240,
+            "IRON": 260,
+            "TIME": 1,
+            "RATIO": 1.26,
+        },
+        "POPULATION": {
+            "BASE": 8,
+            "RATIO": 1.16
+        },
+        "SPEED_FACTOR_INIT": 0.63,
+        "SPEED_FACTOR_RATIO": 0.95,
+        "UNLOCK": [
+            ["Headquarters", 10],
+            ["Barracks", 5],
+            ["Smithy", 5],
+        ]
+    },
+    "WORKSHOP": {
+        "NAME": "workshop",
+        "LEVEL": 0,
+        "MAX_LEVEL": 15,
+        "REQUIREMENTS": {
+            "WOOD": 300,
+            "CLAY": 240,
+            "IRON": 260,
+            "TIME": 1,
+            "RATIO": 1.26,
+        },
+        "POPULATION": {
+            "BASE": 8,
+            "RATIO": 1.16
+        },
+        "SPEED_FACTOR_INIT": 0.63,
+        "SPEED_FACTOR_RATIO": 0.95,
+        "UNLOCK": [
+            ["Headquarters", 10],
+            ["Smithy", 10],
+        ]
+    },
+    "ACADEMY": {
+        "NAME": "Academy",
+        "LEVEL": 0,
+        "MAX_LEVEL": 1,
+        "REQUIREMENTS": {
+            "WOOD": 15000,
+            "CLAY": 25000,
+            "IRON": 10000,
+            "TIME": 1,
+            "RATIO": 1.26,
+        },
+        "POPULATION": {
+            "BASE": 80,
+            "RATIO": 1.16
+        },
+        "SPEED_FACTOR_INIT": 0.63,
+        "SPEED_FACTOR_RATIO": 0.95,
+        "UNLOCK": [
+            ["Headquarters", 20],
+            ["Smithy", 20],
+            ["Market", 10],
+        ]
+    },
+    "SMITHY": {
+        "NAME": "Smithy",
+        "LEVEL": 0,
+        "MAX_LEVEL": 20,
+        "REQUIREMENTS": {
+            "WOOD": 220,
+            "CLAY": 180,
+            "IRON": 240,
+            "TIME": 1,
+            "RATIO": 1.26,
+        },
+        "POPULATION": {
+            "BASE": 20,
+            "RATIO": 1.16
+        },
+        "SPEED_FACTOR_INIT": 0.91,
+        "SPEED_FACTOR_RATIO": 0.912,
+        "UNLOCK": [
+            ["Headquarters", 5],
+            ["Barracks", 1],
+        ]
+    },
+    "MARKET": {
+        "NAME": "Market",
+        "LEVEL": 0,
+        "MAX_LEVEL": 25,
+        "REQUIREMENTS": {
+            "WOOD": 100,
+            "CLAY": 100,
+            "IRON": 100,
+            "TIME": 1,
+            "RATIO": 1.26,
+        },
+        "POPULATION": {
+            "BASE": 20,
+            "RATIO": 1.16
+        },
+        "NUMBER_OF_MERCHANTS_INIT": 1,
+        "NUMBER_OF_MERCHANTS_FACTOR": 1.28,
+        "UNLOCK": [
+            ["Headquarters", 3],
+            ["Warehouse", 2],
+        ]
+    },
+    "WALL": {
+        "NAME": "Wall",
+        "LEVEL": 0,
+        "MAX_LEVEL": 20,
+        "REQUIREMENTS": {
+            "WOOD": 50,
+            "CLAY": 100,
+            "IRON": 20,
+            "TIME": 1,
+            "RATIO": 1.26,
+        },
+        "POPULATION": {
+            "BASE": 5,
+            "RATIO": 1.16
+        },
+        "FACTOR_FOR_DEFENDING_TROOPS_INIT": 0.04,
+        "FACTOR_FOR_DEFENDING_TROOPS_RATIO": 1.08,
+        "UNLOCK": [
+            ["Headquarters", 3]
+        ]
+    },
 }

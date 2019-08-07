@@ -134,6 +134,58 @@ class HidingPlace(Building):
         self.capacity0 = self.settings.get("CAPACITY_INIT")
         self.capacity_ratio = self.settings.get("CAPACITY_RATIO")
 
+class Barracks(Building):
+    def __init__(self):
+        self.settings = BUILDINGS.get("BARRACKS")
+        super().__init__()
+        self.speed_factor0 = self.settings.get("SPEED_FACTOR_INIT")
+        self.speed_factor_ratio = self.settings.get("SPEED_FACTOR_RATIO")
+        self.unlock = self.settings.get("UNLOCK")
+
+class Stable(Building):
+    def __init__(self):
+        self.settings = BUILDINGS.get("STABLE")
+        super().__init__()
+        self.speed_factor0 = self.settings.get("SPEED_FACTOR_INIT")
+        self.speed_factor_ratio = self.settings.get("SPEED_FACTOR_RATIO")
+        self.unlock = self.settings.get("UNLOCK")
+
+class Workshop(Building):
+    def __init__(self):
+        self.settings = BUILDINGS.get("WORKSHOP")
+        super().__init__()
+        self.speed_factor0 = self.settings.get("SPEED_FACTOR_INIT")
+        self.speed_factor_ratio = self.settings.get("SPEED_FACTOR_RATIO")
+        self.unlock = self.settings.get("UNLOCK")
+
+class Academy(Building):
+    def __init__(self):
+        self.settings = BUILDINGS.get("ACADEMY")
+        super().__init__()
+        self.unlock = self.settings.get("UNLOCK")
+
+class Smithy(Building):
+    def __init__(self):
+        self.settings = BUILDINGS.get("SMITHY")
+        super().__init__()
+        self.speed_factor0 = self.settings.get("SPEED_FACTOR_INIT")
+        self.speed_factor_ratio = self.settings.get("SPEED_FACTOR_RATIO")
+        self.unlock = self.settings.get("UNLOCK")
+
+class Market(Building):
+    def __init__(self):
+        self.settings = BUILDINGS.get("MARKET")
+        super().__init__()
+        self.unlock = self.settings.get("UNLOCK")
+
+class Wall(Building):
+    def __init__(self):
+        self.settings = BUILDINGS.get("WALL")
+        super().__init__()
+        self.speed_factor0 = self.settings.get("SPEED_FACTOR_INIT")
+        self.speed_factor_ratio = self.settings.get("SPEED_FACTOR_RATIO")
+        self.unlock = self.settings.get("UNLOCK")
+
 
 class Game(ScreenManager):
     overview = kp.ObjectProperty(None)
@@ -176,6 +228,13 @@ class GameApp(App):
     farm = kp.ObjectProperty(Farm())
     warehouse = kp.ObjectProperty(Warehouse())
     hiding_place = kp.ObjectProperty(HidingPlace())
+    barracks = kp.ObjectProperty(Barracks())
+    stable = kp.ObjectProperty(Stable())
+    workshop = kp.ObjectProperty(Workshop())
+    academy = kp.ObjectProperty(Academy())
+    smithy = kp.ObjectProperty(Smithy())
+    market = kp.ObjectProperty(Market())
+    wall = kp.ObjectProperty(Wall())
     # to upgrade buildings:
     current_upgrading = kp.ObjectProperty("")
     time_left = kp.NumericProperty()
