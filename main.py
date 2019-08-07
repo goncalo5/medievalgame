@@ -234,6 +234,7 @@ class GameApp(App):
             self.current_upgrading = ""
             self.time_left = 0
             self.cancel = False
+            self.is_upgrading = False
             return False
         self.time_left -= dt
         if self.time_left <= 0:
