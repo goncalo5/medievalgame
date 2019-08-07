@@ -12,25 +12,67 @@ from settings import *
 class Building(Widget):
     # settings = kp.DictProperty()
     level = kp.NumericProperty(0)
+    wood0 = kp.NumericProperty()
+    clay0 = kp.NumericProperty()
+    iron0 = kp.NumericProperty()
     wood = kp.NumericProperty()
     clay = kp.NumericProperty()
     iron = kp.NumericProperty()
     time = kp.NumericProperty()
+    population0 = kp.NumericProperty()
+    population_ratio = kp.NumericProperty()
+    population_for_next_level = kp.NumericProperty()
     population = kp.NumericProperty()
     def __init__(self):
         self.name = self.settings.get("NAME")
         self.level = self.settings.get("LEVEL")
         self.max_level = self.settings.get("MAX_LEVEL")
-        self.wood = self.settings.get("REQUIREMENTS").get("WOOD")
-        self.clay = self.settings.get("REQUIREMENTS").get("CLAY")
-        self.iron = self.settings.get("REQUIREMENTS").get("IRON")
-        self.time = self.settings.get("REQUIREMENTS").get("TIME")
-        self.population = self.settings.get("REQUIREMENTS").get("POPULATION")
+        self.wood0 = self.settings.get("REQUIREMENTS").get("WOOD")
+        self.clay0 = self.settings.get("REQUIREMENTS").get("CLAY")
+        self.iron0 = self.settings.get("REQUIREMENTS").get("IRON")
+        self.time0 = self.settings.get("REQUIREMENTS").get("TIME")
+        self.time_ratio = self.settings.get("REQUIREMENTS").get("TIME")
         self.ratio = self.settings.get("REQUIREMENTS").get("RATIO")
+        self.population0 = self.settings.get("POPULATION").get("BASE")
+        self.population_ratio = self.settings.get("POPULATION").get("RATIO")
         self.time_left = self.time
+        self.update_cost_for_current_level()
+        self.update_population_for_current_level()
+        self.update_time_for_current_level()
     
     def __repr__(self):
         return self.name
+
+    def update_cost_for_current_level(self):
+        self.wood = self.wood0 * self.ratio ** self.level
+        self.clay = self.clay0 * self.ratio ** self.level
+        self.iron = self.iron0 * self.ratio ** self.level
+
+    def update_population_for_current_level(self):
+        print("update_population_for_current_level", self.name)
+        print(self.population0, self.population_ratio, self.level)
+        if self.level == 0:
+            self.population = 0
+            self.population_for_next_level = self.population0
+        else:
+            self.population = int(self.population0 * self.population_ratio ** self.level)
+            next_level = int(self.population0 * self.population_ratio ** (self.level + 1))
+            self.population_for_next_level = next_level - self.population
+        print(self.population, self.population_for_next_level)
+
+    def update_time_for_current_level(self):
+        print("update_time_for_current_level", self.name)
+        try:
+            app = App.get_running_app()
+            headquarters_ratio = app.headquarters.time_reduce ** app.headquarters.level
+        except AttributeError:
+            print("AttributeError")
+            headquarters_ratio = BUILDINGS.get("HEADQUARTERS").get("TIME_REDUCE")
+            headquarters_level = BUILDINGS.get("HEADQUARTERS").get("LEVEL")
+            headquarters_ratio = headquarters_ratio ** headquarters_level
+        print("time", self.time, self.time0, self.time_ratio, self.level, headquarters_ratio)
+        self.time = self.time0 * self.time_ratio ** self.level * headquarters_ratio
+        print("time", self.time)
 
 
 class Headquarters(Building):
@@ -70,6 +112,13 @@ class IronMine(Building):
         super().__init__()
 
 
+class Farm(Building):
+    def __init__(self):
+        self.settings = BUILDINGS.get("FARM")
+        super().__init__()
+        self.population_ratio = self.settings.get("POPULATION_RATIO")
+
+
 class Game(ScreenManager):
     overview = kp.ObjectProperty(None)
     main = kp.ObjectProperty(None)
@@ -85,11 +134,14 @@ class Resource(Widget):
 
 class GameApp(App):
     width = kp.NumericProperty(Window.width)
+    offset = kp.NumericProperty()
     # resources:
     wood = kp.ObjectProperty(Resource("WOOD"))
     clay = kp.ObjectProperty(Resource("CLAY"))
     iron = kp.ObjectProperty(Resource("IRON"))
     resources_ratio = kp.NumericProperty(RESOURCES.get("RATIO"))
+    current_population = kp.NumericProperty(0)
+    max_population = kp.NumericProperty(0)
     # buildings:
     headquarters = kp.ObjectProperty(Headquarters())
     rally_point = kp.ObjectProperty(RallyPoint())
@@ -97,6 +149,7 @@ class GameApp(App):
     timber_camp = kp.ObjectProperty(TimberCamp())
     clay_pit = kp.ObjectProperty(ClayPit())
     iron_mine = kp.ObjectProperty(IronMine())
+    farm = kp.ObjectProperty(Farm())
     # to upgrade buildings:
     current_upgrading = kp.ObjectProperty("")
     time_left = kp.NumericProperty()
@@ -110,8 +163,18 @@ class GameApp(App):
         self.buildings =\
             [self.headquarters, self.rally_point, self.statue,
             self.timber_camp, self.clay_pit, self.iron_mine]
+        self.max_population = BUILDINGS.get("FARM").get("POPULATION_INIT")
+        self.calc_current_population()
         Clock.schedule_interval(self.update_resources, .1)
         return self.game
+    
+    def calc_current_population(self):
+        print()
+        print("calc_current_population")
+        self.current_population = 0
+        for building in self.buildings:
+            print(building.name, building.population)
+            self.current_population += building.population
 
     def upgrade_building(self, building):
         print("upgrade_building")
@@ -153,11 +216,11 @@ class GameApp(App):
     
     def update_building_finish(self):
         # update requirements:
-        self.current_upgrading.wood *= self.current_upgrading.ratio
-        self.current_upgrading.clay *= self.current_upgrading.ratio
-        self.current_upgrading.iron *= self.current_upgrading.ratio
+        self.current_upgrading.level += 1
+        self.current_upgrading.update_cost_for_current_level()
+        self.current_upgrading.update_population_for_current_level()
+        self.calc_current_population()
         self.current_upgrading.time *= self.current_upgrading.ratio
-        self.current_upgrading.population *= self.current_upgrading.ratio
         # update buildings:
         if self.current_upgrading.name == "headquarters":
             for build in self.buildings:
@@ -168,8 +231,9 @@ class GameApp(App):
             self.clay.per_s *= self.resources_ratio
         if self.current_upgrading.name == "iron_mine":
             self.iron.per_s *= self.resources_ratio
+        if self.current_upgrading.name == "farm":
+            self.max_population *= self.farm.population_ratio
         # update:
-        self.current_upgrading.level += 1
         self.current_upgrading = ""
         self.is_upgrading = False
     

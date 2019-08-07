@@ -1,8 +1,8 @@
 RESOURCES = {
     "INIT": {
-        "WOOD": 500,
-        "CLAY": 500,
-        "IRON": 400,
+        "WOOD": 50000,
+        "CLAY": 50000,
+        "IRON": 40000,
     },
     "PRODUCTION": {
         "WOOD": .8,
@@ -15,17 +15,20 @@ RESOURCES = {
 BUILDINGS = {
     "HEADQUARTERS": {
         "NAME": "headquarters",
-        "LEVEL": 1,
+        "LEVEL": 0,
         "MAX_LEVEL": 30,
         "REQUIREMENTS": {
-            "WOOD": 113,
-            "CLAY": 102,
-            "IRON": 88,
-            "TIME": 6,
-            "POPULATION": 1,
-            "RATIO": 1.5,
+            "WOOD": 90,
+            "CLAY": 80,
+            "IRON": 70,
+            "TIME": 1,
+            "RATIO": 1.26,
         },
-        "TIME_REDUCE": 0.7
+        "POPULATION": {
+            "BASE": 5,
+            "RATIO": 1.155
+        },
+        "TIME_REDUCE": 1/1.05
     },
     "RALLYPOINT": {
         "NAME": "rally_point",
@@ -36,8 +39,11 @@ BUILDINGS = {
             "CLAY": 0,
             "IRON": 0,
             "TIME": 0,
-            "POPULATION": 0,
-            "RATIO": 1.5,
+            "RATIO": 1.26,
+        },
+        "POPULATION": {
+            "BASE": 5,
+            "RATIO": 1.155
         },
     },
     "STATUE": {
@@ -49,8 +55,11 @@ BUILDINGS = {
             "CLAY": 220,
             "IRON": 220,
             "TIME": 7,
-            "POPULATION": 10,
-            "RATIO": 1.5,
+            "RATIO": 1.26,
+        },
+        "POPULATION": {
+            "BASE": 5,
+            "RATIO": 1.155
         },
     },
     "TIMBER_CAMP": {
@@ -62,8 +71,15 @@ BUILDINGS = {
             "CLAY": 60,
             "IRON": 40,
             "TIME": 6,
-            "POPULATION": 10,
-            "RATIO": 1.5,
+            "RATIO": 1.26,
+        },
+        "POPULATION": {
+            "BASE": 5,
+            "RATIO": 1.155
+        },
+        "PRODUCTION": {
+            "BASE": 30,
+            "RATIO": 1.16
         },
     },
     "CLAY_PIT": {
@@ -71,25 +87,57 @@ BUILDINGS = {
         "LEVEL": 0,
         "MAX_LEVEL": 30,
         "REQUIREMENTS": {
-            "WOOD": 50,
-            "CLAY": 60,
+            "WOOD": 65,
+            "CLAY": 50,
             "IRON": 40,
             "TIME": 6,
-            "POPULATION": 10,
-            "RATIO": 1.5,
+            "RATIO": 1.26,
         },
+        "POPULATION": {
+            "BASE": 5,
+            "RATIO": 1.155
+        },
+        "PRODUCTION": {
+            "BASE": 30,
+            "RATIO": 1.16
+        }
     },
     "IRON_MINE": {
         "NAME": "iron_mine",
         "LEVEL": 0,
         "MAX_LEVEL": 30,
         "REQUIREMENTS": {
-            "WOOD": 50,
-            "CLAY": 60,
-            "IRON": 40,
+            "WOOD": 75,
+            "CLAY": 65,
+            "IRON": 70,
             "TIME": 6,
-            "POPULATION": 10,
-            "RATIO": 1.5,
+            "RATIO": 1.26,
         },
+        "POPULATION": {
+            "BASE": 5,
+            "RATIO": 1.155
+        },
+        "PRODUCTION": {
+            "BASE": 30,
+            "RATIO": 1.16
+        }
+    },
+    "FARM": {
+        "NAME": "farm",
+        "LEVEL": 1,
+        "MAX_LEVEL": 30,
+        "REQUIREMENTS": {
+            "WOOD": 59,
+            "CLAY": 53,
+            "IRON": 39,
+            "TIME": 1,
+            "RATIO": 1.26,
+        },
+        "POPULATION": {
+            "BASE": 0,
+            "RATIO": 1.
+        },
+        "POPULATION_INIT": 240,
+        "POPULATION_RATIO": 1.17,
     },
 }

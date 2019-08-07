@@ -43,6 +43,8 @@
                 text: "clay %s" % int(app.clay.current)
             DarkLabel:
                 text: "iron %s" % int(app.iron.current)
+            DarkLabel:
+                text: "pop %s/%s" % (int(app.current_population), int(app.max_population))
         Label
         DarkLabel:
             text: "Headquarters (Level %s)" % app.headquarters.level
@@ -59,14 +61,6 @@
                 text: "Cancellation"
         GridLayout:
             rows: 1
-            # row_force_default: True
-            # row_default_height: 50
-            # pos_hint: {'center_x':.5}
-            # size_hint: (None, None)
-            # # size is updated whenever minimum_size is.
-            # size: self.minimum_size
-            # # top is updated whenever height is.
-            # top: self.height
             MenuLabel:
                 text: "%s" % app.current_upgrading
             MenuLabel:
@@ -80,10 +74,6 @@
                     size_hint: 0.5, 0.5
                     on_press:
                         app.cancel_upgrading()
-            # Button:
-            #     text: "Cancel"
-            #     on_press:
-            #         print("cancel upgrade")
         Label:
         GridLayout:
             rows: 1
@@ -115,7 +105,7 @@
             ContentLabel:
                 text: "%s" % int(app.headquarters.time)
             ContentLabel:
-                text: "%s" % int(app.headquarters.population)
+                text: "%s" % int(app.headquarters.population_for_next_level)
             Button:
                 text: "level %s" % (app.headquarters.level + 1)
                 on_press:
@@ -134,7 +124,7 @@
             ContentLabel:
                 text: "%s" % int(app.rally_point.time)
             ContentLabel:
-                text: "%s" % int(app.rally_point.population)
+                text: "%s" % int(app.rally_point.population_for_next_level)
             Button:
                 text: "level %s" % (app.rally_point.level + 1)
                 on_press:
@@ -153,7 +143,7 @@
             ContentLabel:
                 text: "%s" % int(app.statue.time)
             ContentLabel:
-                text: "%s" % int(app.statue.population)
+                text: "%s" % int(app.statue.population_for_next_level)
             Button:
                 text: "level %s" % (app.statue.level + 1)
                 on_press:
@@ -172,7 +162,7 @@
             ContentLabel:
                 text: "%s" % int(app.timber_camp.time)
             ContentLabel:
-                text: "%s" % int(app.timber_camp.population)
+                text: "%s" % int(app.timber_camp.population_for_next_level)
             Button:
                 text: "level %s" % (app.timber_camp.level + 1)
                 on_press:
@@ -191,7 +181,7 @@
             ContentLabel:
                 text: "%s" % int(app.clay_pit.time)
             ContentLabel:
-                text: "%s" % int(app.clay_pit.population)
+                text: "%s" % int(app.clay_pit.population_for_next_level)
             Button:
                 text: "level %s" % (app.clay_pit.level + 1)
                 on_press:
@@ -210,37 +200,54 @@
             ContentLabel:
                 text: "%s" % int(app.iron_mine.time)
             ContentLabel:
-                text: "%s" % int(app.iron_mine.population)
+                text: "%s" % int(app.iron_mine.population_for_next_level)
             Button:
                 text: "level %s" % (app.iron_mine.level + 1)
                 on_press:
                     app.upgrade_building(app.iron_mine)
+        Label
+        GridLayout:
+            rows: 1
+            MenuLabel:
+                text: "Farm\n(Level %s)" % app.farm.level
+            ContentLabel:
+                text: "%s" % int(app.farm.wood)
+            ContentLabel:
+                text: "%s" % int(app.farm.clay)
+            ContentLabel:
+                text: "%s" % int(app.farm.iron)
+            ContentLabel:
+                text: "%s" % int(app.farm.time)
+            ContentLabel:
+                text: "%s" % int(app.farm.population_for_next_level)
+            Button:
+                text: "level %s" % (app.farm.level + 1)
+                on_press:
+                    app.upgrade_building(app.farm)
 
-        DarkLabel:
-            text: "Farm"
-        DarkLabel:
-            text: "Warehouse"
-        DarkLabel:
-            text: "Hiding place"
-        Label:
-        DarkLabel:
-            text: "Not yet available"
-        DarkLabel:
-            text: "Barracks"
-        DarkLabel:
-            text: "Stable"
-        DarkLabel:
-            text: "Workshop"
-        DarkLabel:
-            text: "Watchtower"
-        DarkLabel:
-            text: "Academy"
-        DarkLabel:
-            text: "Smithy"
-        DarkLabel:
-            text: "Market"
-        DarkLabel:
-            text: "Wall"
+        # DarkLabel:
+        #     text: "Warehouse"
+        # DarkLabel:
+        #     text: "Hiding place"
+        # Label:
+        # DarkLabel:
+        #     text: "Not yet available"
+        # DarkLabel:
+        #     text: "Barracks"
+        # DarkLabel:
+        #     text: "Stable"
+        # DarkLabel:
+        #     text: "Workshop"
+        # DarkLabel:
+        #     text: "Watchtower"
+        # DarkLabel:
+        #     text: "Academy"
+        # DarkLabel:
+        #     text: "Smithy"
+        # DarkLabel:
+        #     text: "Market"
+        # DarkLabel:
+        #     text: "Wall"
 
 <Game>:
     id: screen_manager
