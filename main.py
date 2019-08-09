@@ -136,6 +136,7 @@ class HidingPlace(Building):
         self.capacity0 = self.settings.get("CAPACITY_INIT")
         self.capacity_ratio = self.settings.get("CAPACITY_RATIO")
 
+
 class Barracks(Building):
     def __init__(self):
         self.settings = BUILDINGS.get("BARRACKS")
@@ -143,6 +144,7 @@ class Barracks(Building):
         self.speed_factor0 = self.settings.get("SPEED_FACTOR_INIT")
         self.speed_factor_ratio = self.settings.get("SPEED_FACTOR_RATIO")
         self.unlock = self.settings.get("UNLOCK")
+
 
 class Stable(Building):
     def __init__(self):
@@ -152,6 +154,7 @@ class Stable(Building):
         self.speed_factor_ratio = self.settings.get("SPEED_FACTOR_RATIO")
         self.unlock = self.settings.get("UNLOCK")
 
+
 class Workshop(Building):
     def __init__(self):
         self.settings = BUILDINGS.get("WORKSHOP")
@@ -160,11 +163,13 @@ class Workshop(Building):
         self.speed_factor_ratio = self.settings.get("SPEED_FACTOR_RATIO")
         self.unlock = self.settings.get("UNLOCK")
 
+
 class Academy(Building):
     def __init__(self):
         self.settings = BUILDINGS.get("ACADEMY")
         super().__init__()
         self.unlock = self.settings.get("UNLOCK")
+
 
 class Smithy(Building):
     def __init__(self):
@@ -174,11 +179,13 @@ class Smithy(Building):
         self.speed_factor_ratio = self.settings.get("SPEED_FACTOR_RATIO")
         self.unlock = self.settings.get("UNLOCK")
 
+
 class Market(Building):
     def __init__(self):
         self.settings = BUILDINGS.get("MARKET")
         super().__init__()
         self.unlock = self.settings.get("UNLOCK")
+
 
 class Wall(Building):
     def __init__(self):
@@ -189,24 +196,13 @@ class Wall(Building):
         self.unlock = self.settings.get("UNLOCK")
 
 
-class Game(ScreenManager):
-    overview = kp.ObjectProperty(None)
-    main = kp.ObjectProperty(None)
-
-    def on_touch_move(self, touch):
-        # print("on_touch_move",  touch)
-        app = App.get_running_app()
-
-        app.offset += touch.dy
-        # print(app.offset)
-        app.offset = max(app.offset, 0)
-
 class Resource(Widget):
     current = kp.NumericProperty(0)
     def __init__(self, _type, **kwargs):
         super().__init__(**kwargs)
         self.current = RESOURCES.get("INIT").get(_type)
         self.per_s = RESOURCES.get("PRODUCTION").get(_type)
+        self.icon = RESOURCES.get("ICON").get(_type)
 
 
 class Unit(EventDispatcher):
@@ -224,6 +220,19 @@ class Unit(EventDispatcher):
         self.speed = self.settings.get("SPEED")
         self.capacity = self.settings.get("CAPACITY")
         self.special_abilities = self.settings.get("SPECIAL_ABILITIES")
+
+
+class Game(ScreenManager):
+    overview = kp.ObjectProperty(None)
+    main = kp.ObjectProperty(None)
+
+    def on_touch_move(self, touch):
+        # print("on_touch_move",  touch)
+        app = App.get_running_app()
+
+        app.offset += touch.dy
+        # print(app.offset)
+        app.offset = max(app.offset, 0)
 
 
 class GameApp(App):

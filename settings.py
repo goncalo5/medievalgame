@@ -1,3 +1,4 @@
+
 RESOURCES = {
     "INIT": {
         "WOOD": 50000,
@@ -9,7 +10,14 @@ RESOURCES = {
         "CLAY": .8,
         "IRON": .8,
     },
-    "RATIO": 1.5
+    "RATIO": 1.5,
+    "ICON": {
+        "WOOD": "img/wood.png",
+        "CLAY": "img/Clay.png",
+        "IRON": "img/iron.png",
+        "BOOTY": "img/Booty.png",
+        "POPULATION": "img/Pop.png"
+    }
 }
 
 BUILDINGS = {
