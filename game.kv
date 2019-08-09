@@ -27,7 +27,8 @@
             pos: self.pos
             size: self.size
     orientation: "horizontal"
-    size_hint_y: 0.10
+    size_hint_y: None
+    height: app.height * 0.1
     Button:
         text: "village"
         on_press:
@@ -72,9 +73,9 @@
                 source: "img/Barracks1.png"
             BoxLayout:
                 orientation: "vertical"
-                Label:
+                DarkLabel:
                     text: "Barracks (Level %s)" % app.barracks.level
-                Label:
+                DarkLabel:
                     font_size: 25
                     text: "In the barracks you can recruit infantry.\nThe higher its level the faster the recruitment of troops will be finished."
         TabbedPanel:
@@ -150,6 +151,7 @@
                             font_size: 24
                         # Recruit
                         TextInput:
+                            id: spear_fighter_recruit
                             size_hint_x: 0.1
                         Label:
                             text: "(%s)" % ""
@@ -160,6 +162,9 @@
                         size_hint_y: 0.2
                         size_hint_x: 0.15
                         pos_hint: {"x": 0.85}
+                        on_press:
+                            print("recruit", spear_fighter_recruit.text)
+                            app.spear_fighter.recruit(spear_fighter_recruit.text)
                     BoxLayout:
                         orientation: "horizontal"
                         size_hint_y: 0.2

@@ -1,9 +1,9 @@
 
 RESOURCES = {
     "INIT": {
-        "WOOD": 50000,
-        "CLAY": 50000,
-        "IRON": 40000,
+        "WOOD": 500,
+        "CLAY": 500,
+        "IRON": 400,
     },
     "PRODUCTION": {
         "WOOD": .8,

@@ -220,6 +220,14 @@ class Unit(EventDispatcher):
         self.speed = self.settings.get("SPEED")
         self.capacity = self.settings.get("CAPACITY")
         self.special_abilities = self.settings.get("SPECIAL_ABILITIES")
+    
+    def recruit(self, n):
+        n = int(n)
+        app = App.get_running_app()
+        # check if can recruit:
+        if app.wood.current >= self.requirements.get("WOOD") * n:
+            app.wood.current -= self.requirements.get("WOOD") * n
+            self.n += n
 
 
 class Game(ScreenManager):
