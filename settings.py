@@ -331,3 +331,327 @@ BUILDINGS = {
         ]
     },
 }
+
+UNITS = {
+    "SPEAR_FIGHTER": {
+        "NAME": "spear_fighter",
+        "TYPE": "general",
+        "REQUIREMENTS": {
+            "WOOD": 50,
+            "CLAY": 30,
+            "IRON": 10,
+            "POPULATION": 1,
+            "UNLOCK": [
+                ["barracks", 1]
+            ]
+        },
+        "ATK": 10,
+        "DEFENCE": {
+            "GENERAL": 15,
+            "CAVALRY": 45,
+            "ARCHER": 20
+        },
+        "SPEED": 18,
+        "CAPACITY": 25
+    },
+    "SWORDSMAN": {
+        "NAME": "swordsman",
+        "TYPE": "general",
+        "REQUIREMENTS": {
+            "WOOD": 30,
+            "CLAY": 30,
+            "IRON": 70,
+            "POPULATION": 1,
+            "UNLOCK": [
+                ["smithy", 1]
+            ]
+        },
+        "ATK": 25,
+        "DEFENCE": {
+            "GENERAL": 50,
+            "CAVALRY": 15,
+            "ARCHER": 40
+        },
+        "SPEED": 22,
+        "CAPACITY": 15
+    },
+    "AXEMAN": {
+        "NAME": "axeman",
+        "TYPE": "general",
+        "REQUIREMENTS": {
+            "WOOD": 60,
+            "CLAY": 30,
+            "IRON": 40,
+            "POPULATION": 1,
+            "UNLOCK": [
+                ["smithy", 2]
+            ]
+        },
+        "ATK": 40,
+        "DEFENCE": {
+            "GENERAL": 10,
+            "CAVALRY": 5,
+            "ARCHER": 10
+        },
+        "SPEED": 18,
+        "CAPACITY": 10
+    },
+    "ARCHER": {
+        "NAME": "archer",
+        "TYPE": "archer",
+        "REQUIREMENTS": {
+            "WOOD": 100,
+            "CLAY": 30,
+            "IRON": 60,
+            "POPULATION": 1,
+            "UNLOCK": [
+                ["barracks", 5],
+                ["smithy", 5]
+            ]
+        },
+        "ATK": 15,
+        "DEFENCE": {
+            "GENERAL": 50,
+            "CAVALRY": 40,
+            "ARCHER": 5
+        },
+        "SPEED": 18,
+        "CAPACITY": 10
+    },
+    "SCOUT": {
+        "NAME": "scout",
+        "TYPE": "cavalry",
+        "REQUIREMENTS": {
+            "WOOD": 50,
+            "CLAY": 50,
+            "IRON": 20,
+            "POPULATION": 2,
+            "UNLOCK": [
+                ["stable", 1]
+            ]
+        },
+        "ATK": 0,
+        "DEFENCE": {
+            "GENERAL": 2,
+            "CAVALRY": 1,
+            "ARCHER": 2
+        },
+        "SPEED": 9,
+        "CAPACITY": 0,
+        "SPECIAL_ABILITIES": [
+            "When attacking, can only be caught by other scouts.",
+            "After attacking, reveals extra information in the battle report."
+        ]
+    },
+    "LIGHT_CAVALRY": {
+        "NAME": "light_cavalry",
+        "TYPE": "cavalry",
+        "REQUIREMENTS": {
+            "WOOD": 125,
+            "CLAY": 100,
+            "IRON": 250,
+            "POPULATION": 4,
+            "UNLOCK": [
+                ["stable", 3]
+            ],
+            "RESEARCH": {
+                "WOOD": 2200,
+                "CLAY": 2400,
+                "IRON": 2000,
+            }
+        },
+        "ATK": 130,
+        "DEFENCE": {
+            "GENERAL": 30,
+            "CAVALRY": 40,
+            "ARCHER": 30
+        },
+        "SPEED": 10,
+        "CAPACITY": 80
+    },
+    "MOUNTED_ARCHER": {
+        "NAME": "mounted_archer",
+        "TYPE": "archer",
+        "REQUIREMENTS": {
+            "WOOD": 250,
+            "CLAY": 100,
+            "IRON": 150,
+            "POPULATION": 5,
+            "UNLOCK": [
+                ["stable", 5]
+            ],
+            "RESEARCH": {
+                "WOOD": 3000,
+                "CLAY": 2400,
+                "IRON": 2000,
+            }
+        },
+        "ATK": 100,
+        "DEFENCE": {
+            "GENERAL": 40,
+            "CAVALRY": 30,
+            "ARCHER": 50
+        },
+        "SPEED": 10,
+        "CAPACITY": 50
+    },
+    "HEAVY_CAVALRY": {
+        "NAME": "heavy_cavalry",
+        "TYPE": "cavalry",
+        "REQUIREMENTS": {
+            "WOOD": 200,
+            "CLAY": 150,
+            "IRON": 600,
+            "POPULATION": 6,
+            "UNLOCK": [
+                ["stable", 10],
+                ["smithy", 15]
+            ],
+            "RESEARCH": {
+                "WOOD": 3000,
+                "CLAY": 2400,
+                "IRON": 2000,
+            }
+        },
+        "ATK": 150,
+        "DEFENCE": {
+            "GENERAL": 200,
+            "CAVALRY": 80,
+            "ARCHER": 180
+        },
+        "SPEED": 11,
+        "CAPACITY": 50
+    },
+    "RAM": {
+        "NAME": "ram",
+        "TYPE": "general",
+        "REQUIREMENTS": {
+            "WOOD": 300,
+            "CLAY": 200,
+            "IRON": 200,
+            "POPULATION": 5,
+            "UNLOCK": [
+                ["workshop", 1]
+            ],
+            "RESEARCH": {
+                "WOOD": 1200,
+                "CLAY": 1600,
+                "IRON": 800,
+            }
+        },
+        "ATK": 2,
+        "DEFENCE": {
+            "GENERAL": 20,
+            "CAVALRY": 50,
+            "ARCHER": 20
+        },
+        "SPEED": 30,
+        "CAPACITY": 0,
+        "SPECIAL_ABILITIES": [
+            "Damages Walls and reduces their effects in battle."
+        ]
+    },
+    "CATAPULT": {
+        "NAME": "catapult",
+        "TYPE": "general",
+        "REQUIREMENTS": {
+            "WOOD": 320,
+            "CLAY": 400,
+            "IRON": 100,
+            "POPULATION": 8,
+            "UNLOCK": [
+                ["workshop", 2],
+                ["Smithy", 12]
+            ],
+            "RESEARCH": {
+                "WOOD": 1600,
+                "CLAY": 2000,
+                "IRON": 1200,
+            }
+        },
+        "ATK": 100,
+        "DEFENCE": {
+            "GENERAL": 100,
+            "CAVALRY": 50,
+            "ARCHER": 100
+        },
+        "SPEED": 30,
+        "CAPACITY": 0,
+        "SPECIAL_ABILITIES": [
+            "Damages selected enemy building."
+        ]
+    },
+    "PALADIN": {
+        "NAME": "paladin",
+        "TYPE": "cavalry",
+        "REQUIREMENTS": {
+            "WOOD": 20,
+            "CLAY": 20,
+            "IRON": 40,
+            "POPULATION": 10,
+            "UNLOCK": [
+                ["statue", 1]
+            ],
+        },
+        "ATK": 150,
+        "DEFENCE": {
+            "GENERAL": 250,
+            "CAVALRY": 400,
+            "ARCHER": 150
+        },
+        "SPEED": 10,
+        "CAPACITY": 100,
+        "SPECIAL_ABILITIES": [
+            "Can learn different skills.",
+            "Can earn experience and gain levels.",
+            "Possible to recruit more paladins by conquering other villages.",
+            "Units travelling with the Paladin as support, travel at the Paladin's speed."
+        ]
+    },
+    "NOBLE": {
+        "NAME": "noble",
+        "TYPE": "general",
+        "REQUIREMENTS": {
+            "WOOD": 40000,
+            "CLAY": 50000,
+            "IRON": 50000,
+            "POPULATION": 100,
+            "UNLOCK": [
+                ["academy", 1],
+                ["headquarters", 20],
+                ["smithy", 20],
+                ["market", 10]
+            ],
+        },
+        "ATK": 30,
+        "DEFENCE": {
+            "GENERAL": 100,
+            "CAVALRY": 50,
+            "ARCHER": 100
+        },
+        "SPEED": 35,
+        "CAPACITY": 0,
+        "SPECIAL_ABILITIES": [
+            "Reduces attacked village's loyalty by 20 to 35 points."
+        ]
+    },
+    "MILITIA": {
+        "NAME": "militia",
+        "TYPE": "general",
+        "REQUIREMENTS": {
+            "WOOD": 0,
+            "CLAY": 0,
+            "IRON": 0,
+            "POPULATION": 0,
+        },
+        "ATK": 0,
+        "DEFENCE": {
+            "GENERAL": 15,
+            "CAVALRY": 45,
+            "ARCHER": 25
+        },
+        "SPEED": 0,
+        "CAPACITY": 0
+    },
+
+}
