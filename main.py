@@ -1,11 +1,13 @@
-# external modules:
+# kivy modules:
 from kivy.app import App
-from kivy.uix.widget import Widget
-from kivy.uix.screenmanager import ScreenManager, NoTransition
 from kivy import properties as kp
 from kivy.core.window import Window
 from kivy.clock import Clock
-# mine modules:
+from kivy.event import EventDispatcher
+    # uix:
+from kivy.uix.widget import Widget
+from kivy.uix.screenmanager import ScreenManager, NoTransition
+# self modules:
 from settings import *
 
 
@@ -207,6 +209,23 @@ class Resource(Widget):
         self.per_s = RESOURCES.get("PRODUCTION").get(_type)
 
 
+class Unit(EventDispatcher):
+    n = kp.NumericProperty(0)
+    def __init__(self, name):
+        super().__init__()
+        print(name)
+        self.settings = UNITS.get(name)
+        self.name = name.lower()
+        self.icon = self.settings.get("ICON")
+        self._type = self.settings.get("TYPE", "general")
+        self.requirements = self.settings.get("REQUIREMENTS")
+        self.atk = self.settings.get("ATK")
+        self.defence = self.settings.get("DEFENCE")
+        self.speed = self.settings.get("SPEED")
+        self.capacity = self.settings.get("CAPACITY")
+        self.special_abilities = self.settings.get("SPECIAL_ABILITIES")
+
+
 class GameApp(App):
     width = kp.NumericProperty(Window.width)
     height = kp.NumericProperty(Window.height)
@@ -241,6 +260,20 @@ class GameApp(App):
     time_left = kp.NumericProperty()
     cancel = kp.BooleanProperty(False)
     is_upgrading = kp.BooleanProperty(False)
+    # Units:
+    spear_fighter = kp.ObjectProperty(Unit("SPEAR_FIGHTER"))
+    swordsman = kp.ObjectProperty(Unit("SWORDSMAN"))
+    axeman = kp.ObjectProperty(Unit("AXEMAN"))
+    archer = kp.ObjectProperty(Unit("ARCHER"))
+    scout = kp.ObjectProperty(Unit("SCOUT"))
+    light_cavalry = kp.ObjectProperty(Unit("LIGHT_CAVALRY"))
+    mounted_archer = kp.ObjectProperty(Unit("MOUNTED_ARCHER"))
+    heavy_cavalry = kp.ObjectProperty(Unit("HEAVY_CAVALRY"))
+    ram = kp.ObjectProperty(Unit("RAM"))
+    catapult = kp.ObjectProperty(Unit("CATAPULT"))
+    paladin = kp.ObjectProperty(Unit("PALADIN"))
+    noble = kp.ObjectProperty(Unit("NOBLE"))
+    militia = kp.ObjectProperty(Unit("MILITIA"))
 
     def build(self):
         print(Window.width)
@@ -251,6 +284,11 @@ class GameApp(App):
             self.timber_camp, self.clay_pit, self.iron_mine]
         self.max_population = BUILDINGS.get("FARM").get("POPULATION_INIT")
         self.max_capacity = BUILDINGS.get("WAREHOUSE").get("CAPACITY_INIT")
+        self.units = [
+            self.spear_fighter, self.swordsman, self.axeman, self.archer, 
+            self.scout, self.light_cavalry, self.mounted_archer, self.heavy_cavalry, 
+            self.ram, self.catapult, self.paladin, self.noble, self.militia
+        ]
         self.calc_current_population()
         Clock.schedule_interval(self.update_resources, .1)
         return self.game

@@ -335,6 +335,7 @@ BUILDINGS = {
 UNITS = {
     "SPEAR_FIGHTER": {
         "NAME": "spear_fighter",
+        "ICON": "img/Unit_spear_60.png",
         "TYPE": "general",
         "REQUIREMENTS": {
             "WOOD": 50,

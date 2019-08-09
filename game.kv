@@ -68,10 +68,10 @@
                         orientation: "horizontal"
                         # Unit:
                         Image:
-                            source: "img/Unit_spear_60.png"
+                            source: app.spear_fighter.icon
                             size_hint_x: 0.05
                         Label:
-                            text: "Spear fighter"
+                            text: app.spear_fighter.name
                             size_hint_x: 0.15
                             font_size: 24
                         # Requirements:
@@ -79,28 +79,28 @@
                             source: "img/wood.png"
                             size_hint_x: 0.05
                         Label:
-                            text: "50"
+                            text: "%s" % app.spear_fighter.requirements.get("WOOD")
                             size_hint_x: 0.05
                             font_size: 24
                         Image:
                             source: "img/Clay.png"
                             size_hint_x: 0.05
                         Label:
-                            text: "30"
+                            text: "%s" % app.spear_fighter.requirements.get("CLAY")
                             size_hint_x: 0.05
                             font_size: 24
                         Image:
                             source: "img/iron.png"
                             size_hint_x: 0.05
                         Label:
-                            text: "10"
+                            text: "%s" % app.spear_fighter.requirements.get("IRON")
                             size_hint_x: 0.05
                             font_size: 24
                         Image:
                             source: "img/Pop.png"
                             size_hint_x: 0.05
                         Label:
-                            text: "1"
+                            text: "%s" % app.spear_fighter.requirements.get("POPULATION")
                             size_hint_x: 0.05
                             font_size: 24
                         Label:
@@ -109,8 +109,9 @@
                             font_size: 24
                         # In the\nvillage/total:
                         Label:
-                            text: ""
+                            text: "%s/%s" % (app.spear_fighter.n, app.spear_fighter.n)
                             size_hint_x: 0.15
+                            font_size: 24
                         # Recruit
                         TextInput:
                             size_hint_x: 0.1
@@ -590,6 +591,10 @@
     overview: overview
     main: main
     barracks_screen: barracks_screen
+    BarracksScreen:
+        id: barracks_screen
+        name: "barracks_screen"
+        manager: screen_manager
     Overview:
         id: overview
         name: "overview"
@@ -597,8 +602,4 @@
     Main:
         id: main
         name: "main"
-        manager: screen_manager
-    BarracksScreen:
-        id: barracks_screen
-        name: "barracks_screen"
         manager: screen_manager
