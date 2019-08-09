@@ -6,8 +6,15 @@ from kivy.clock import Clock
 from kivy.event import EventDispatcher
     # uix:
 from kivy.uix.widget import Widget
-from kivy.uix.screenmanager import ScreenManager, NoTransition
-# self modules:
+from kivy.uix.label import Label
+from kivy.uix.button import Button
+from kivy.uix.image import Image
+from kivy.uix.textinput import TextInput
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.screenmanager import ScreenManager, NoTransition, Screen
+# self modules::
+def __init__(self):
+    super()
 from settings import *
 
 
@@ -228,6 +235,115 @@ class Unit(EventDispatcher):
         if app.wood.current >= self.requirements.get("WOOD") * n:
             app.wood.current -= self.requirements.get("WOOD") * n
             self.n += n
+
+# Screens:
+class AllUnitsRecruit(BoxLayout):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.orientation = "vertical"
+        
+        # Header:
+        box = BoxLayout(orientation="horizontal", size_hint_y=0.2)
+        label = Label(text="Unit", size_hint_x=0.25)
+        box.add_widget(label)
+        label = Label(text="Requirements", size_hint_x=0.5)
+        box.add_widget(label)
+        label = Label(text="In the\nvillage/total", size_hint_x=0.15)
+        box.add_widget(label)
+        label = Label(text="Recruit", size_hint_x=0.15)
+        box.add_widget(label)
+        self.add_widget(box)
+
+        # self.spear_row = SpearFighterRow()
+        # self.add_widget(self.spear_row)
+        app = App.get_running_app()
+        self.all_inputs = {}
+        self.all_labels = {}
+        self.add_1_available_row(app.spear_fighter, app)
+
+        # Button:
+        self.button = Button(text="Recruit", size_hint_y=0.2, size_hint_x=0.15, pos_hint={"x": 0.85})
+        self.button.bind(on_press=self.check)
+        self.add_widget(self.button)
+
+        # "Not yet available"
+        box = BoxLayout(orientation="horizontal", size_hint_y=0.2)
+        label = Label(text="Not yet available", size_hint_x=0.3)
+        box.add_widget(label)
+        label = Label(text="Requirements", size_hint_x=0.7)
+        box.add_widget(label)
+        self.add_widget(box)
+
+        self.add_1_not_available_row(app.swordsman)
+        self.add_1_not_available_row(app.axeman)
+        self.add_1_not_available_row(app.archer)
+    
+    def add_1_available_row(self, unit, app):
+        box = BoxLayout(orientation="horizontal", size_hint_y=0.2)
+
+        # Unit:
+        img = Image(source=unit.icon, size_hint_x=0.05)
+        label = Label(text="Spear Fighter", size_hint_x=0.15, font_size=24)
+        box.add_widget(img)
+        box.add_widget(label)
+
+        # Requirements:
+        img = Image(source=app.wood.icon, size_hint_x=0.05)
+        label = Label(text=str(unit.requirements.get("WOOD")), size_hint_x=0.05, font_size=24)
+        box.add_widget(img)
+        box.add_widget(label)
+        img = Image(source=app.clay.icon, size_hint_x=0.05)
+        label = Label(text=str(unit.requirements.get("CLAY")), size_hint_x=0.05, font_size=24)
+        box.add_widget(img)
+        box.add_widget(label)
+        img = Image(source=app.iron.icon, size_hint_x=0.05)
+        label = Label(text=str(unit.requirements.get("IRON")), size_hint_x=0.05, font_size=24)
+        box.add_widget(img)
+        box.add_widget(label)
+
+        # In the\nvillage/total:
+        self.all_labels[unit.name] = Label(text="0/0", size_hint_x=0.15, font_size=24)
+        box.add_widget(self.all_labels[unit.name])
+
+        # Recruit:
+        self.all_inputs[unit.name] = TextInput(size_hint_x=0.1)
+        label = Label(text="(%s)" % "", size_hint_x=0.05, font_size=24)
+        box.add_widget(self.all_inputs[unit.name])
+        box.add_widget(label)
+        self.add_widget(box)
+
+    def add_1_not_available_row(self, unit):
+        box = BoxLayout(orientation="horizontal", size_hint_y=0.2)
+        img = Image(source=unit.icon, size_hint_x=0.05)
+        box.add_widget(img)
+        label = Label(text=unit.name, size_hint_x=0.2, font_size=24)
+        box.add_widget(label)
+        print(unit.requirements.get("UNLOCK"))
+        for building_req, level_req in unit.requirements.get("UNLOCK"):
+            label = Label(text="%s (Level %s)" % (building_req, level_req),
+                          size_hint_x=0.25, font_size=24, color=(0.5, 0.5, 0.5, 1))
+            box.add_widget(label)
+        label = Label(size_hint_x=0.45)
+        box.add_widget(label)
+        self.add_widget(box)
+
+    def check(self, *args):
+        print("check", self.all_labels)
+        n = self.all_inputs.get("spear_fighter").text
+        n = int(n)
+        app = App.get_running_app()
+        # check if can recruit:
+        if app.wood.current >= app.spear_fighter.requirements.get("WOOD") * n:
+            app.wood.current -= app.spear_fighter.requirements.get("WOOD") * n
+            app.spear_fighter.n += n
+            self.all_labels.get("spear_fighter").text = "%s/%s" % (app.spear_fighter.n, app.spear_fighter.n)
+
+
+
+# class BarracksScreen(Screen):
+#     def __init__(self, **kwargs):
+#         super().__init__(**kwargs)
+        # self.all_units.add_widget(Label(text="OK", color=(0,0,0,1)))
 
 
 class Game(ScreenManager):

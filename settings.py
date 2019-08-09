@@ -365,6 +365,7 @@ UNITS = {
     },
     "SWORDSMAN": {
         "NAME": "swordsman",
+        "ICON": "img/Unit_sword_60.png",
         "TYPE": "general",
         "REQUIREMENTS": {
             "WOOD": 30,
@@ -386,6 +387,7 @@ UNITS = {
     },
     "AXEMAN": {
         "NAME": "axeman",
+        "ICON": "img/Unit_axe_60.png",
         "TYPE": "general",
         "REQUIREMENTS": {
             "WOOD": 60,
@@ -407,6 +409,7 @@ UNITS = {
     },
     "ARCHER": {
         "NAME": "archer",
+        "ICON": "img/Unit_archer_60.png",
         "TYPE": "archer",
         "REQUIREMENTS": {
             "WOOD": 100,

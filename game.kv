@@ -56,7 +56,7 @@
 
 
 <BarracksScreen@Screen>:
-    canvas:
+    canvas.before:
         Color:
             rgba: 1, 242/255, 179/255, 1
         Rectangle:
@@ -83,148 +83,149 @@
             tab_width: self.width / 2
             TabbedPanelItem:
                 text: "Recruitment"
-                BoxLayout:
-                    orientation: "vertical"
-                    BoxLayout:
-                        size_hint_y: 0.2
-                        orientation: "horizontal"
-                        Label:
-                            text: "Unit"
-                            size_hint_x: 0.25
-                        Label:
-                            text: "Requirements"
-                            size_hint_x: 0.5
-                        Label:
-                            text: "In the\nvillage/total"
-                            size_hint_x: 0.15
-                        Label:
-                            text: "Recruit"
-                            size_hint_x: 0.15
-                    BoxLayout:
-                        size_hint_y: 0.2
-                        orientation: "horizontal"
-                        # Unit:
-                        Image:
-                            source: app.spear_fighter.icon
-                            size_hint_x: 0.05
-                        Label:
-                            text: app.spear_fighter.name
-                            size_hint_x: 0.15
-                            font_size: 24
-                        # Requirements:
-                        Image:
-                            source: "img/wood.png"
-                            size_hint_x: 0.05
-                        Label:
-                            text: "%s" % app.spear_fighter.requirements.get("WOOD")
-                            size_hint_x: 0.05
-                            font_size: 24
-                        Image:
-                            source: "img/Clay.png"
-                            size_hint_x: 0.05
-                        Label:
-                            text: "%s" % app.spear_fighter.requirements.get("CLAY")
-                            size_hint_x: 0.05
-                            font_size: 24
-                        Image:
-                            source: "img/iron.png"
-                            size_hint_x: 0.05
-                        Label:
-                            text: "%s" % app.spear_fighter.requirements.get("IRON")
-                            size_hint_x: 0.05
-                            font_size: 24
-                        Image:
-                            source: "img/Pop.png"
-                            size_hint_x: 0.05
-                        Label:
-                            text: "%s" % app.spear_fighter.requirements.get("POPULATION")
-                            size_hint_x: 0.05
-                            font_size: 24
-                        Label:
-                            text: "06:19"
-                            size_hint_x: 0.1
-                            font_size: 24
-                        # In the\nvillage/total:
-                        Label:
-                            text: "%s/%s" % (app.spear_fighter.n, app.spear_fighter.n)
-                            size_hint_x: 0.15
-                            font_size: 24
-                        # Recruit
-                        TextInput:
-                            id: spear_fighter_recruit
-                            size_hint_x: 0.1
-                        Label:
-                            text: "(%s)" % ""
-                            size_hint_x: 0.05
-                            font_size: 24
-                    Button:
-                        text: "Recruit"
-                        size_hint_y: 0.2
-                        size_hint_x: 0.15
-                        pos_hint: {"x": 0.85}
-                        on_press:
-                            print("recruit", spear_fighter_recruit.text)
-                            app.spear_fighter.recruit(spear_fighter_recruit.text)
-                    BoxLayout:
-                        orientation: "horizontal"
-                        size_hint_y: 0.2
-                        Label:
-                            text: "Not yet available"
-                            size_hint_x: 0.30
-                        Label:
-                            text: "Requirements"
-                            size_hint_x: 0.70
-                    BoxLayout:
-                        orientation: "horizontal"
-                        size_hint_y: 0.2
-                        Image:
-                            source: "img/Unit_sword_60.png"
-                            size_hint_x: 0.05
-                        Label:
-                            text: "Swordsman"
-                            size_hint_x: 0.25
-                        Label:
-                            text: "Smithy (Level 1)"
-                            size_hint_x: 0.25
-                            color: (0.5, 0.5, 0.5, 1)
-                        Label:
-                            size_hint_x: 0.45
-                    BoxLayout:
-                        orientation: "horizontal"
-                        size_hint_y: 0.2
-                        Image:
-                            source: "img/Unit_axe_60.png"
-                            size_hint_x: 0.05
-                        Label:
-                            text: "Axeman"
-                            size_hint_x: 0.25
-                        Label:
-                            text: "Smithy (Level 2)"
-                            size_hint_x: 0.25
-                            color: (0.5, 0.5, 0.5, 1)
-                        Label:
-                            size_hint_x: 0.45
-                    BoxLayout:
-                        orientation: "horizontal"
-                        size_hint_y: 0.2
-                        Image:
-                            source: "img/Unit_archer_60.png"
-                            size_hint_x: 0.05
-                        Label:
-                            text: "Archer"
-                            size_hint_x: 0.25
-                        Label:
-                            text: "Barracks (Level 5)"
-                            size_hint_x: 0.25
-                            color: (0.5, 0.5, 0.5, 1)
-                            pos_hint: {"x": 0.3}
-                        Label:
-                            text: "Smithy (Level 5)"
-                            size_hint_x: 0.25
-                            color: (0.5, 0.5, 0.5, 1)
-                            # pos_hint: {"x": 0.75}
-                        Label:
-                            size_hint_x: 0.2
+                AllUnitsRecruit:
+                    # id: all_units
+                    # orientation: "vertical"
+                    # BoxLayout:
+                    #     size_hint_y: 0.2
+                    #     orientation: "horizontal"
+                    #     Label:
+                    #         text: "Unit"
+                    #         size_hint_x: 0.25
+                    #     Label:
+                    #         text: "Requirements"
+                    #         size_hint_x: 0.5
+                    #     Label:
+                    #         text: "In the\nvillage/total"
+                    #         size_hint_x: 0.15
+                    #     Label:
+                    #         text: "Recruit"
+                    #         size_hint_x: 0.15
+                    # SpearFighterRow
+        #             BoxLayout:
+        #                 size_hint_y: 0.2
+        #                 orientation: "horizontal"
+        #                 # Unit:
+        #                 Image:
+        #                     source: app.spear_fighter.icon
+        #                     size_hint_x: 0.05
+        #                 Label:
+        #                     text: app.spear_fighter.name
+        #                     size_hint_x: 0.15
+        #                     font_size: 24
+        #                 # Requirements:
+        #                 Image:
+        #                     source: "img/wood.png"
+        #                     size_hint_x: 0.05
+        #                 Label:
+        #                     text: "%s" % app.spear_fighter.requirements.get("WOOD")
+        #                     size_hint_x: 0.05
+        #                     font_size: 24
+        #                 Image:
+        #                     source: "img/Clay.png"
+        #                     size_hint_x: 0.05
+        #                 Label:
+        #                     text: "%s" % app.spear_fighter.requirements.get("CLAY")
+        #                     size_hint_x: 0.05
+        #                     font_size: 24
+        #                 Image:
+        #                     source: "img/iron.png"
+        #                     size_hint_x: 0.05
+        #                 Label:
+        #                     text: "%s" % app.spear_fighter.requirements.get("IRON")
+        #                     size_hint_x: 0.05
+        #                     font_size: 24
+        #                 Image:
+        #                     source: "img/Pop.png"
+        #                     size_hint_x: 0.05
+        #                 Label:
+        #                     text: "%s" % app.spear_fighter.requirements.get("POPULATION")
+        #                     size_hint_x: 0.05
+        #                     font_size: 24
+        #                 Label:
+        #                     text: "06:19"
+        #                     size_hint_x: 0.1
+        #                     font_size: 24
+        #                 # In the\nvillage/total:
+        #                 Label:
+        #                     text: "%s/%s" % (app.spear_fighter.n, app.spear_fighter.n)
+        #                     size_hint_x: 0.15
+        #                     font_size: 24
+        #                 # Recruit
+        #                 TextInput:
+        #                     id: spear_fighter_recruit
+        #                     size_hint_x: 0.1
+        #                 Label:
+        #                     text: "(%s)" % ""
+        #                     size_hint_x: 0.05
+        #                     font_size: 24
+                    # Button:
+                    #     text: "Recruit"
+                    #     size_hint_y: 0.2
+                    #     size_hint_x: 0.15
+                    #     pos_hint: {"x": 0.85}
+                    #     on_press:
+                    #         app.spear_fighter.recruit(spear_fighter_recruit.text)
+                    # BoxLayout:
+                    #     orientation: "horizontal"
+                    #     size_hint_y: 0.2
+                    #     Label:
+                    #         text: "Not yet available"
+                    #         size_hint_x: 0.30
+                    #     Label:
+                    #         text: "Requirements"
+                    #         size_hint_x: 0.70
+        #             BoxLayout:
+        #                 orientation: "horizontal"
+        #                 size_hint_y: 0.2
+        #                 Image:
+        #                     source: "img/Unit_sword_60.png"
+        #                     size_hint_x: 0.05
+        #                 Label:
+        #                     text: "Swordsman"
+        #                     size_hint_x: 0.25
+        #                 Label:
+        #                     text: "Smithy (Level 1)"
+        #                     size_hint_x: 0.25
+        #                     color: (0.5, 0.5, 0.5, 1)
+        #                 Label:
+        #                     size_hint_x: 0.45
+        #             BoxLayout:
+        #                 orientation: "horizontal"
+        #                 size_hint_y: 0.2
+        #                 Image:
+        #                     source: "img/Unit_axe_60.png"
+        #                     size_hint_x: 0.05
+        #                 Label:
+        #                     text: "Axeman"
+        #                     size_hint_x: 0.25
+        #                 Label:
+        #                     text: "Smithy (Level 2)"
+        #                     size_hint_x: 0.25
+        #                     color: (0.5, 0.5, 0.5, 1)
+        #                 Label:
+        #                     size_hint_x: 0.45
+        #             BoxLayout:
+        #                 orientation: "horizontal"
+        #                 size_hint_y: 0.2
+        #                 Image:
+        #                     source: "img/Unit_archer_60.png"
+        #                     size_hint_x: 0.05
+        #                 Label:
+        #                     text: "Archer"
+        #                     size_hint_x: 0.25
+        #                 Label:
+        #                     text: "Barracks (Level 5)"
+        #                     size_hint_x: 0.25
+        #                     color: (0.5, 0.5, 0.5, 1)
+        #                     pos_hint: {"x": 0.3}
+        #                 Label:
+        #                     text: "Smithy (Level 5)"
+        #                     size_hint_x: 0.25
+        #                     color: (0.5, 0.5, 0.5, 1)
+        #                     # pos_hint: {"x": 0.75}
+        #                 Label:
+        #                     size_hint_x: 0.2
             TabbedPanelItem:
                 text: "Decommissioning"
 <Overview@Screen>:
