@@ -1,3 +1,5 @@
+WHITE = (1, 1, 1, 1)
+BLACK = (0, 0, 0, 1)
 
 RESOURCES = {
     "INIT": {
@@ -16,13 +18,15 @@ RESOURCES = {
         "CLAY": "img/Clay.png",
         "IRON": "img/iron.png",
         "BOOTY": "img/Booty.png",
-        "POPULATION": "img/Pop.png"
+        "POPULATION": "img/Pop.png",
+        "TIME": ""
     }
 }
 
 BUILDINGS = {
     "HEADQUARTERS": {
         "NAME": "headquarters",
+        "ICON": "",
         "LEVEL": 0,
         "MAX_LEVEL": 30,
         "REQUIREMENTS": {
@@ -38,7 +42,7 @@ BUILDINGS = {
         },
         "TIME_REDUCE": 1/1.05
     },
-    "RALLYPOINT": {
+    "RALLY_POINT": {
         "NAME": "rally_point",
         "LEVEL": 1,
         "MAX_LEVEL": 1,
@@ -202,7 +206,7 @@ BUILDINGS = {
         "SPEED_FACTOR_INIT": 0.63,
         "SPEED_FACTOR_RATIO": 0.95,
         "UNLOCK": [
-            ["Headquarters", 3]
+            ["headquarters", 3]
         ],
         "UNITS": ["spear_fighter", "swordsman", "axeman", "archer"]
     },
@@ -224,9 +228,9 @@ BUILDINGS = {
         "SPEED_FACTOR_INIT": 0.63,
         "SPEED_FACTOR_RATIO": 0.95,
         "UNLOCK": [
-            ["Headquarters", 10],
-            ["Barracks", 5],
-            ["Smithy", 5],
+            ["headquarters", 10],
+            ["barracks", 5],
+            ["smithy", 5],
         ]
     },
     "WORKSHOP": {
