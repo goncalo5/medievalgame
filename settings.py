@@ -228,7 +228,7 @@ BUILDINGS = {
         "SPEED_FACTOR_INIT": 0.63,
         "SPEED_FACTOR_RATIO": 0.95,
         "UNLOCK": [
-            ["headquarters", 10],
+            ["headquarters", 2],
             ["barracks", 5],
             ["smithy", 5],
         ]

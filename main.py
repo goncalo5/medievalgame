@@ -62,8 +62,6 @@ class Building(Widget):
         self.iron = self.iron0 * self.ratio ** self.level
 
     def update_population_for_current_level(self):
-        print("update_population_for_current_level", self.name)
-        print(self.population0, self.population_ratio, self.level)
         if self.level == 0:
             self.population = 0
             self.population_for_next_level = self.population0
@@ -71,21 +69,17 @@ class Building(Widget):
             self.population = int(self.population0 * self.population_ratio ** self.level)
             next_level = int(self.population0 * self.population_ratio ** (self.level + 1))
             self.population_for_next_level = next_level - self.population
-        print(self.population, self.population_for_next_level)
 
     def update_time_for_current_level(self):
-        print("update_time_for_current_level", self.name)
         try:
             app = App.get_running_app()
             headquarters_ratio = app.headquarters.time_reduce ** app.headquarters.level
         except AttributeError:
-            print("AttributeError")
+
             headquarters_ratio = BUILDINGS.get("HEADQUARTERS").get("TIME_REDUCE")
             headquarters_level = BUILDINGS.get("HEADQUARTERS").get("LEVEL")
             headquarters_ratio = headquarters_ratio ** headquarters_level
-        print("time", self.time, self.time0, self.time_ratio, self.level, headquarters_ratio)
         self.time = self.time0 * self.time_ratio ** self.level * headquarters_ratio
-        print("time", self.time)
 
 
 class Headquarters(Building):
@@ -221,7 +215,6 @@ class Unit(EventDispatcher):
     n = kp.NumericProperty(0)
     def __init__(self, name):
         super().__init__()
-        print(name)
         self.settings = UNITS.get(name)
         self.name = name.lower()
         self.icon = self.settings.get("ICON")
@@ -253,14 +246,14 @@ class AvailableUnavailableMenu(BoxLayout):
         self.all_labels = {}
 
     
-    def create_header(self, header, color=(1, 1, 1, 1)):
-        box = BoxLayout(orientation="horizontal", size_hint_y=0.2)
+    def create_header(self, header, box, color=(1, 1, 1, 1)):
+        row = BoxLayout(orientation="horizontal", size_hint_y=0.2)
 
         for name, hint_x in header:
             label = Label(text=name, size_hint_x=hint_x)
             label.color = color
-            box.add_widget(label)
-        self.add_widget(box)
+            row.add_widget(label)
+        box.add_widget(row)
     
     def create_button(self):
         self.button = Button(text="Recruit", size_hint_y=0.2, size_hint_x=0.15, pos_hint={"x": 0.85})
@@ -314,7 +307,6 @@ class AvailableUnavailableMenu(BoxLayout):
         self.add_widget(box)
 
     def add_1_not_available_row(self, unit):
-        # print("add_1_not_available_row", unit.name)
         box = BoxLayout(orientation="horizontal", size_hint_y=0.2)
         img = Image(source=unit.icon, size_hint_x=0.05)
         box.add_widget(img)
@@ -339,7 +331,6 @@ class AvailableUnavailableMenu(BoxLayout):
         return True
 
     def check(self, *args):
-        print("check", self.all_labels)
         if not self.all_inputs:
             return
         n = self.all_inputs.get("spear_fighter").text
@@ -362,29 +353,66 @@ class AllUnitsRecruit(AvailableUnavailableMenu):
             ["In the\nvillage/total", 0.15],
             ["Recruit", 0.15]
         ]
-        self.create_header(header)
+        self.create_header(header, self)
         self.create_all_availables(self.app.barracks)
         self.create_button()
         header = [
             ["Not yet available", 0.30],
             ["Requirements", 0.70]
         ]
-        self.create_header(header)
+        self.create_header(header, self)
         self.create_all_not_availables()
 
 
 class AllBuildingsUpgrade(AvailableUnavailableMenu):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.new()
+    
+    def new(self):
+        # self.size_hint_y = 0.95
+        self.available_buildings = []
         self.building_labels = {}
+        self.building_buttons = {}
+        self.all_available_rows = {}
+        self.all_unavailable_rows = {}
         
-        header = [
-            ["Construction", 0.25],
-            ["Duration", 0.25],
-            ["Completation", 0.25],
-            ["Cancellation", 0.25]
-        ]
-        self.create_header(header, BLACK)
+        # header = [
+        #     ["Construction", 0.25],
+        #     ["Duration", 0.25],
+        #     ["Completation", 0.25],
+        #     ["Cancellation", 0.25]
+        # ]
+        # self.create_header(header, self, BLACK)
+
+        self.create_available_box()
+        self.create_unavailable_box()
+    
+    def update(self, *args):
+        for building in self.available_buildings:
+            self.building_labels[building.name].text = "%s\n(Level %s)" % (building.name, building.level)
+            self.building_buttons[building.name].text = str(int(building.level + 1))
+
+        for building_name in BUILDINGS:
+            building = getattr(self.app, building_name.lower())
+            if not building.unlock:
+                continue
+            for building_to_check_name, building_to_check_level in building.unlock:
+                building_to_check = getattr(self.app, building_to_check_name.lower())
+                if building_to_check.level < building_to_check_level:
+                    break
+            else:
+                self.unavailable_box.remove_widget(self.all_unavailable_rows[building.name])
+                self.add_1_available_row(building)
+        
+
+    def upgrade(self, *args):
+        self.app.upgrade_building(self.app.headquarters)
+
+    ##############################################################
+    # AVAILABLE:
+    def create_available_box(self):
+        self.available_box = BoxLayout(orientation="vertical", size_hint_y=0.5)
         header = [
             ["Buildings", 0.30],
             ["Wood", 0.15],
@@ -394,102 +422,103 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
             ["Pop", 0.15],
             ["Construct", 0.15]
         ]
-        self.create_header(header, BLACK)
+        self.create_header(header, self.available_box, BLACK)
         possibles = BUILDINGS
         self.create_all_availables(possibles)
-        # building = self.app.headquarters
-        # self.add_1_available_row(building, self.app)
-        header = [
-            ["Not yet available", 0.30],
-            ["Requirements", 0.70]
-        ]
-        self.create_header(header, BLACK)
-        self.create_all_not_availables()
-        # self.create_button()
+        self.add_widget(self.available_box)
 
-    def add_1_available_row(self, building, app):
-        box = BoxLayout(orientation="horizontal", size_hint_y=0.2)
+    def create_all_availables(self, possibles):
+        for name in possibles:
+            building = getattr(self.app, name.lower())
+            if self.check_if_is_available(building):
+                self.add_1_available_row(building)
+                self.available_buildings.append(building)
+
+    def add_1_available_row(self, building):
+        row = BoxLayout(orientation="horizontal", size_hint_y=0.2)
+        self.all_available_rows[building.name] = row
 
         # Building:
         img = Image(source=building.icon, size_hint_x=0.05)
         building_label = DarkLabel(text="%s\n(Level %s)" % (building.name, building.level), size_hint_x=0.15, font_size=24)
         self.building_labels[building.name] = building_label
-        building.bind(level=self.update_labels)
-        box.add_widget(img)
-        box.add_widget(building_label)
+        building.bind(level=self.update)
+        row.add_widget(img)
+        row.add_widget(building_label)
 
         # Requirements:
-        img = Image(source=app.wood.icon, size_hint_x=0.05)
+        img = Image(source=self.app.wood.icon, size_hint_x=0.05)
         label = DarkLabel(text=str(int((building.wood))), size_hint_x=0.05, font_size=24)
-        box.add_widget(img)
-        box.add_widget(label)
-        img = Image(source=app.clay.icon, size_hint_x=0.05)
+        row.add_widget(img)
+        row.add_widget(label)
+        img = Image(source=self.app.clay.icon, size_hint_x=0.05)
         label = DarkLabel(text=str(int((building.clay))), size_hint_x=0.05, font_size=24)
-        box.add_widget(img)
-        box.add_widget(label)
-        img = Image(source=app.iron.icon, size_hint_x=0.05)
+        row.add_widget(img)
+        row.add_widget(label)
+        img = Image(source=self.app.iron.icon, size_hint_x=0.05)
         label = DarkLabel(text=str(int((building.clay))), size_hint_x=0.05, font_size=24)
-        box.add_widget(img)
-        box.add_widget(label)
+        row.add_widget(img)
+        row.add_widget(label)
         img = Image(source=RESOURCES.get("ICON").get("TIME"), size_hint_x=0.05)
         label = DarkLabel(text=str(int((building.time))), size_hint_x=0.05, font_size=24)
-        box.add_widget(img)
-        box.add_widget(label)
+        row.add_widget(img)
+        row.add_widget(label)
         img = Image(source=RESOURCES.get("ICON").get("POPULATION"), size_hint_x=0.05)
         label = DarkLabel(text=str(int((building.population_for_next_level))), size_hint_x=0.05, font_size=24)
-        box.add_widget(img)
-        box.add_widget(label)
+        row.add_widget(img)
+        row.add_widget(label)
 
         # button:
-        button = Button(text="lv %s" % (app.headquarters.level + 1), size_hint_x=0.05)
-        app.upgrade_building(app.headquarters)
-        button.bind(on_press=self.upgrade)
-        box.add_widget(button)
-
-        self.add_widget(box)
-    
-    def update_labels(self, *args):
-        for building_name, label in self.building_labels.items():
-            building = getattr(self.app, building_name)
-            label.text = "%s\n(Level %s)" % (building.name, building.level)
-
-    def upgrade(self, *args):
-        print("upgrade", self.app.headquarters.level)
+        button = Button(text="lv %s" % (self.app.headquarters.level + 1), size_hint_x=0.05)
+        self.building_buttons[building.name] = button
         self.app.upgrade_building(self.app.headquarters)
+        button.bind(on_press=self.upgrade)
+        row.add_widget(button)
 
-    def add_1_not_available_row(self, building):
-        box = BoxLayout(orientation="horizontal", size_hint_y=0.2)
-        img = Image(source=building.icon, size_hint_x=0.05)
-        box.add_widget(img)
-        label = DarkLabel(text=building.name, size_hint_x=0.2, font_size=24)
-        box.add_widget(label)
-        for building_req, level_req in building.unlock:
-            label = Label(text="%s (Level %s)" % (building_req, level_req),
-                            size_hint_x=0.25, font_size=24, color=(0.5, 0.5, 0.5, 1))
-            box.add_widget(label)
-        self.add_widget(box)
+        self.available_box.add_widget(row)
 
-    def create_all_availables(self, possibles):
-        for name in possibles:
-            obj = getattr(self.app, name.lower())
-            if self.check_if_is_available(obj):
-                self.add_1_available_row(obj, self.app)
-    
+
+    ##############################################################
+    # UNAVAILABLE:
+    def create_unavailable_box(self):
+        self.unavailable_box = BoxLayout(orientation="vertical", size_hint_y=0.5)
+        
+        header = [
+            ["Not yet available", 0.30],
+            ["Requirements", 0.70]
+        ]
+        self.create_header(header, self.unavailable_box, BLACK)
+        self.create_all_not_availables()
+        self.add_widget(self.unavailable_box)
+
     def create_all_not_availables(self):
-        print("create_all_not_availables", self.app.buildings)
         for building_name in BUILDINGS:
             building = getattr(self.app, building_name.lower())
             if not self.check_if_is_available(building):
                 self.add_1_not_available_row(building)
 
+    def add_1_not_available_row(self, building):
+        row = BoxLayout(orientation="horizontal", size_hint_y=0.2)
+        if building.name in self.all_unavailable_rows:
+            return
+        self.all_unavailable_rows[building.name] = row
+
+        img = Image(source=building.icon, size_hint_x=0.05)
+        row.add_widget(img)
+        label = DarkLabel(text=building.name, size_hint_x=0.2, font_size=24)
+        row.add_widget(label)
+        for building_req, level_req in building.unlock:
+            label = Label(text="%s (Level %s)" % (building_req, level_req),
+                            size_hint_x=0.25, font_size=24, color=(0.5, 0.5, 0.5, 1))
+            row.add_widget(label)
+        self.unavailable_box.add_widget(row)
+    ##############################################################
+
     def check_if_is_available(self, building):
-        print("check_if_is_available")
         unlock = building.unlock
         if not unlock:
             return True
-        print("unlock", unlock)
         for building_name, level_to_unlock in unlock:
-            print("building_name", building_name)
             building = getattr(self.app, building_name.lower())
             if building.level < level_to_unlock:
                 return False
@@ -501,11 +530,9 @@ class Game(ScreenManager):
     main = kp.ObjectProperty(None)
 
     def on_touch_move(self, touch):
-        # print("on_touch_move",  touch)
         app = App.get_running_app()
 
         app.offset += touch.dy
-        # print(app.offset)
         app.offset = max(app.offset, 0)
 
 
@@ -560,7 +587,6 @@ class GameApp(App):
     militia = kp.ObjectProperty(Unit("MILITIA"))
 
     def build(self):
-        print(Window.width)
         self.game = Game(transition=NoTransition())
         self.resources = [self.wood, self.clay, self.iron]
         self.buildings =\
@@ -578,15 +604,11 @@ class GameApp(App):
         return self.game
     
     def calc_current_population(self):
-        print()
-        print("calc_current_population")
         self.current_population = 0
         for building in self.buildings:
-            print(building.name, building.population)
             self.current_population += building.population
 
     def upgrade_building(self, building):
-        print("upgrade_building")
         if self.is_upgrading:
             return
         # check if can upgrade:
@@ -606,9 +628,7 @@ class GameApp(App):
         Clock.schedule_interval(self.update_building, .1)
     
     def update_building(self, dt):
-        print("update_building", self.current_upgrading)
         if self.cancel:
-            print("cancel")
             # undo update resources:
             self.wood.current += self.current_upgrading.wood
             self.clay.current += self.current_upgrading.clay
@@ -621,7 +641,6 @@ class GameApp(App):
         self.time_left -= dt
         if self.time_left <= 0:
             self.update_building_finish()
-            print("finish")
             return False
     
     def update_building_finish(self):
