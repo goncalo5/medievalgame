@@ -373,19 +373,15 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
     def new(self):
         # self.size_hint_y = 0.95
         self.available_buildings = []
+        self.buildings_upgrading = [None] * 2
         self.building_labels = {}
         self.building_buttons = {}
         self.all_available_rows = {}
         self.all_unavailable_rows = {}
         
-        # header = [
-        #     ["Construction", 0.25],
-        #     ["Duration", 0.25],
-        #     ["Completation", 0.25],
-        #     ["Cancellation", 0.25]
-        # ]
-        # self.create_header(header, self, BLACK)
+        self.create_time_menu()
 
+        # scrool:
         self.recycleview = RecycleView()
         height = (len(BUILDINGS) + 4) * 100
         self.box_with_availables_and_unavailables =\
@@ -396,6 +392,8 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         self.add_widget(self.recycleview)
     
     def update(self, *args):
+        self.buildings_upgrading[0].text = str(self.app.current_upgrading)
+        self.buildings_upgrading[1].text = "%s" % int(self.app.time_left) if self.app.time_left > 0 else ""
         for building in self.available_buildings:
             self.building_labels[building.name].text = "%s\n(Level %s)" % (building.name, building.level)
             self.building_buttons[building.name].text = str(int(building.level + 1))
@@ -414,8 +412,37 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         
 
     def upgrade(self, *args):
-        self.app.upgrade_building(self.app.headquarters)
+        right_button = args[0]
+        for building_name, button in self.building_buttons.items():
+            if button is right_button:
+                building = getattr(self.app, building_name)
+                self.app.upgrade_building(building)
 
+
+    ##############################################################
+    # time menu:
+    def create_time_menu(self):
+        header = [
+            ["Construction", 0.25],
+            ["Duration", 0.25],
+            ["Completation", 0.25],
+            ["Cancellation", 0.25]
+        ]
+        self.create_header(header, self, BLACK)
+
+        # 1 row
+        row = BoxLayout(orientation="horizontal", size_hint_y=None, height=200)
+        # building name
+        building_name = DarkLabel(text="%s" % self.app.current_upgrading, size_hint_y=None)
+        self.buildings_upgrading[0] = building_name
+        self.app.bind(current_upgrading=self.update)
+        self.app.bind(time_left=self.update)
+        row.add_widget(building_name)
+        # time left:
+        time_label = DarkLabel(text="%s" % int(self.app.time_left) if self.app.time_left > 0 else "", size_hint_y=None)
+        self.buildings_upgrading[1] = time_label
+        row.add_widget(time_label)
+        self.add_widget(row)
     ##############################################################
     # AVAILABLE:
     def create_available_box(self):
