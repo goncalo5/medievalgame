@@ -203,7 +203,8 @@ BUILDINGS = {
         "SPEED_FACTOR_RATIO": 0.95,
         "UNLOCK": [
             ["Headquarters", 3]
-        ]
+        ],
+        "UNITS": ["spear_fighter", "swordsman", "axeman", "archer"]
     },
     "STABLE": {
         "NAME": "stable",

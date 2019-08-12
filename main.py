@@ -151,6 +151,7 @@ class Barracks(Building):
         self.speed_factor0 = self.settings.get("SPEED_FACTOR_INIT")
         self.speed_factor_ratio = self.settings.get("SPEED_FACTOR_RATIO")
         self.unlock = self.settings.get("UNLOCK")
+        self.units = self.settings.get("UNITS")
 
 
 class Stable(Building):
@@ -254,19 +255,22 @@ class AllUnitsRecruit(BoxLayout):
         box.add_widget(label)
         self.add_widget(box)
 
-        # self.spear_row = SpearFighterRow()
-        # self.add_widget(self.spear_row)
         app = App.get_running_app()
         self.all_inputs = {}
         self.all_labels = {}
-        self.add_1_available_row(app.spear_fighter, app)
+
+        # all availables:
+        for unit_name in app.barracks.units:
+            unit = getattr(app, unit_name)
+            if self.check_if_can_recruit(app, unit, app.barracks):
+                self.add_1_available_row(unit, app)
 
         # Button:
         self.button = Button(text="Recruit", size_hint_y=0.2, size_hint_x=0.15, pos_hint={"x": 0.85})
         self.button.bind(on_press=self.check)
         self.add_widget(self.button)
 
-        # "Not yet available"
+        # all "Not yet available":
         box = BoxLayout(orientation="horizontal", size_hint_y=0.2)
         label = Label(text="Not yet available", size_hint_x=0.3)
         box.add_widget(label)
@@ -274,9 +278,10 @@ class AllUnitsRecruit(BoxLayout):
         box.add_widget(label)
         self.add_widget(box)
 
-        self.add_1_not_available_row(app.swordsman)
-        self.add_1_not_available_row(app.axeman)
-        self.add_1_not_available_row(app.archer)
+        for unit_name in app.barracks.units:
+            unit = getattr(app, unit_name)
+            if not self.check_if_can_recruit(app, unit, app.barracks):
+                self.add_1_not_available_row(unit)
     
     def add_1_available_row(self, unit, app):
         box = BoxLayout(orientation="horizontal", size_hint_y=0.2)
@@ -313,12 +318,12 @@ class AllUnitsRecruit(BoxLayout):
         self.add_widget(box)
 
     def add_1_not_available_row(self, unit):
+        # print("add_1_not_available_row", unit.name)
         box = BoxLayout(orientation="horizontal", size_hint_y=0.2)
         img = Image(source=unit.icon, size_hint_x=0.05)
         box.add_widget(img)
         label = Label(text=unit.name, size_hint_x=0.2, font_size=24)
         box.add_widget(label)
-        print(unit.requirements.get("UNLOCK"))
         for building_req, level_req in unit.requirements.get("UNLOCK"):
             label = Label(text="%s (Level %s)" % (building_req, level_req),
                           size_hint_x=0.25, font_size=24, color=(0.5, 0.5, 0.5, 1))
@@ -326,6 +331,18 @@ class AllUnitsRecruit(BoxLayout):
         label = Label(size_hint_x=0.45)
         box.add_widget(label)
         self.add_widget(box)
+
+    def check_if_can_recruit(self, app, unit, building):
+        # print("check_if_can_recruit", unit, building)
+        unlock = unit.requirements.get("UNLOCK")
+        # print(unit.get("BUILDING"), building.name, unit.get("BUILDING") == building.name)
+        if not unlock:
+            return True
+        for building_name, level_to_unlock in unlock:
+            building = getattr(app, building_name)
+            if building.level < level_to_unlock:
+                return False
+        return True
 
     def check(self, *args):
         print("check", self.all_labels)
