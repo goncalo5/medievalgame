@@ -304,7 +304,7 @@
         
         
 <Main@Screen>:
-    canvas:
+    canvas.before:
         Color:
             rgba: 1, 242/255, 179/255, 1
         Rectangle:
@@ -312,12 +312,13 @@
             size: self.size
     BoxLayout:
         orientation: "vertical"
-        y: app.offset
+        # y: app.offset
         HeaderBoxLayout
         # Label
         DarkLabel:
             text: "Headquarters (Level %s)" % app.headquarters.level
-            size_hint_y: 0.05
+            size_hint_y: None
+            height: 100
         # Label:
         AllBuildingsUpgrade:
             # size_hint_y: 0.95

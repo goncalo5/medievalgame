@@ -12,6 +12,7 @@ from kivy.uix.image import Image
 from kivy.uix.textinput import TextInput
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, NoTransition, Screen
+from kivy.uix.recycleview import RecycleView
 # self modules:
 from settings import *
 
@@ -247,7 +248,7 @@ class AvailableUnavailableMenu(BoxLayout):
 
     
     def create_header(self, header, box, color=(1, 1, 1, 1)):
-        row = BoxLayout(orientation="horizontal", size_hint_y=0.2)
+        row = BoxLayout(orientation="horizontal", size_hint_y=None)
 
         for name, hint_x in header:
             label = Label(text=name, size_hint_x=hint_x)
@@ -385,8 +386,14 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         # ]
         # self.create_header(header, self, BLACK)
 
+        self.recycleview = RecycleView()
+        height = (len(BUILDINGS) + 4) * 100
+        self.box_with_availables_and_unavailables =\
+            BoxLayout(orientation="vertical", size_hint_y=None, height=height)
         self.create_available_box()
         self.create_unavailable_box()
+        self.recycleview.add_widget(self.box_with_availables_and_unavailables)
+        self.add_widget(self.recycleview)
     
     def update(self, *args):
         for building in self.available_buildings:
@@ -412,7 +419,7 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
     ##############################################################
     # AVAILABLE:
     def create_available_box(self):
-        self.available_box = BoxLayout(orientation="vertical", size_hint_y=0.5)
+        self.available_box = BoxLayout(orientation="vertical")
         header = [
             ["Buildings", 0.30],
             ["Wood", 0.15],
@@ -425,7 +432,7 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         self.create_header(header, self.available_box, BLACK)
         possibles = BUILDINGS
         self.create_all_availables(possibles)
-        self.add_widget(self.available_box)
+        self.box_with_availables_and_unavailables.add_widget(self.available_box)
 
     def create_all_availables(self, possibles):
         for name in possibles:
@@ -435,7 +442,7 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
                 self.available_buildings.append(building)
 
     def add_1_available_row(self, building):
-        row = BoxLayout(orientation="horizontal", size_hint_y=0.2)
+        row = BoxLayout(orientation="horizontal", size_hint_y=None, height=100)
         self.all_available_rows[building.name] = row
 
         # Building:
@@ -481,7 +488,7 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
     ##############################################################
     # UNAVAILABLE:
     def create_unavailable_box(self):
-        self.unavailable_box = BoxLayout(orientation="vertical", size_hint_y=0.5)
+        self.unavailable_box = BoxLayout(orientation="vertical")
         
         header = [
             ["Not yet available", 0.30],
@@ -489,7 +496,8 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         ]
         self.create_header(header, self.unavailable_box, BLACK)
         self.create_all_not_availables()
-        self.add_widget(self.unavailable_box)
+        # self.add_widget(self.unavailable_box)
+        self.box_with_availables_and_unavailables.add_widget(self.unavailable_box)
 
     def create_all_not_availables(self):
         for building_name in BUILDINGS:
@@ -498,7 +506,7 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
                 self.add_1_not_available_row(building)
 
     def add_1_not_available_row(self, building):
-        row = BoxLayout(orientation="horizontal", size_hint_y=0.2)
+        row = BoxLayout(orientation="horizontal", size_hint_y=None, height=100)
         if building.name in self.all_unavailable_rows:
             return
         self.all_unavailable_rows[building.name] = row
@@ -529,17 +537,17 @@ class Game(ScreenManager):
     overview = kp.ObjectProperty(None)
     main = kp.ObjectProperty(None)
 
-    def on_touch_move(self, touch):
-        app = App.get_running_app()
+    # def on_touch_move(self, touch):
+    #     app = App.get_running_app()
 
-        app.offset += touch.dy
-        app.offset = max(app.offset, 0)
+    #     app.offset += touch.dy
+    #     app.offset = max(app.offset, 0)
 
 
 class GameApp(App):
     width = kp.NumericProperty(Window.width)
     height = kp.NumericProperty(Window.height)
-    offset = kp.NumericProperty()
+    # offset = kp.NumericProperty()
     # resources:
     wood = kp.ObjectProperty(Resource("WOOD"))
     clay = kp.ObjectProperty(Resource("CLAY"))
