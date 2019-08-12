@@ -242,8 +242,19 @@ class AllUnitsRecruit(BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.orientation = "vertical"
+
+        self.app = App.get_running_app()
+        self.all_inputs = {}
+        self.all_labels = {}
         
-        # Header:
+        self.create_header()
+        self.create_all_availables()
+        self.create_button()
+        self.create_not_available_header()
+        self.create_all_not_availables()
+
+    
+    def create_header(self):
         box = BoxLayout(orientation="horizontal", size_hint_y=0.2)
         label = Label(text="Unit", size_hint_x=0.25)
         box.add_widget(label)
@@ -254,35 +265,32 @@ class AllUnitsRecruit(BoxLayout):
         label = Label(text="Recruit", size_hint_x=0.15)
         box.add_widget(label)
         self.add_widget(box)
-
-        app = App.get_running_app()
-        self.all_inputs = {}
-        self.all_labels = {}
-
-        # all availables:
-        for unit_name in app.barracks.units:
-            unit = getattr(app, unit_name)
-            if self.check_if_can_recruit(app, unit, app.barracks):
-                self.add_1_available_row(unit, app)
-
-        # Button:
-        self.button = Button(text="Recruit", size_hint_y=0.2, size_hint_x=0.15, pos_hint={"x": 0.85})
-        self.button.bind(on_press=self.check)
-        self.add_widget(self.button)
-
-        # all "Not yet available":
+    
+    def create_not_available_header(self):
         box = BoxLayout(orientation="horizontal", size_hint_y=0.2)
         label = Label(text="Not yet available", size_hint_x=0.3)
         box.add_widget(label)
         label = Label(text="Requirements", size_hint_x=0.7)
         box.add_widget(label)
         self.add_widget(box)
-
-        for unit_name in app.barracks.units:
-            unit = getattr(app, unit_name)
-            if not self.check_if_can_recruit(app, unit, app.barracks):
-                self.add_1_not_available_row(unit)
     
+    def create_button(self):
+        self.button = Button(text="Recruit", size_hint_y=0.2, size_hint_x=0.15, pos_hint={"x": 0.85})
+        self.button.bind(on_press=self.check)
+        self.add_widget(self.button)
+    
+    def create_all_availables(self):
+        for unit_name in self.app.barracks.units:
+            unit = getattr(self.app, unit_name)
+            if self.check_if_can_recruit(self.app, unit, self.app.barracks):
+                self.add_1_available_row(unit, self.app)
+    
+    def create_all_not_availables(self):
+        for unit_name in self.app.barracks.units:
+            unit = getattr(self.app, unit_name)
+            if not self.check_if_can_recruit(self.app, unit, self.app.barracks):
+                self.add_1_not_available_row(unit)
+
     def add_1_available_row(self, unit, app):
         box = BoxLayout(orientation="horizontal", size_hint_y=0.2)
 
@@ -346,6 +354,8 @@ class AllUnitsRecruit(BoxLayout):
 
     def check(self, *args):
         print("check", self.all_labels)
+        if not self.all_inputs:
+            return
         n = self.all_inputs.get("spear_fighter").text
         n = int(n)
         app = App.get_running_app()
