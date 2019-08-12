@@ -26,7 +26,7 @@ RESOURCES = {
 BUILDINGS = {
     "HEADQUARTERS": {
         "NAME": "headquarters",
-        "ICON": "",
+        "ICON": "img/Buildings/Main1.png",
         "LEVEL": 0,
         "MAX_LEVEL": 30,
         "REQUIREMENTS": {
@@ -44,6 +44,7 @@ BUILDINGS = {
     },
     "RALLY_POINT": {
         "NAME": "rally_point",
+        "ICON": "img/Buildings/Place1.png",
         "LEVEL": 1,
         "MAX_LEVEL": 1,
         "REQUIREMENTS": {
@@ -60,6 +61,7 @@ BUILDINGS = {
     },
     "STATUE": {
         "NAME": "statue",
+        "ICON": "img/Buildings/Statue1.png",
         "LEVEL": 0,
         "MAX_LEVEL": 1,
         "REQUIREMENTS": {
@@ -76,6 +78,7 @@ BUILDINGS = {
     },
     "TIMBER_CAMP": {
         "NAME": "timber_camp",
+        "ICON": "img/Buildings/Wood1.png",
         "LEVEL": 0,
         "MAX_LEVEL": 30,
         "REQUIREMENTS": {
@@ -96,6 +99,7 @@ BUILDINGS = {
     },
     "CLAY_PIT": {
         "NAME": "clay_pit",
+        "ICON": "img/Buildings/Stone1.png",
         "LEVEL": 0,
         "MAX_LEVEL": 30,
         "REQUIREMENTS": {
@@ -116,6 +120,7 @@ BUILDINGS = {
     },
     "IRON_MINE": {
         "NAME": "iron_mine",
+        "ICON": "img/Buildings/Iron1.png",
         "LEVEL": 0,
         "MAX_LEVEL": 30,
         "REQUIREMENTS": {
@@ -136,6 +141,7 @@ BUILDINGS = {
     },
     "FARM": {
         "NAME": "farm",
+        "ICON": "img/Buildings/Farm1.png",
         "LEVEL": 1,
         "MAX_LEVEL": 30,
         "REQUIREMENTS": {
@@ -154,6 +160,7 @@ BUILDINGS = {
     },
     "WAREHOUSE": {
         "NAME": "warehouse",
+        "ICON": "img/Buildings/Storage1.png",
         "LEVEL": 1,
         "MAX_LEVEL": 30,
         "REQUIREMENTS": {
@@ -172,6 +179,7 @@ BUILDINGS = {
     },
     "HIDING_PLACE": {
         "NAME": "hiding_place",
+        "ICON": "img/Buildings/Hide1.png",
         "LEVEL": 0,
         "MAX_LEVEL": 10,
         "REQUIREMENTS": {
@@ -190,6 +198,7 @@ BUILDINGS = {
     },
     "BARRACKS": {
         "NAME": "barracks",
+        "ICON": "img/Buildings/Barracks1.png",
         "LEVEL": 0,
         "MAX_LEVEL": 25,
         "REQUIREMENTS": {
@@ -212,6 +221,7 @@ BUILDINGS = {
     },
     "STABLE": {
         "NAME": "stable",
+        "ICON": "img/Buildings/Stable1.png",
         "LEVEL": 0,
         "MAX_LEVEL": 20,
         "REQUIREMENTS": {
@@ -235,6 +245,7 @@ BUILDINGS = {
     },
     "WORKSHOP": {
         "NAME": "workshop",
+        "ICON": "img/Buildings/Garage1.png",
         "LEVEL": 0,
         "MAX_LEVEL": 15,
         "REQUIREMENTS": {
@@ -257,6 +268,7 @@ BUILDINGS = {
     },
     "ACADEMY": {
         "NAME": "Academy",
+        "ICON": "img/Buildings/Snob1.png",
         "LEVEL": 0,
         "MAX_LEVEL": 1,
         "REQUIREMENTS": {
@@ -280,6 +292,7 @@ BUILDINGS = {
     },
     "SMITHY": {
         "NAME": "Smithy",
+        "ICON": "img/Buildings/Smith1.png",
         "LEVEL": 0,
         "MAX_LEVEL": 20,
         "REQUIREMENTS": {
@@ -302,6 +315,7 @@ BUILDINGS = {
     },
     "MARKET": {
         "NAME": "Market",
+        "ICON": "img/Buildings/Market1.png",
         "LEVEL": 0,
         "MAX_LEVEL": 25,
         "REQUIREMENTS": {
@@ -324,6 +338,7 @@ BUILDINGS = {
     },
     "WALL": {
         "NAME": "Wall",
+        "ICON": "img/Buildings/Wall1.png",
         "LEVEL": 0,
         "MAX_LEVEL": 20,
         "REQUIREMENTS": {
