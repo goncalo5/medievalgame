@@ -243,10 +243,9 @@ class AvailableUnavailableMenu(BoxLayout):
         self.orientation = "vertical"
 
         self.app = App.get_running_app()
-        self.all_inputs = {}
-        self.all_labels = {}
+        self.all_available_rows = {}
+        self.all_unavailable_rows = {}
 
-    
     def create_header(self, header, box, color=(1, 1, 1, 1)):
         row = BoxLayout(orientation="horizontal", size_hint_y=None)
 
@@ -257,71 +256,124 @@ class AvailableUnavailableMenu(BoxLayout):
         if box == "return":
             return row
         box.add_widget(row)
-    
+
+
+class AllUnitsRecruit(AvailableUnavailableMenu):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.all_inputs = {}
+        self.all_labels = {}
+
+        # Availables:
+        self.available_box = BoxLayout(orientation="vertical")
+        print("AllUnitsRecruit", self.app.buildings)
+        for building_name in BUILDINGS:
+            building = getattr(self.app, building_name.lower())
+            print(55, building)
+            building.bind(level=self.update_units_availables)
+
+        header = [
+            ["Unit", 0.25],
+            ["Requirements", 0.5],
+            ["In the\nvillage/total", 0.15],
+            ["Recruit", 0.15]
+        ]
+        self.create_header(header, self.available_box)
+        self.create_all_availables(self.app.barracks, self.available_box)
+        self.create_button()
+
+        # Unavailables:
+        self.unavailable_box = BoxLayout(orientation="vertical")
+        header = [
+            ["Not yet available", 0.30],
+            ["Requirements", 0.70]
+        ]
+        self.create_header(header, self.unavailable_box)
+        self.create_all_not_availables(self.unavailable_box)
+
+    def update_units_availables(self, *args):
+        print("update_units_availables", args)
+        building = args[0]
+        if "units" not in dir(building):
+            return
+        for unit_name in building.units:
+            unit = getattr(self.app, unit_name)
+            if self.check_if_is_available(unit):
+                if unit not in self.all_available_rows:
+                    self.add_1_available_row(unit, self.available_box)
+                if unit in self.all_unavailable_rows:
+                    row = self.all_unavailable_rows.pop(unit)
+                    self.unavailable_box.remove_widget(row)
+
     def create_button(self):
         self.button = Button(text="Recruit", size_hint_y=0.2, size_hint_x=0.15, pos_hint={"x": 0.85})
         self.button.bind(on_press=self.check)
         self.add_widget(self.button)
     
-    def create_all_availables(self, building):
+    def create_all_availables(self, building, box):
         for unit_name in building.units:
             unit = getattr(self.app, unit_name)
             if self.check_if_is_available(unit):
-                self.add_1_available_row(unit, self.app)
+                self.add_1_available_row(unit, box)
+        self.add_widget(box)
 
-    def create_all_not_availables(self):
+    def create_all_not_availables(self, box):
         for unit_name in self.app.barracks.units:
             unit = getattr(self.app, unit_name)
             if not self.check_if_is_available(unit):
-                self.add_1_not_available_row(unit)
+                self.add_1_not_available_row(unit, box)
+        self.add_widget(box)
 
-    def add_1_available_row(self, unit, app):
-        box = BoxLayout(orientation="horizontal", size_hint_y=0.2)
+    def add_1_available_row(self, unit, box):
+        row = BoxLayout(orientation="horizontal", size_hint_y=0.2)
+        self.all_available_rows[unit] = row
 
         # Unit:
         img = Image(source=unit.icon, size_hint_x=0.05)
         label = Label(text="Spear Fighter", size_hint_x=0.15, font_size=24)
-        box.add_widget(img)
-        box.add_widget(label)
+        row.add_widget(img)
+        row.add_widget(label)
 
         # Requirements:
-        img = Image(source=app.wood.icon, size_hint_x=0.05)
+        img = Image(source=self.app.wood.icon, size_hint_x=0.05)
         label = Label(text=str(unit.requirements.get("WOOD")), size_hint_x=0.05, font_size=24)
-        box.add_widget(img)
-        box.add_widget(label)
-        img = Image(source=app.clay.icon, size_hint_x=0.05)
+        row.add_widget(img)
+        row.add_widget(label)
+        img = Image(source=self.app.clay.icon, size_hint_x=0.05)
         label = Label(text=str(unit.requirements.get("CLAY")), size_hint_x=0.05, font_size=24)
-        box.add_widget(img)
-        box.add_widget(label)
-        img = Image(source=app.iron.icon, size_hint_x=0.05)
+        row.add_widget(img)
+        row.add_widget(label)
+        img = Image(source=self.app.iron.icon, size_hint_x=0.05)
         label = Label(text=str(unit.requirements.get("IRON")), size_hint_x=0.05, font_size=24)
-        box.add_widget(img)
-        box.add_widget(label)
+        row.add_widget(img)
+        row.add_widget(label)
 
         # In the\nvillage/total:
         self.all_labels[unit.name] = Label(text="0/0", size_hint_x=0.15, font_size=24)
-        box.add_widget(self.all_labels[unit.name])
+        row.add_widget(self.all_labels[unit.name])
 
         # Recruit:
         self.all_inputs[unit.name] = TextInput(size_hint_x=0.1)
         label = Label(text="(%s)" % "", size_hint_x=0.05, font_size=24)
-        box.add_widget(self.all_inputs[unit.name])
-        box.add_widget(label)
-        self.add_widget(box)
+        row.add_widget(self.all_inputs[unit.name])
+        row.add_widget(label)
+        box.add_widget(row)
 
-    def add_1_not_available_row(self, unit):
-        box = BoxLayout(orientation="horizontal", size_hint_y=0.2)
+    def add_1_not_available_row(self, unit, box):
+        row = BoxLayout(orientation="horizontal", size_hint_y=0.2)
+        self.all_unavailable_rows[unit] = row
+
         img = Image(source=unit.icon, size_hint_x=0.05)
-        box.add_widget(img)
+        row.add_widget(img)
         label = Label(text=unit.name, size_hint_x=0.2, font_size=24)
-        box.add_widget(label)
+        row.add_widget(label)
         for building_req, level_req in unit.requirements.get("UNLOCK"):
             label = Label(text="%s (Level %s)" % (building_req, level_req),
-                          size_hint_x=0.25, font_size=24, color=(0.5, 0.5, 0.5, 1))
-            box.add_widget(label)
+                            size_hint_x=0.25, font_size=24, color=(0.5, 0.5, 0.5, 1))
+            row.add_widget(label)
         label = Label(size_hint_x=0.45)
-        box.add_widget(label)
-        self.add_widget(box)
+        row.add_widget(label)
+        box.add_widget(row)
 
     def check_if_is_available(self, unit):
         unlock = unit.requirements.get("UNLOCK")
@@ -346,27 +398,6 @@ class AvailableUnavailableMenu(BoxLayout):
             self.all_labels.get("spear_fighter").text = "%s/%s" % (app.spear_fighter.n, app.spear_fighter.n)
 
 
-class AllUnitsRecruit(AvailableUnavailableMenu):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        
-        header = [
-            ["Unit", 0.25],
-            ["Requirements", 0.5],
-            ["In the\nvillage/total", 0.15],
-            ["Recruit", 0.15]
-        ]
-        self.create_header(header, self)
-        self.create_all_availables(self.app.barracks)
-        self.create_button()
-        header = [
-            ["Not yet available", 0.30],
-            ["Requirements", 0.70]
-        ]
-        self.create_header(header, self)
-        self.create_all_not_availables()
-
-
 class AllBuildingsUpgrade(AvailableUnavailableMenu):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -377,8 +408,6 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         self.buildings_upgrading = [None] * 2
         self.building_labels = {}
         self.building_buttons = {}
-        self.all_available_rows = {}
-        self.all_unavailable_rows = {}
 
         # scrool:
         self.recycleview = RecycleView()
