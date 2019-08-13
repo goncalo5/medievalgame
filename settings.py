@@ -1,6 +1,7 @@
 WHITE = (1, 1, 1, 1)
 BLACK = (0, 0, 0, 1)
 
+
 RESOURCES = {
     "INIT": {
         "WOOD": 500,
@@ -40,7 +41,8 @@ BUILDINGS = {
             "BASE": 5,
             "RATIO": 1.155
         },
-        "TIME_REDUCE": 1/1.05
+        "TIME_REDUCE": 1/1.05,
+        "MENU": [0.25, 0.25, 0.25, 0.25]
     },
     "RALLY_POINT": {
         "NAME": "rally_point",

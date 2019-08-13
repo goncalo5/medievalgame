@@ -51,6 +51,7 @@ class Building(Widget):
         self.population0 = self.settings.get("POPULATION").get("BASE")
         self.population_ratio = self.settings.get("POPULATION").get("RATIO")
         self.unlock = self.settings.get("REQUIREMENTS").get("UNLOCK", [])
+        self.menu = self.settings.get("MENU")
 
         self.time_left = self.time
         self.update_cost_for_current_level()
@@ -465,31 +466,32 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
 
         # header:
         header = [
-            ["Construction", 0.25],
-            ["Duration", 0.25],
-            ["Completation", 0.25],
-            ["Cancellation", 0.25]
+            ["Construction", self.app.headquarters.menu[0]],
+            ["Duration", self.app.headquarters.menu[1]],
+            ["Completation", self.app.headquarters.menu[2]],
+            ["Cancellation", self.app.headquarters.menu[3]]
         ]
         self.header_time = self.create_header(header, "return", BLACK)
 
         # 1 row
         self.row_time = BoxLayout(orientation="horizontal", size_hint_y=None, height=100)
             # building name
-        building_name = DarkLabel(text="%s" % self.app.current_upgrading, size_hint_y=None)
+        building_name = DarkLabel(text="%s" % self.app.current_upgrading, size_hint=(self.app.headquarters.menu[0], None))
         self.buildings_upgrading[0] = building_name
         self.app.bind(current_upgrading=self.update)
         self.app.bind(time_left=self.update)
         self.row_time.add_widget(building_name)
             # time left:
-        time_label = DarkLabel(text="%s" % int(self.app.time_left) if self.app.time_left > 0 else "", size_hint_y=None)
+        time_label = DarkLabel(text="", size_hint=(self.app.headquarters.menu[1], None))
         self.buildings_upgrading[1] = time_label
         self.row_time.add_widget(time_label)
             # datetime when will be finish:
-        label = DarkLabel(text=self.app.time_eta)
+        label = DarkLabel(text=self.app.time_eta, size_hint=(self.app.headquarters.menu[2], None))
         self.app.bind(time_eta=label.setter("text"))
         self.row_time.add_widget(label)
             # cancel button:
-        cancel_button = Button(text="Cancel", pos_hint={'center_x': 0.5, 'center_y': 0.5}, size_hint=(0.5, 0.5))
+        cancel_button = Button(text="Cancel", pos_hint={'center_x': 0.5, 'center_y': 0.5},
+                               size_hint=(self.app.headquarters.menu[3], 0.5))
         cancel_button.bind(on_press=self.app.cancel_upgrading)
         self.row_time.add_widget(cancel_button)
 
