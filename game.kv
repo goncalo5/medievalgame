@@ -84,148 +84,7 @@
             TabbedPanelItem:
                 text: "Recruitment"
                 AllUnitsRecruit:
-                    # id: all_units
-                    # orientation: "vertical"
-                    # BoxLayout:
-                    #     size_hint_y: 0.2
-                    #     orientation: "horizontal"
-                    #     Label:
-                    #         text: "Unit"
-                    #         size_hint_x: 0.25
-                    #     Label:
-                    #         text: "Requirements"
-                    #         size_hint_x: 0.5
-                    #     Label:
-                    #         text: "In the\nvillage/total"
-                    #         size_hint_x: 0.15
-                    #     Label:
-                    #         text: "Recruit"
-                    #         size_hint_x: 0.15
-                    # SpearFighterRow
-        #             BoxLayout:
-        #                 size_hint_y: 0.2
-        #                 orientation: "horizontal"
-        #                 # Unit:
-        #                 Image:
-        #                     source: app.spear_fighter.icon
-        #                     size_hint_x: 0.05
-        #                 Label:
-        #                     text: app.spear_fighter.name
-        #                     size_hint_x: 0.15
-        #                     font_size: 24
-        #                 # Requirements:
-        #                 Image:
-        #                     source: "img/wood.png"
-        #                     size_hint_x: 0.05
-        #                 Label:
-        #                     text: "%s" % app.spear_fighter.requirements.get("WOOD")
-        #                     size_hint_x: 0.05
-        #                     font_size: 24
-        #                 Image:
-        #                     source: "img/Clay.png"
-        #                     size_hint_x: 0.05
-        #                 Label:
-        #                     text: "%s" % app.spear_fighter.requirements.get("CLAY")
-        #                     size_hint_x: 0.05
-        #                     font_size: 24
-        #                 Image:
-        #                     source: "img/iron.png"
-        #                     size_hint_x: 0.05
-        #                 Label:
-        #                     text: "%s" % app.spear_fighter.requirements.get("IRON")
-        #                     size_hint_x: 0.05
-        #                     font_size: 24
-        #                 Image:
-        #                     source: "img/Pop.png"
-        #                     size_hint_x: 0.05
-        #                 Label:
-        #                     text: "%s" % app.spear_fighter.requirements.get("POPULATION")
-        #                     size_hint_x: 0.05
-        #                     font_size: 24
-        #                 Label:
-        #                     text: "06:19"
-        #                     size_hint_x: 0.1
-        #                     font_size: 24
-        #                 # In the\nvillage/total:
-        #                 Label:
-        #                     text: "%s/%s" % (app.spear_fighter.n, app.spear_fighter.n)
-        #                     size_hint_x: 0.15
-        #                     font_size: 24
-        #                 # Recruit
-        #                 TextInput:
-        #                     id: spear_fighter_recruit
-        #                     size_hint_x: 0.1
-        #                 Label:
-        #                     text: "(%s)" % ""
-        #                     size_hint_x: 0.05
-        #                     font_size: 24
-                    # Button:
-                    #     text: "Recruit"
-                    #     size_hint_y: 0.2
-                    #     size_hint_x: 0.15
-                    #     pos_hint: {"x": 0.85}
-                    #     on_press:
-                    #         app.spear_fighter.recruit(spear_fighter_recruit.text)
-                    # BoxLayout:
-                    #     orientation: "horizontal"
-                    #     size_hint_y: 0.2
-                    #     Label:
-                    #         text: "Not yet available"
-                    #         size_hint_x: 0.30
-                    #     Label:
-                    #         text: "Requirements"
-                    #         size_hint_x: 0.70
-        #             BoxLayout:
-        #                 orientation: "horizontal"
-        #                 size_hint_y: 0.2
-        #                 Image:
-        #                     source: "img/Unit_sword_60.png"
-        #                     size_hint_x: 0.05
-        #                 Label:
-        #                     text: "Swordsman"
-        #                     size_hint_x: 0.25
-        #                 Label:
-        #                     text: "Smithy (Level 1)"
-        #                     size_hint_x: 0.25
-        #                     color: (0.5, 0.5, 0.5, 1)
-        #                 Label:
-        #                     size_hint_x: 0.45
-        #             BoxLayout:
-        #                 orientation: "horizontal"
-        #                 size_hint_y: 0.2
-        #                 Image:
-        #                     source: "img/Unit_axe_60.png"
-        #                     size_hint_x: 0.05
-        #                 Label:
-        #                     text: "Axeman"
-        #                     size_hint_x: 0.25
-        #                 Label:
-        #                     text: "Smithy (Level 2)"
-        #                     size_hint_x: 0.25
-        #                     color: (0.5, 0.5, 0.5, 1)
-        #                 Label:
-        #                     size_hint_x: 0.45
-        #             BoxLayout:
-        #                 orientation: "horizontal"
-        #                 size_hint_y: 0.2
-        #                 Image:
-        #                     source: "img/Unit_archer_60.png"
-        #                     size_hint_x: 0.05
-        #                 Label:
-        #                     text: "Archer"
-        #                     size_hint_x: 0.25
-        #                 Label:
-        #                     text: "Barracks (Level 5)"
-        #                     size_hint_x: 0.25
-        #                     color: (0.5, 0.5, 0.5, 1)
-        #                     pos_hint: {"x": 0.3}
-        #                 Label:
-        #                     text: "Smithy (Level 5)"
-        #                     size_hint_x: 0.25
-        #                     color: (0.5, 0.5, 0.5, 1)
-        #                     # pos_hint: {"x": 0.75}
-        #                 Label:
-        #                     size_hint_x: 0.2
+
             TabbedPanelItem:
                 text: "Decommissioning"
 <Overview@Screen>:
@@ -312,328 +171,56 @@
             size: self.size
     BoxLayout:
         orientation: "vertical"
-        # y: app.offset
         HeaderBoxLayout
-        # Label
         DarkLabel:
             text: "Headquarters (Level %s)" % app.headquarters.level
             size_hint_y: None
             height: 100
-        # Label:
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Construction"
-        #     MenuLabel:
-        #         text: "Duration"
-        #     MenuLabel:
-        #         text: "Completation"
-        #     MenuLabel:
-        #         text: "Cancellation"
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "%s" % app.current_upgrading
-        #     MenuLabel:
-        #         text: "%s" % int(app.time_left) if app.time_left > 0 else ""
-        #     MenuLabel:
-        #         text: "Completation"
-        #     RelativeLayout:
-        #         Button:
-        #             text: "Cancel"
-        #             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        #             size_hint: 0.5, 0.5
-        #             on_press:
-        #                 app.cancel_upgrading()
         AllBuildingsUpgrade:
-            # size_hint_y: 0.95
-        # Label:
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Buildings"
-        #     ContentLabel:
-        #         text: "Wood"
-        #     ContentLabel:
-        #         text: "Clay"
-        #     ContentLabel:
-        #         text: "Iron"
-        #     ContentLabel:
-        #         text: "Time"
-        #     ContentLabel:
-        #         text: "Pop"
-        #     ContentLabel:
-        #         text: "Construct"
-        # Label:
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Headquarters\n(Level %s)" % app.headquarters.level
-        #     ContentLabel:
-        #         text: "%s" % int(app.headquarters.wood)
-        #     ContentLabel:
-        #         text: "%s" % int(app.headquarters.clay)
-        #     ContentLabel:
-        #         text: "%s" % int(app.headquarters.iron)
-        #     ContentLabel:
-        #         text: "%s" % int(app.headquarters.time)
-        #     ContentLabel:
-        #         text: "%s" % int(app.headquarters.population_for_next_level)
-        #     Button:
-        #         text: "level %s" % (app.headquarters.level + 1)
-        #         on_press:
-        #             app.upgrade_building(app.headquarters)
-        # Label
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Rally point\n(Level %s)" % app.rally_point.level
-        #     ContentLabel:
-        #         text: "%s" % int(app.rally_point.wood)
-        #     ContentLabel:
-        #         text: "%s" % int(app.rally_point.clay)
-        #     ContentLabel:
-        #         text: "%s" % int(app.rally_point.iron)
-        #     ContentLabel:
-        #         text: "%s" % int(app.rally_point.time)
-        #     ContentLabel:
-        #         text: "%s" % int(app.rally_point.population_for_next_level)
-        #     Button:
-        #         text: "level %s" % (app.rally_point.level + 1)
-        #         on_press:
-        #             app.upgrade_building(app.rally_point)
-        # Label
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Statue\n(Level %s)" % app.statue.level
-        #     ContentLabel:
-        #         text: "%s" % int(app.statue.wood)
-        #     ContentLabel:
-        #         text: "%s" % int(app.statue.clay)
-        #     ContentLabel:
-        #         text: "%s" % int(app.statue.iron)
-        #     ContentLabel:
-        #         text: "%s" % int(app.statue.time)
-        #     ContentLabel:
-        #         text: "%s" % int(app.statue.population_for_next_level)
-        #     Button:
-        #         text: "level %s" % (app.statue.level + 1)
-        #         on_press:
-        #             app.upgrade_building(app.statue)
-        # Label
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Timber camp\n(Level %s)" % app.timber_camp.level
-        #     ContentLabel:
-        #         text: "%s" % int(app.timber_camp.wood)
-        #     ContentLabel:
-        #         text: "%s" % int(app.timber_camp.clay)
-        #     ContentLabel:
-        #         text: "%s" % int(app.timber_camp.iron)
-        #     ContentLabel:
-        #         text: "%s" % int(app.timber_camp.time)
-        #     ContentLabel:
-        #         text: "%s" % int(app.timber_camp.population_for_next_level)
-        #     Button:
-        #         text: "level %s" % (app.timber_camp.level + 1)
-        #         on_press:
-        #             app.upgrade_building(app.timber_camp)
-        # Label
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Clay pit\n(Level %s)" % app.clay_pit.level
-        #     ContentLabel:
-        #         text: "%s" % int(app.clay_pit.wood)
-        #     ContentLabel:
-        #         text: "%s" % int(app.clay_pit.clay)
-        #     ContentLabel:
-        #         text: "%s" % int(app.clay_pit.iron)
-        #     ContentLabel:
-        #         text: "%s" % int(app.clay_pit.time)
-        #     ContentLabel:
-        #         text: "%s" % int(app.clay_pit.population_for_next_level)
-        #     Button:
-        #         text: "level %s" % (app.clay_pit.level + 1)
-        #         on_press:
-        #             app.upgrade_building(app.clay_pit)
-        # Label
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Iron mine\n(Level %s)" % app.iron_mine.level
-        #     ContentLabel:
-        #         text: "%s" % int(app.iron_mine.wood)
-        #     ContentLabel:
-        #         text: "%s" % int(app.iron_mine.clay)
-        #     ContentLabel:
-        #         text: "%s" % int(app.iron_mine.iron)
-        #     ContentLabel:
-        #         text: "%s" % int(app.iron_mine.time)
-        #     ContentLabel:
-        #         text: "%s" % int(app.iron_mine.population_for_next_level)
-        #     Button:
-        #         text: "level %s" % (app.iron_mine.level + 1)
-        #         on_press:
-        #             app.upgrade_building(app.iron_mine)
-        # Label
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Farm\n(Level %s)" % app.farm.level
-        #     ContentLabel:
-        #         text: "%s" % int(app.farm.wood)
-        #     ContentLabel:
-        #         text: "%s" % int(app.farm.clay)
-        #     ContentLabel:
-        #         text: "%s" % int(app.farm.iron)
-        #     ContentLabel:
-        #         text: "%s" % int(app.farm.time)
-        #     ContentLabel:
-        #         text: "%s" % int(app.farm.population_for_next_level)
-        #     Button:
-        #         text: "level %s" % (app.farm.level + 1)
-        #         on_press:
-        #             app.upgrade_building(app.farm)
-        # Label
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Warehouse\n(Level %s)" % app.warehouse.level
-        #     ContentLabel:
-        #         text: "%s" % int(app.warehouse.wood)
-        #     ContentLabel:
-        #         text: "%s" % int(app.warehouse.clay)
-        #     ContentLabel:
-        #         text: "%s" % int(app.warehouse.iron)
-        #     ContentLabel:
-        #         text: "%s" % int(app.warehouse.time)
-        #     ContentLabel:
-        #         text: "%s" % int(app.warehouse.population_for_next_level)
-        #     Button:
-        #         text: "level %s" % (app.warehouse.level + 1)
-        #         on_press:
-        #             app.upgrade_building(app.warehouse)
-        # Label
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Hiding place\n(Level %s)" % app.hiding_place.level
-        #     ContentLabel:
-        #         text: "%s" % int(app.hiding_place.wood)
-        #     ContentLabel:
-        #         text: "%s" % int(app.hiding_place.clay)
-        #     ContentLabel:
-        #         text: "%s" % int(app.hiding_place.iron)
-        #     ContentLabel:
-        #         text: "%s" % int(app.hiding_place.time)
-        #     ContentLabel:
-        #         text: "%s" % int(app.hiding_place.population_for_next_level)
-        #     Button:
-        #         text: "level %s" % (app.hiding_place.level + 1)
-        #         on_press:
-        #             app.upgrade_building(app.hiding_place)
-        # Label
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Not yet available"
-        #     ContentLabel:
-        #         text: "Requirements"
-        # Label
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Barracks"
-        #     MenuLabel:
-        #         color: 0.5, 0.5, 0.5, 1
-        #         text: "%s (%s)" % (app.barracks.unlock[0][0], app.barracks.unlock[0][1])
-        # Label
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Stable"
-        #     MenuLabel:
-        #         color: 0.5, 0.5, 0.5, 1
-        #         text: "%s (%s)" % (app.stable.unlock[0][0], app.stable.unlock[0][1])
-        #     MenuLabel:
-        #         color: 0.5, 0.5, 0.5, 1
-        #         text: "%s (%s)" % (app.stable.unlock[1][0], app.stable.unlock[1][1])
-        #     MenuLabel:
-        #         color: 0.5, 0.5, 0.5, 1
-        #         text: "%s (%s)" % (app.stable.unlock[2][0], app.stable.unlock[2][1])
-        # Label
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Workshop"
-        #     MenuLabel:
-        #         color: 0.5, 0.5, 0.5, 1
-        #         text: "%s (%s)" % (app.workshop.unlock[0][0], app.workshop.unlock[0][1])
-        #     MenuLabel:
-        #         color: 0.5, 0.5, 0.5, 1
-        #         text: "%s (%s)" % (app.workshop.unlock[1][0], app.workshop.unlock[1][1])
-        # Label
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Academy"
-        #     MenuLabel:
-        #         color: 0.5, 0.5, 0.5, 1
-        #         text: "%s (%s)" % (app.academy.unlock[0][0], app.academy.unlock[0][1])
-        #     MenuLabel:
-        #         color: 0.5, 0.5, 0.5, 1
-        #         text: "%s (%s)" % (app.academy.unlock[1][0], app.academy.unlock[1][1])
-        #     MenuLabel:
-        #         color: 0.5, 0.5, 0.5, 1
-        #         text: "%s (%s)" % (app.academy.unlock[2][0], app.academy.unlock[2][1])
-        # Label
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Smithy"
-        #     MenuLabel:
-        #         color: 0.5, 0.5, 0.5, 1
-        #         text: "%s (%s)" % (app.smithy.unlock[0][0], app.smithy.unlock[0][1])
-        #     MenuLabel:
-        #         color: 0.5, 0.5, 0.5, 1
-        #         text: "%s (%s)" % (app.smithy.unlock[1][0], app.smithy.unlock[1][1])
-        # Label
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Market"
-        #     MenuLabel:
-        #         color: 0.5, 0.5, 0.5, 1
-        #         text: "%s (%s)" % (app.market.unlock[0][0], app.market.unlock[0][1])
-        #     MenuLabel:
-        #         color: 0.5, 0.5, 0.5, 1
-        #         text: "%s (%s)" % (app.market.unlock[1][0], app.market.unlock[1][1])
-        # Label
-        # GridLayout:
-        #     rows: 1
-        #     MenuLabel:
-        #         text: "Wall"
-        #     MenuLabel:
-        #         color: 0.5, 0.5, 0.5, 1
-        #         text: "%s (%s)" % (app.wall.unlock[0][0], app.wall.unlock[0][1])
+
+<IronMineScreen@Screen>:
+    canvas.before:
+        Color:
+            rgba: 1, 242/255, 179/255, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        HeaderBoxLayout
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint_y: 0.3
+            Image:
+                size_hint_x: 0.15 
+                source: "img/Buildings/Iron1.png"
+            BoxLayout:
+                orientation: "vertical"
+                DarkLabel:
+                    text: "Iron mine (Level %s)" % app.iron_mine.level
+                DarkLabel:
+                    font_size: 25
+                    text: "In the iron mine your workers dig the war-crucial iron.\nThe higher its level the more iron is produced."
 
 <Game>:
     id: screen_manager
     overview: overview
     main: main
     barracks_screen: barracks_screen
+    iron_mine_screen: iron_mine_screen
+    IronMineScreen:
+        id: iron_mine_screen
+        name: "iron_mine_screen"
+        manager: screen_manager
     Main:
         id: main
         name: "main"
         manager: screen_manager
-    BarracksScreen:
-        id: barracks_screen
-        name: "barracks_screen"
-        manager: screen_manager
     Overview:
         id: overview
         name: "overview"
+        manager: screen_manager
+    BarracksScreen:
+        id: barracks_screen
+        name: "barracks_screen"
         manager: screen_manager
