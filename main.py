@@ -372,30 +372,28 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
     
     def new(self):
         # self.size_hint_y = 0.95
-        self.available_buildings = []
         self.buildings_upgrading = [None] * 2
         self.building_labels = {}
         self.building_buttons = {}
         self.all_available_rows = {}
         self.all_unavailable_rows = {}
-        
-        self.create_time_menu()
 
         # scrool:
         self.recycleview = RecycleView()
-        self.box_with_availables_and_unavailables =\
+        self.box_scroll =\
             BoxLayout(orientation="vertical", size_hint_y=None)
-        self.box_with_availables_and_unavailables.\
-            bind(minimum_height=self.box_with_availables_and_unavailables.setter('height'))
+        self.box_scroll.\
+            bind(minimum_height=self.box_scroll.setter('height'))
+        self.create_time_menu()
         self.create_available_box()
         self.create_unavailable_box()
-        self.recycleview.add_widget(self.box_with_availables_and_unavailables)
+        self.recycleview.add_widget(self.box_scroll)
         self.add_widget(self.recycleview)
     
     def update(self, *args):
         self.buildings_upgrading[0].text = str(self.app.current_upgrading)
         self.buildings_upgrading[1].text = "%s" % int(self.app.time_left) if self.app.time_left > 0 else ""
-        for building in self.available_buildings:
+        for building in self.all_available_rows:
             self.building_labels[building.name].text = "%s\n(Level %s)" % (building.name, building.level)
             self.building_buttons[building.name].text = str(int(building.level + 1))
 
@@ -409,7 +407,7 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
                     break
             else:
                 self.unavailable_box.remove_widget(self.all_unavailable_rows[building.name])
-                if building.name not in self.all_available_rows:
+                if building not in self.all_available_rows:
                     self.add_1_available_row(building)
         
 
@@ -417,7 +415,7 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         right_button = args[0]
         for building_name, button in self.building_buttons.items():
             if button is right_button:
-                building = getattr(self.app, building_name)
+                building = getattr(self.app, building_name.lower())
                 self.app.upgrade_building(building)
 
 
@@ -430,7 +428,7 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
             ["Completation", 0.25],
             ["Cancellation", 0.25]
         ]
-        self.create_header(header, self, BLACK)
+        self.create_header(header, self.box_scroll, BLACK)
 
         # 1 row
         row = BoxLayout(orientation="horizontal", size_hint_y=None, height=200)
@@ -444,7 +442,7 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         time_label = DarkLabel(text="%s" % int(self.app.time_left) if self.app.time_left > 0 else "", size_hint_y=None)
         self.buildings_upgrading[1] = time_label
         row.add_widget(time_label)
-        self.add_widget(row)
+        self.box_scroll.add_widget(row)
     ##############################################################
     # AVAILABLE:
     def create_available_box(self):
@@ -462,18 +460,17 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         self.create_header(header, self.available_box, BLACK)
         possibles = BUILDINGS
         self.create_all_availables(possibles)
-        self.box_with_availables_and_unavailables.add_widget(self.available_box)
+        self.box_scroll.add_widget(self.available_box)
 
     def create_all_availables(self, possibles):
         for name in possibles:
             building = getattr(self.app, name.lower())
             if self.check_if_is_available(building):
                 self.add_1_available_row(building)
-                self.available_buildings.append(building)
 
     def add_1_available_row(self, building):
         row = BoxLayout(orientation="horizontal", size_hint_y=None, height=100)
-        self.all_available_rows[building.name] = row
+        self.all_available_rows[building] = row
 
         # Building:
         img = Image(source=building.icon, size_hint_x=0.05)
@@ -519,7 +516,6 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
     # UNAVAILABLE:
     def create_unavailable_box(self):
         self.unavailable_box = BoxLayout(orientation="vertical", size_hint_y=None)
-        print(55, self.unavailable_box.setter('height'), self.unavailable_box.height)
         self.unavailable_box.bind(minimum_height=self.unavailable_box.setter('height'))
         header = [
             ["Not yet available", 0.30],
@@ -528,7 +524,7 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         self.create_header(header, self.unavailable_box, BLACK)
         self.create_all_not_availables()
         # self.add_widget(self.unavailable_box)
-        self.box_with_availables_and_unavailables.add_widget(self.unavailable_box)
+        self.box_scroll.add_widget(self.unavailable_box)
 
     def create_all_not_availables(self):
         for building_name in BUILDINGS:
