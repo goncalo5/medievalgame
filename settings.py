@@ -42,7 +42,11 @@ BUILDINGS = {
             "RATIO": 1.155
         },
         "TIME_REDUCE": 1/1.05,
-        "MENU": [0.25, 0.25, 0.25, 0.25]
+        "MENUS": {
+            "TIME": [0.25, 0.25, 0.25, 0.25],
+            "AVAILABLES": [0.25, 0.12, 0.12, 0.12, 0.12, 0.12, 0.15],
+            "UNAVAILABLES": [0.25, 0.75]
+        }
     },
     "RALLY_POINT": {
         "NAME": "rally_point",

@@ -51,7 +51,7 @@ class Building(Widget):
         self.population0 = self.settings.get("POPULATION").get("BASE")
         self.population_ratio = self.settings.get("POPULATION").get("RATIO")
         self.unlock = self.settings.get("REQUIREMENTS").get("UNLOCK", [])
-        self.menu = self.settings.get("MENU")
+        self.menus = self.settings.get("MENUS")
 
         self.time_left = self.time
         self.update_cost_for_current_level()
@@ -465,33 +465,34 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         self.box_time.bind(minimum_height=self.box_time.setter('height'))
 
         # header:
+        size_hint_x = self.app.headquarters.menus.get("TIME")
         header = [
-            ["Construction", self.app.headquarters.menu[0]],
-            ["Duration", self.app.headquarters.menu[1]],
-            ["Completation", self.app.headquarters.menu[2]],
-            ["Cancellation", self.app.headquarters.menu[3]]
+            ["Construction", size_hint_x[0]],
+            ["Duration", size_hint_x[1]],
+            ["Completation", size_hint_x[2]],
+            ["Cancellation", size_hint_x[3]]
         ]
         self.header_time = self.create_header(header, "return", BLACK)
 
         # 1 row
         self.row_time = BoxLayout(orientation="horizontal", size_hint_y=None, height=100)
             # building name
-        building_name = DarkLabel(text="%s" % self.app.current_upgrading, size_hint=(self.app.headquarters.menu[0], None))
+        building_name = DarkLabel(text="%s" % self.app.current_upgrading, size_hint=(size_hint_x[0], None))
         self.buildings_upgrading[0] = building_name
         self.app.bind(current_upgrading=self.update)
         self.app.bind(time_left=self.update)
         self.row_time.add_widget(building_name)
             # time left:
-        time_label = DarkLabel(text="", size_hint=(self.app.headquarters.menu[1], None))
+        time_label = DarkLabel(text="", size_hint=(size_hint_x[1], None))
         self.buildings_upgrading[1] = time_label
         self.row_time.add_widget(time_label)
             # datetime when will be finish:
-        label = DarkLabel(text=self.app.time_eta, size_hint=(self.app.headquarters.menu[2], None))
+        label = DarkLabel(text=self.app.time_eta, size_hint=(size_hint_x[2], None))
         self.app.bind(time_eta=label.setter("text"))
         self.row_time.add_widget(label)
             # cancel button:
         cancel_button = Button(text="Cancel", pos_hint={'center_x': 0.5, 'center_y': 0.5},
-                               size_hint=(self.app.headquarters.menu[3], 0.5))
+                               size_hint=(size_hint_x[3], 0.5))
         cancel_button.bind(on_press=self.app.cancel_upgrading)
         self.row_time.add_widget(cancel_button)
 
@@ -514,14 +515,15 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
     def create_available_box(self):
         self.available_box = BoxLayout(orientation="vertical", size_hint_y=None)
         self.available_box.bind(minimum_height=self.available_box.setter('height'))
+        size_hint_x = self.app.headquarters.menus.get("AVAILABLES")
         header = [
-            ["Buildings", 0.30],
-            ["Wood", 0.15],
-            ["Clay", 0.15],
-            ["Iron", 0.15],
-            ["Time", 0.15],
-            ["Pop", 0.15],
-            ["Construct", 0.15]
+            ["Buildings", size_hint_x[0]],
+            ["Wood", size_hint_x[1]],
+            ["Clay", size_hint_x[2]],
+            ["Iron", size_hint_x[3]],
+            ["Time", size_hint_x[4]],
+            ["Pop", size_hint_x[5]],
+            ["Construct", size_hint_x[6]]
         ]
         self.create_header(header, self.available_box, BLACK)
         possibles = BUILDINGS
@@ -538,38 +540,41 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         row = BoxLayout(orientation="horizontal", size_hint_y=None, height=100)
         self.all_available_rows[building] = row
 
+        size_hint_x = self.app.headquarters.menus.get("AVAILABLES")
         # Building:
-        img = Image(source=building.icon, size_hint_x=0.05)
-        building_label = DarkLabel(text="%s\n(Level %s)" % (building.name, building.level), size_hint_x=0.15, font_size=24)
+        img = Image(source=building.icon, size_hint_x=size_hint_x[0] / 4)
+        building_label = DarkLabel(text="%s\n(Level %s)" % (building.name, building.level), 
+                                   size_hint_x=size_hint_x[0] * 3/4, font_size=24)
         self.building_labels[building.name] = building_label
         building.bind(level=self.update)
         row.add_widget(img)
         row.add_widget(building_label)
 
         # Requirements:
-        img = Image(source=self.app.wood.icon, size_hint_x=0.05)
-        label = DarkLabel(text=str(int((building.wood))), size_hint_x=0.05, font_size=24)
+        img = Image(source=self.app.wood.icon, size_hint_x=size_hint_x[1]/2)
+        label = DarkLabel(text=str(int((building.wood))), size_hint_x=size_hint_x[1]/2, font_size=24)
         row.add_widget(img)
         row.add_widget(label)
-        img = Image(source=self.app.clay.icon, size_hint_x=0.05)
-        label = DarkLabel(text=str(int((building.clay))), size_hint_x=0.05, font_size=24)
+        img = Image(source=self.app.clay.icon, size_hint_x=size_hint_x[2]/2)
+        label = DarkLabel(text=str(int((building.clay))), size_hint_x=size_hint_x[2]/2, font_size=24)
         row.add_widget(img)
         row.add_widget(label)
-        img = Image(source=self.app.iron.icon, size_hint_x=0.05)
-        label = DarkLabel(text=str(int((building.clay))), size_hint_x=0.05, font_size=24)
+        img = Image(source=self.app.iron.icon, size_hint_x=size_hint_x[3]/2)
+        label = DarkLabel(text=str(int((building.clay))), size_hint_x=size_hint_x[3]/2, font_size=24)
         row.add_widget(img)
         row.add_widget(label)
-        img = Image(source=RESOURCES.get("ICON").get("TIME"), size_hint_x=0.05)
-        label = DarkLabel(text=str(int((building.time))), size_hint_x=0.05, font_size=24)
+        img = Image(source=RESOURCES.get("ICON").get("TIME"), size_hint_x=size_hint_x[4]/2)
+        label = DarkLabel(text=str(int((building.time))), size_hint_x=size_hint_x[4]/2, font_size=24)
         row.add_widget(img)
         row.add_widget(label)
-        img = Image(source=RESOURCES.get("ICON").get("POPULATION"), size_hint_x=0.05)
-        label = DarkLabel(text=str(int((building.population_for_next_level))), size_hint_x=0.05, font_size=24)
+        img = Image(source=RESOURCES.get("ICON").get("POPULATION"), size_hint_x=size_hint_x[5]/2)
+        label = DarkLabel(text=str(int((building.population_for_next_level))), size_hint_x=size_hint_x[5]/2, font_size=24)
         row.add_widget(img)
         row.add_widget(label)
 
         # button:
-        button = Button(text="lv %s" % (building.level + 1), size_hint_x=0.05)
+        button = Button(text="lv %s" % (building.level + 1), size_hint=(size_hint_x[6], 0.6),
+                        pos_hint={"center_x": 0.5, "center_y": 0.5})
         self.building_buttons[building.name] = button
         button.bind(on_press=self.upgrade)
         row.add_widget(button)
@@ -582,9 +587,10 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
     def create_unavailable_box(self):
         self.unavailable_box = BoxLayout(orientation="vertical", size_hint_y=None)
         self.unavailable_box.bind(minimum_height=self.unavailable_box.setter('height'))
+        size_hint_x = self.app.headquarters.menus.get("UNAVAILABLES")
         header = [
-            ["Not yet available", 0.30],
-            ["Requirements", 0.70]
+            ["Not yet available", size_hint_x[0]],
+            ["Requirements", size_hint_x[1]]
         ]
         self.create_header(header, self.unavailable_box, BLACK)
         self.create_all_not_availables()
@@ -602,14 +608,15 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         if building in self.all_unavailable_rows:
             return
         self.all_unavailable_rows[building] = row
+        size_hint_x = self.app.headquarters.menus.get("UNAVAILABLES")
 
-        img = Image(source=building.icon, size_hint_x=0.05)
+        img = Image(source=building.icon, size_hint_x=None, width=Window.width * size_hint_x[0] / 4)
         row.add_widget(img)
-        label = DarkLabel(text=building.name, size_hint_x=0.2, font_size=24)
+        label = DarkLabel(text=building.name, size_hint_x=None, width=Window.width * size_hint_x[0] * 3/4, font_size=24)
         row.add_widget(label)
         for building_req, level_req in building.unlock:
             label = Label(text="%s (Level %s)" % (building_req, level_req),
-                            size_hint_x=0.25, font_size=24, color=(0.5, 0.5, 0.5, 1))
+                            size_hint_x=None, width=Window.width * size_hint_x[1] / 3, font_size=24, color=(0.5, 0.5, 0.5, 1))
             row.add_widget(label)
         self.unavailable_box.add_widget(row)
     ##############################################################
