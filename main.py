@@ -409,7 +409,8 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
                     break
             else:
                 self.unavailable_box.remove_widget(self.all_unavailable_rows[building.name])
-                self.add_1_available_row(building)
+                if building.name not in self.all_available_rows:
+                    self.add_1_available_row(building)
         
 
     def upgrade(self, *args):

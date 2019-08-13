@@ -355,7 +355,7 @@ BUILDINGS = {
         "FACTOR_FOR_DEFENDING_TROOPS_INIT": 0.04,
         "FACTOR_FOR_DEFENDING_TROOPS_RATIO": 1.08,
         "UNLOCK": [
-            ["Headquarters", 3]
+            ["barracks", 1]
         ]
     },
 }
