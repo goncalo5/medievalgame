@@ -444,7 +444,7 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
                     break
             else:  # no breaks:
                 if building in self.all_unavailable_rows:
-                    self.unavailable_box.remove_widget(self.all_unavailable_rows[building.name])
+                    self.unavailable_box.remove_widget(self.all_unavailable_rows[building])
                 if building not in self.all_available_rows:
                     self.add_1_available_row(building)
         
@@ -589,9 +589,9 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
 
     def add_1_not_available_row(self, building):
         row = BoxLayout(orientation="horizontal", size_hint_y=None, height=100)
-        if building.name in self.all_unavailable_rows:
+        if building in self.all_unavailable_rows:
             return
-        self.all_unavailable_rows[building.name] = row
+        self.all_unavailable_rows[building] = row
 
         img = Image(source=building.icon, size_hint_x=0.05)
         row.add_widget(img)
