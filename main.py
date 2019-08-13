@@ -506,9 +506,9 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         row.add_widget(label)
 
         # button:
-        button = Button(text="lv %s" % (self.app.headquarters.level + 1), size_hint_x=0.05)
+        button = Button(text="lv %s" % (building.level + 1), size_hint_x=0.05)
         self.building_buttons[building.name] = button
-        self.app.upgrade_building(self.app.headquarters)
+        self.app.upgrade_building(building)
         button.bind(on_press=self.upgrade)
         row.add_widget(button)
 
