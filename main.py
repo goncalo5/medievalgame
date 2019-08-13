@@ -414,7 +414,8 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
                 if building_to_check.level < building_to_check_level:
                     break
             else:  # no breaks:
-                self.unavailable_box.remove_widget(self.all_unavailable_rows[building.name])
+                if building in self.all_unavailable_rows:
+                    self.unavailable_box.remove_widget(self.all_unavailable_rows[building.name])
                 if building not in self.all_available_rows:
                     self.add_1_available_row(building)
         
@@ -531,7 +532,6 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         # button:
         button = Button(text="lv %s" % (building.level + 1), size_hint_x=0.05)
         self.building_buttons[building.name] = button
-        self.app.upgrade_building(building)
         button.bind(on_press=self.upgrade)
         row.add_widget(button)
 
