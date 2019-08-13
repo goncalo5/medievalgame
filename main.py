@@ -254,6 +254,8 @@ class AvailableUnavailableMenu(BoxLayout):
             label = Label(text=name, size_hint_x=hint_x)
             label.color = color
             row.add_widget(label)
+        if box == "return":
+            return row
         box.add_widget(row)
     
     def create_button(self):
@@ -392,11 +394,17 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
     
     def update(self, *args):
         self.buildings_upgrading[0].text = str(self.app.current_upgrading)
-        self.buildings_upgrading[1].text = "%s" % int(self.app.time_left) if self.app.time_left > 0 else ""
+        if self.app.time_left > 0:
+            self.add_box_time()
+            self.buildings_upgrading[1].text = "%s" % int(self.app.time_left)
+        else:
+            self.buildings_upgrading[1].text = ""
+            self.remove_box_time()
         for building in self.all_available_rows:
             self.building_labels[building.name].text = "%s\n(Level %s)" % (building.name, building.level)
             self.building_buttons[building.name].text = str(int(building.level + 1))
 
+        # update availables:
         for building_name in BUILDINGS:
             building = getattr(self.app, building_name.lower())
             if not building.unlock:
@@ -405,7 +413,7 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
                 building_to_check = getattr(self.app, building_to_check_name.lower())
                 if building_to_check.level < building_to_check_level:
                     break
-            else:
+            else:  # no breaks:
                 self.unavailable_box.remove_widget(self.all_unavailable_rows[building.name])
                 if building not in self.all_available_rows:
                     self.add_1_available_row(building)
@@ -422,27 +430,45 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
     ##############################################################
     # time menu:
     def create_time_menu(self):
+        self.box_time = BoxLayout(orientation="vertical", size_hint_y=None)
+        self.box_time.bind(minimum_height=self.box_time.setter('height'))
+
+        # header:
         header = [
             ["Construction", 0.25],
             ["Duration", 0.25],
             ["Completation", 0.25],
             ["Cancellation", 0.25]
         ]
-        self.create_header(header, self.box_scroll, BLACK)
+        self.header_time = self.create_header(header, "return", BLACK)
 
         # 1 row
-        row = BoxLayout(orientation="horizontal", size_hint_y=None, height=200)
-        # building name
+        self.row_time = BoxLayout(orientation="horizontal", size_hint_y=None, height=200)
+            # building name
         building_name = DarkLabel(text="%s" % self.app.current_upgrading, size_hint_y=None)
         self.buildings_upgrading[0] = building_name
         self.app.bind(current_upgrading=self.update)
         self.app.bind(time_left=self.update)
-        row.add_widget(building_name)
-        # time left:
+        self.row_time.add_widget(building_name)
+            # time left:
         time_label = DarkLabel(text="%s" % int(self.app.time_left) if self.app.time_left > 0 else "", size_hint_y=None)
         self.buildings_upgrading[1] = time_label
-        row.add_widget(time_label)
-        self.box_scroll.add_widget(row)
+        self.row_time.add_widget(time_label)
+
+        # add to scroll:
+        self.box_scroll.add_widget(self.box_time)
+
+    def add_box_time(self):
+        try:
+            self.box_time.add_widget(self.header_time)
+            self.box_time.add_widget(self.row_time)
+        except:
+            pass
+
+    def remove_box_time(self):
+        self.box_time.remove_widget(self.header_time)
+        self.box_time.remove_widget(self.row_time)
+
     ##############################################################
     # AVAILABLE:
     def create_available_box(self):
