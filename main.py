@@ -383,9 +383,10 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
 
         # scrool:
         self.recycleview = RecycleView()
-        height = (len(BUILDINGS) + 4) * 100
         self.box_with_availables_and_unavailables =\
-            BoxLayout(orientation="vertical", size_hint_y=None, height=height)
+            BoxLayout(orientation="vertical", size_hint_y=None)
+        self.box_with_availables_and_unavailables.\
+            bind(minimum_height=self.box_with_availables_and_unavailables.setter('height'))
         self.create_available_box()
         self.create_unavailable_box()
         self.recycleview.add_widget(self.box_with_availables_and_unavailables)
@@ -446,7 +447,8 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
     ##############################################################
     # AVAILABLE:
     def create_available_box(self):
-        self.available_box = BoxLayout(orientation="vertical")
+        self.available_box = BoxLayout(orientation="vertical", size_hint_y=None)
+        self.available_box.bind(minimum_height=self.available_box.setter('height'))
         header = [
             ["Buildings", 0.30],
             ["Wood", 0.15],
@@ -515,8 +517,9 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
     ##############################################################
     # UNAVAILABLE:
     def create_unavailable_box(self):
-        self.unavailable_box = BoxLayout(orientation="vertical")
-        
+        self.unavailable_box = BoxLayout(orientation="vertical", size_hint_y=None)
+        print(55, self.unavailable_box.setter('height'), self.unavailable_box.height)
+        self.unavailable_box.bind(minimum_height=self.unavailable_box.setter('height'))
         header = [
             ["Not yet available", 0.30],
             ["Requirements", 0.70]
