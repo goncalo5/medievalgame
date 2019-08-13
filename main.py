@@ -266,10 +266,8 @@ class AllUnitsRecruit(AvailableUnavailableMenu):
 
         # Availables:
         self.available_box = BoxLayout(orientation="vertical")
-        print("AllUnitsRecruit", self.app.buildings)
         for building_name in BUILDINGS:
             building = getattr(self.app, building_name.lower())
-            print(55, building)
             building.bind(level=self.update_units_availables)
 
         header = [
@@ -292,7 +290,6 @@ class AllUnitsRecruit(AvailableUnavailableMenu):
         self.create_all_not_availables(self.unavailable_box)
 
     def update_units_availables(self, *args):
-        print("update_units_availables", args)
         building = args[0]
         if "units" not in dir(building):
             return
@@ -484,6 +481,10 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         time_label = DarkLabel(text="%s" % int(self.app.time_left) if self.app.time_left > 0 else "", size_hint_y=None)
         self.buildings_upgrading[1] = time_label
         self.row_time.add_widget(time_label)
+            # cancel button:
+        cancel_button = Button(text="Cancel", pos_hint={'center_x': 0.5, 'center_y': 0.5}, size_hint=(0.5, 0.5))
+        cancel_button.bind(on_press=self.app.cancel_upgrading)
+        self.row_time.add_widget(cancel_button)
 
         # add to scroll:
         self.box_scroll.add_widget(self.box_time)
@@ -758,7 +759,7 @@ class GameApp(App):
         self.current_upgrading = ""
         self.is_upgrading = False
     
-    def cancel_upgrading(self):
+    def cancel_upgrading(self, *args):
         if self.is_upgrading:
             self.cancel = True
 
