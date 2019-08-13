@@ -1,3 +1,6 @@
+# python modules:
+import datetime
+import time
 # kivy modules:
 from kivy.app import App
 from kivy import properties as kp
@@ -470,7 +473,7 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         self.header_time = self.create_header(header, "return", BLACK)
 
         # 1 row
-        self.row_time = BoxLayout(orientation="horizontal", size_hint_y=None, height=200)
+        self.row_time = BoxLayout(orientation="horizontal", size_hint_y=None, height=100)
             # building name
         building_name = DarkLabel(text="%s" % self.app.current_upgrading, size_hint_y=None)
         self.buildings_upgrading[0] = building_name
@@ -481,6 +484,10 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         time_label = DarkLabel(text="%s" % int(self.app.time_left) if self.app.time_left > 0 else "", size_hint_y=None)
         self.buildings_upgrading[1] = time_label
         self.row_time.add_widget(time_label)
+            # datetime when will be finish:
+        label = DarkLabel(text=self.app.time_eta)
+        self.app.bind(time_eta=label.setter("text"))
+        self.row_time.add_widget(label)
             # cancel button:
         cancel_button = Button(text="Cancel", pos_hint={'center_x': 0.5, 'center_y': 0.5}, size_hint=(0.5, 0.5))
         cancel_button.bind(on_press=self.app.cancel_upgrading)
@@ -660,6 +667,7 @@ class GameApp(App):
     # to upgrade buildings:
     current_upgrading = kp.ObjectProperty("")
     time_left = kp.NumericProperty()
+    time_eta = kp.ObjectProperty("")
     cancel = kp.BooleanProperty(False)
     is_upgrading = kp.BooleanProperty(False)
     # Units:
@@ -711,6 +719,7 @@ class GameApp(App):
             return
         self.current_upgrading = building
         self.time_left = building.time
+        self.time_eta = datetime.datetime.fromtimestamp(time.time() + self.time_left).strftime('%H:%M:%S')
         # update resources:
         self.wood.current -= self.current_upgrading.wood
         self.clay.current -= self.current_upgrading.clay
