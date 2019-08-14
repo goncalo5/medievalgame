@@ -105,7 +105,6 @@ class GameApp(App):
     smithy = kp.ObjectProperty(Smithy())
     market = kp.ObjectProperty(Market())
     wall = kp.ObjectProperty(Wall())
-    buildings = kp.ListProperty()
     # to upgrade buildings:
     current_upgrading = kp.ObjectProperty("")
     time_left = kp.NumericProperty()
@@ -133,13 +132,16 @@ class GameApp(App):
             self.scout, self.light_cavalry, self.mounted_archer, self.heavy_cavalry, 
             self.ram, self.catapult, self.paladin, self.noble, self.militia
         ]
+        self.buildings = [
+            self.headquarters, self.rally_point, self.statue,
+            self.timber_camp, self.clay_pit, self.iron_mine,
+            self.farm, self.warehouse, self.hiding_place, self.barracks, self.stable, self.workshop,
+            self.academy, self.smithy, self.market, self.wall
+        ]
 
     def build(self):
         self.game = Game(transition=NoTransition())
         self.resources = [self.wood, self.clay, self.iron]
-        self.buildings =\
-            [self.headquarters, self.rally_point, self.statue,
-            self.timber_camp, self.clay_pit, self.iron_mine]
         self.max_population = BUILDINGS.get("FARM").get("POPULATION_INIT")
         self.max_capacity = BUILDINGS.get("WAREHOUSE").get("CAPACITY_INIT")
         self.calc_current_population()

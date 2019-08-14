@@ -6,9 +6,9 @@ BLACK = (0, 0, 0, 1)
 
 RESOURCES = {
     "INIT": {
-        "WOOD": 500,
-        "CLAY": 500,
-        "IRON": 400,
+        "WOOD": 5000,
+        "CLAY": 5000,
+        "IRON": 5000,
     },
     "PRODUCTION": {
         "WOOD": .8,
@@ -34,7 +34,7 @@ BUILDINGS = {
     "HEADQUARTERS": {
         "NAME": "headquarters",
         "ICON": "img/Buildings/Main1.png",
-        "LEVEL": 0,
+        "LEVEL": 4,
         "MAX_LEVEL": 30,
         "REQUIREMENTS": {
             "WOOD": 90,
@@ -256,7 +256,7 @@ BUILDINGS = {
             "BASE": 0,
             "RATIO": 1.
         },
-        "CAPACITY_INIT": 1000,
+        "CAPACITY_INIT": 10000,
         "CAPACITY_RATIO": 1.2295,
     },
     "HIDING_PLACE": {
@@ -281,7 +281,7 @@ BUILDINGS = {
     "BARRACKS": {
         "NAME": "barracks",
         "ICON": "img/Buildings/Barracks1.png",
-        "LEVEL": 1,
+        "LEVEL": 0,
         "MAX_LEVEL": 25,
         "REQUIREMENTS": {
             "WOOD": 200,

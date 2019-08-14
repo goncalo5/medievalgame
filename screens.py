@@ -203,11 +203,9 @@ class AllUnitsRecruit(AvailableUnavailableMenu):
         self.create_all_not_availables(self.unavailable_box)
 
     def update_units_availables(self, *args):
-        building = args[0]
-        if "units" not in dir(building):
-            return
-        for unit_name in building.units:
-            unit = getattr(self.app, unit_name)
+        for unit in self.app.units:
+            if unit.name not in self.app.barracks.units:
+                continue
             if self.check_if_is_available(unit):
                 if unit not in self.all_available_rows:
                     self.add_1_available_row(unit, self.available_box)
@@ -240,7 +238,7 @@ class AllUnitsRecruit(AvailableUnavailableMenu):
 
         # Unit:
         img = Image(source=unit.icon, size_hint_x=0.05)
-        label = Label(text="Spear Fighter", size_hint_x=0.15, font_size=24)
+        label = Label(text="%s" % unit.name, size_hint_x=0.15, font_size=24)
         row.add_widget(img)
         row.add_widget(label)
 
