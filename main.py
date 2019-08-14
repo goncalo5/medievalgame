@@ -52,6 +52,7 @@ class Building(Widget):
         self.population_ratio = self.settings.get("POPULATION").get("RATIO")
         self.unlock = self.settings.get("REQUIREMENTS").get("UNLOCK", [])
         self.menus = self.settings.get("MENUS")
+        self.description = self.settings.get("DESCRIPTION", "")
 
         self.time_left = self.time
         self.update_cost_for_current_level()
@@ -241,6 +242,45 @@ class Unit(EventDispatcher):
             self.n += n
 
 # Screens:
+    # Descriptions:
+class DescriptionMenu(BoxLayout):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.orientation = "horizontal"
+        self.size_hint_y = 0.3
+        image = Image(size_hint_x=0.15, source=self.building.icon)
+        self.add_widget(image)
+        box = BoxLayout(orientation="vertical")
+        label = DarkLabel(text="%s (Level %s)" % (self.building.name, self.building.level))
+        box.add_widget(label)
+        label = DarkLabel(font_size=25,
+            text=self.building.description)
+        box.add_widget(label)
+
+        self.add_widget(box)
+
+
+class HeadquartersDescriptionMenu(DescriptionMenu):
+    def __init__(self, **kwargs):
+        self.app = App.get_running_app()
+        self.building = self.app.headquarters
+        super().__init__(**kwargs)
+
+
+class BarracksDescriptionMenu(DescriptionMenu):
+    def __init__(self, **kwargs):
+        self.app = App.get_running_app()
+        self.building = self.app.barracks
+        super().__init__(**kwargs)
+
+
+class IronMineDescriptionMenu(DescriptionMenu):
+    def __init__(self, **kwargs):
+        self.app = App.get_running_app()
+        self.building = self.app.iron_mine
+        super().__init__(**kwargs)
+
+
 class AvailableUnavailableMenu(BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

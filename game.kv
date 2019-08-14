@@ -65,19 +65,7 @@
     BoxLayout:
         orientation: "vertical"
         HeaderBoxLayout
-        BoxLayout:
-            orientation: "horizontal"
-            size_hint_y: 0.3
-            Image:
-                size_hint_x: 0.15 
-                source: "img/Buildings/Barracks1.png"
-            BoxLayout:
-                orientation: "vertical"
-                DarkLabel:
-                    text: "Barracks (Level %s)" % app.barracks.level
-                DarkLabel:
-                    font_size: 25
-                    text: "In the barracks you can recruit infantry.\nThe higher its level the faster the recruitment of troops will be finished."
+        BarracksDescriptionMenu
         TabbedPanel:
             do_default_tab: False
             tab_width: self.width / 2
@@ -172,10 +160,7 @@
     BoxLayout:
         orientation: "vertical"
         HeaderBoxLayout
-        DarkLabel:
-            text: "Headquarters (Level %s)" % app.headquarters.level
-            size_hint_y: None
-            height: 100
+        HeadquartersDescriptionMenu
         AllBuildingsUpgrade:
 
 <IronMineScreen@Screen>:
@@ -188,19 +173,7 @@
     BoxLayout:
         orientation: "vertical"
         HeaderBoxLayout
-        BoxLayout:
-            orientation: "horizontal"
-            size_hint_y: 0.3
-            Image:
-                size_hint_x: 0.15 
-                source: "img/Buildings/Iron1.png"
-            BoxLayout:
-                orientation: "vertical"
-                DarkLabel:
-                    text: "Iron mine (Level %s)" % app.iron_mine.level
-                DarkLabel:
-                    font_size: 25
-                    text: "In the iron mine your workers dig the war-crucial iron.\nThe higher its level the more iron is produced."
+        IronMineDescriptionMenu
 
 <Game>:
     id: screen_manager

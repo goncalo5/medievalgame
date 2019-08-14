@@ -46,7 +46,15 @@ BUILDINGS = {
             "TIME": [0.25, 0.25, 0.25, 0.25],
             "AVAILABLES": [0.25, 0.12, 0.12, 0.12, 0.12, 0.12, 0.15],
             "UNAVAILABLES": [0.25, 0.75]
-        }
+        },
+        "DESCRIPTION": """
+        In the Headquarters you can construct new buildings or upgrade existing ones.
+        The higher the level of your Headquarters,
+        the faster the constructions will be finished.
+        As soon as your Headquarters is upgraded to level 15,
+        you will be able to demolish buildings in this village
+        (requires 100% loyalty).
+        """
     },
     "RALLY_POINT": {
         "NAME": "rally_point",
@@ -143,7 +151,8 @@ BUILDINGS = {
         "PRODUCTION": {
             "BASE": 30,
             "RATIO": 1.16
-        }
+        },
+        "DESCRIPTION": "In the iron mine your workers dig the war-crucial iron.\nThe higher its level the more iron is produced."
     },
     "FARM": {
         "NAME": "farm",
@@ -223,7 +232,8 @@ BUILDINGS = {
         "UNLOCK": [
             ["headquarters", 3]
         ],
-        "UNITS": ["spear_fighter", "swordsman", "axeman", "archer"]
+        "UNITS": ["spear_fighter", "swordsman", "axeman", "archer"],
+        "DESCRIPTION": "In the barracks you can recruit infantry.\nThe higher its level the faster the recruitment of troops will be finished."
     },
     "STABLE": {
         "NAME": "stable",
