@@ -251,13 +251,18 @@ class DescriptionMenu(BoxLayout):
         image = Image(size_hint_x=0.15, source=self.building.icon)
         self.add_widget(image)
         box = BoxLayout(orientation="vertical")
-        label = DarkLabel(text="%s (Level %s)" % (self.building.name, self.building.level))
-        box.add_widget(label)
+        self.level_label = DarkLabel(text="%s (Level %s)" % (self.building.name, self.building.level))
+        self.building.bind(level=self.update_text)
+        box.add_widget(self.level_label)
         label = DarkLabel(font_size=25,
             text=self.building.description)
         box.add_widget(label)
 
         self.add_widget(box)
+    
+    def update_text(self, *args):
+        self.level_label.text = "%s (Level %s)" % (self.building.name, self.building.level)
+
 
 
 class HeadquartersDescriptionMenu(DescriptionMenu):
