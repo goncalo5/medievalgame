@@ -112,7 +112,7 @@
     ImageButton:
         source: "img/Buildings/Farm1.png"
         pos_hint: {"center_x": .9, "center_y": .8}
-        on_press: root.manager.current = "main"
+        on_press: root.manager.current = "farm_screen"
     ImageButton:
         source: "img/Buildings/Storage1.png"
         pos_hint: {"center_x": .25, "center_y": .55}
@@ -200,6 +200,93 @@
         HeaderBoxLayout
         IronMineDescriptionMenu
         IronMineMenu
+<FarmScreen@Screen>:
+    canvas.before:
+        Color:
+            rgba: 1, 242/255, 179/255, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        HeaderBoxLayout
+        FarmDescriptionMenu
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source: app.farm.image
+            BoxLayout:
+                orientation: "vertical"
+                DarkLabel:
+                    text: "Maximum population"
+                BoxLayout:
+                    orientation: "horizontal"
+                    Image:
+                        source: app.population_icon
+                        size_hint_x: 0.1
+                    DarkLabel:
+                        text: "Maximum population"
+                        size_hint_x: 0.7
+                    DarkLabel:
+                        text: "%s" % app.max_population
+                        size_hint_x: 0.2
+                BoxLayout:
+                    orientation: "horizontal"
+                    Image:
+                        source: app.population_icon
+                        size_hint_x: 0.1
+                    DarkLabel:
+                        text: "Maximum population at level %s" % (app.farm.level + 1)
+                        size_hint_x: 0.7
+                    DarkLabel:
+                        text: "%s" % int(app.max_population * app.farm.population_ratio)
+                        size_hint_x: 0.2
+                DarkLabel:
+                    text: "Current population"
+                BoxLayout:
+                    orientation: "horizontal"
+                    DarkLabel:
+                        text: "Buildings (includes the building queue)"
+                        size_hint_x: 0.8
+                    DarkLabel:
+                        text: "%s" % 0
+                        size_hint_x: 0.2
+                BoxLayout:
+                    orientation: "horizontal"
+                    DarkLabel:
+                        text: "Troops"
+                        size_hint_x: 0.8
+                    DarkLabel:
+                        text: "%s" % 0
+                        size_hint_x: 0.2
+                BoxLayout:
+                    orientation: "horizontal"
+                    DarkLabel:
+                        text: "Troops in production"
+                        size_hint_x: 0.8
+                    DarkLabel:
+                        text: "%s" % 0
+                        size_hint_x: 0.2
+                BoxLayout:
+                    orientation: "horizontal"
+                    DarkLabel:
+                        text: "All"
+                        size_hint_x: 0.8
+                    DarkLabel:
+                        text: "%s" % 0
+                        size_hint_x: 0.2
+                BoxLayout:
+                    orientation: "horizontal"
+                    Image:
+                        source: app.militia.icon
+                        size_hint_x: 0.2
+                    DarkLabel:
+                        text: "Militia in village"
+                        size_hint_x: 0.8
+                Button:
+                    text: "Establish militia"
+
+
 <RallyPointScreen@Screen>:
     canvas.before:
         Color:
@@ -239,6 +326,7 @@
     timber_camp_screen: timber_camp_screen
     clay_pit_screen: clay_pit_screen
     iron_mine_screen: iron_mine_screen
+    farm_screen: farm_screen
     rally_point_screen: rally_point_screen
     Overview:
         id: overview
@@ -255,6 +343,10 @@
     IronMineScreen:
         id: iron_mine_screen
         name: "iron_mine_screen"
+        manager: screen_manager
+    FarmScreen:
+        id: farm_screen
+        name: "farm_screen"
         manager: screen_manager
     Main:
         id: main

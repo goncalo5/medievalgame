@@ -92,6 +92,13 @@ class IronMineDescriptionMenu(DescriptionMenu):
         super().__init__(**kwargs)
 
 
+class FarmDescriptionMenu(DescriptionMenu):
+    def __init__(self, **kwargs):
+        self.app = App.get_running_app()
+        self.building = self.app.farm
+        super().__init__(**kwargs)
+
+
 class RallyPointDescriptionMenu(DescriptionMenu):
     def __init__(self, **kwargs):
         self.app = App.get_running_app()

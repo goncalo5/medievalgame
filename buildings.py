@@ -125,6 +125,7 @@ class Farm(Building):
         self.settings = BUILDINGS.get("FARM")
         super().__init__()
         self.population_ratio = self.settings.get("POPULATION_RATIO")
+        self.image = self.settings.get("IMAGE")
 
 
 class Warehouse(Building):

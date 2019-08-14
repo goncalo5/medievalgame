@@ -84,6 +84,7 @@ class GameApp(App):
     wood = kp.ObjectProperty(Resource("WOOD"))
     clay = kp.ObjectProperty(Resource("CLAY"))
     iron = kp.ObjectProperty(Resource("IRON"))
+    population_icon = kp.StringProperty(RESOURCES.get("ICON").get("POPULATION"))
     resources_ratio = kp.NumericProperty(RESOURCES.get("RATIO"))
     current_population = kp.NumericProperty(0)
     max_population = kp.NumericProperty(0)

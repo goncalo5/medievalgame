@@ -224,6 +224,7 @@ BUILDINGS = {
     "FARM": {
         "NAME": "farm",
         "ICON": "img/Buildings/Farm1.png",
+        "IMAGE": "img/Buildings/militia.jpg",
         "LEVEL": 1,
         "MAX_LEVEL": 30,
         "REQUIREMENTS": {
@@ -239,6 +240,11 @@ BUILDINGS = {
         },
         "POPULATION_INIT": 240,
         "POPULATION_RATIO": 1.17,
+        "DESCRIPTION": """
+        The farm supplies your workers and troops with food.
+        Without extending your farm your village cannot grow.
+        The higher its level the more villagers can be supplied.
+        """
     },
     "WAREHOUSE": {
         "NAME": "warehouse",
