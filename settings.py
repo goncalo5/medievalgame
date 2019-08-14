@@ -21,6 +21,10 @@ RESOURCES = {
         "BOOTY": "img/Booty.png",
         "POPULATION": "img/Pop.png",
         "TIME": ""
+    },
+    "MENUS": {
+        "HEADER": [0.4, 0.25, 0.35],
+        "CONTENT": [0.1, 0.3, 0.25, 0.35]
     }
 }
 
