@@ -5,6 +5,7 @@ from kivy.core.window import Window
 from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.uix.button import Button
+from kivy.uix.textinput import TextInput
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.recycleview import RecycleView
 # self modules:
@@ -32,7 +33,8 @@ class Menu(BoxLayout):
             return row
         box.add_widget(row)
     
-    # Descriptions Menus:
+
+# Descriptions Menus:
 class DescriptionMenu(BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -89,7 +91,7 @@ class IronMineDescriptionMenu(DescriptionMenu):
         super().__init__(**kwargs)
 
 
-    # Resources Menus:
+# Resources Menus:
 class ResourceMenu(Menu):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -436,6 +438,7 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
                 self.add_1_available_row(building)
 
     def add_1_available_row(self, building):
+        print("add_1_available_row", building.name)
         row = BoxLayout(orientation="horizontal", size_hint_y=None, height=100)
         self.all_available_rows[building] = row
 
@@ -452,14 +455,17 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
         # Requirements:
         img = Image(source=self.app.wood.icon, size_hint_x=size_hint_x[1]/2)
         label = DarkLabel(text=str(int((building.wood))), size_hint_x=size_hint_x[1]/2, font_size=24)
+        building.bind(wood_str=label.setter("text"))
         row.add_widget(img)
         row.add_widget(label)
         img = Image(source=self.app.clay.icon, size_hint_x=size_hint_x[2]/2)
         label = DarkLabel(text=str(int((building.clay))), size_hint_x=size_hint_x[2]/2, font_size=24)
+        building.bind(clay_str=label.setter("text"))
         row.add_widget(img)
         row.add_widget(label)
         img = Image(source=self.app.iron.icon, size_hint_x=size_hint_x[3]/2)
         label = DarkLabel(text=str(int((building.clay))), size_hint_x=size_hint_x[3]/2, font_size=24)
+        building.bind(iron_str=label.setter("text"))
         row.add_widget(img)
         row.add_widget(label)
         img = Image(source=RESOURCES.get("ICON").get("TIME"), size_hint_x=size_hint_x[4]/2)

@@ -15,6 +15,9 @@ class Building(Widget):
     wood = kp.NumericProperty()
     clay = kp.NumericProperty()
     iron = kp.NumericProperty()
+    wood_str = kp.StringProperty()
+    clay_str = kp.StringProperty()
+    iron_str = kp.StringProperty()
     time = kp.NumericProperty()
     population0 = kp.NumericProperty()
     population_ratio = kp.NumericProperty()
@@ -41,9 +44,16 @@ class Building(Widget):
         self.update_cost_for_current_level()
         self.update_population_for_current_level()
         self.update_time_for_current_level()
+
+        self.bind(wood=self.update_str, clay=self.update_str, iron=self.update_str)
     
     def __repr__(self):
         return self.name
+
+    def update_str(self, *args):
+        self.wood_str = str(int(self.wood))
+        self.clay_str = str(int(self.clay))
+        self.iron_str = str(int(self.iron))
 
     def update_cost_for_current_level(self):
         self.wood = self.wood0 * self.ratio ** self.level
