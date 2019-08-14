@@ -99,15 +99,15 @@
     ImageButton:
         source: "img/Buildings/Wood1.png"
         pos_hint: {"center_x": .9, "center_y": .1}
-        on_press: root.manager.current = "main"
+        on_press: root.manager.current = "timber_camp_screen"
     ImageButton:
         source: "img/Buildings/Stone1.png"
         pos_hint: {"center_x": .1, "center_y": .8}
-        on_press: root.manager.current = "main"
+        on_press: root.manager.current = "clay_pit_screen"
     ImageButton:
         source: "img/Buildings/Iron1.png"
         pos_hint: {"center_x": .1, "center_y": .1}
-        on_press: root.manager.current = "main"
+        on_press: root.manager.current = "iron_mine_screen"
     ImageButton:
         source: "img/Buildings/Farm1.png"
         pos_hint: {"center_x": .9, "center_y": .8}
@@ -163,6 +163,30 @@
         HeadquartersDescriptionMenu
         AllBuildingsUpgrade:
 
+<TimberCampScreen@Screen>:
+    canvas.before:
+        Color:
+            rgba: 1, 242/255, 179/255, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        HeaderBoxLayout
+        TimberCampDescriptionMenu
+        TimberCampMenu
+<ClayPitScreen@Screen>:
+    canvas.before:
+        Color:
+            rgba: 1, 242/255, 179/255, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        HeaderBoxLayout
+        ClayPitDescriptionMenu
+        ClayPitMenu
 <IronMineScreen@Screen>:
     canvas.before:
         Color:
@@ -181,7 +205,21 @@
     overview: overview
     main: main
     barracks_screen: barracks_screen
+    timber_camp_screen: timber_camp_screen
+    clay_pit_screen: clay_pit_screen
     iron_mine_screen: iron_mine_screen
+    Overview:
+        id: overview
+        name: "overview"
+        manager: screen_manager
+    TimberCampScreen:
+        id: timber_camp_screen
+        name: "timber_camp_screen"
+        manager: screen_manager
+    ClayPitScreen:
+        id: clay_pit_screen
+        name: "clay_pit_screen"
+        manager: screen_manager
     IronMineScreen:
         id: iron_mine_screen
         name: "iron_mine_screen"
@@ -189,10 +227,6 @@
     Main:
         id: main
         name: "main"
-        manager: screen_manager
-    Overview:
-        id: overview
-        name: "overview"
         manager: screen_manager
     BarracksScreen:
         id: barracks_screen

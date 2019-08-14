@@ -68,6 +68,20 @@ class BarracksDescriptionMenu(DescriptionMenu):
         super().__init__(**kwargs)
 
 
+class TimberCampDescriptionMenu(DescriptionMenu):
+    def __init__(self, **kwargs):
+        self.app = App.get_running_app()
+        self.building = self.app.timber_camp
+        super().__init__(**kwargs)
+
+
+class ClayPitDescriptionMenu(DescriptionMenu):
+    def __init__(self, **kwargs):
+        self.app = App.get_running_app()
+        self.building = self.app.clay_pit
+        super().__init__(**kwargs)
+
+
 class IronMineDescriptionMenu(DescriptionMenu):
     def __init__(self, **kwargs):
         self.app = App.get_running_app()
@@ -79,7 +93,6 @@ class IronMineDescriptionMenu(DescriptionMenu):
 class ResourceMenu(Menu):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        print(56, RESOURCES.get("MENUS"))
 
         self.menus = RESOURCES.get("MENUS")
         self.header_size_hint_x = self.menus.get("HEADER")
@@ -88,31 +101,54 @@ class ResourceMenu(Menu):
         # header:
         header = [
             ["Production", self.header_size_hint_x[0]],
-            ["Units per hour", self.header_size_hint_x[1]],
-            ["Units per hour at level %s" % (self.building.level + 1), self.header_size_hint_x[2]]
+            ["Units per sec", self.header_size_hint_x[1]],
+            ["Units per sec at level %s" % (self.building.level + 1), self.header_size_hint_x[2]]
         ]
         self.create_header(header, self, BLACK)
+
+        row = BoxLayout(orientation="horizontal")
+        label = Image(source=self.resource.icon, size_hint_x=self.content_size_hint_x[0])
+        row.add_widget(label)
+        label = DarkLabel(text="Base production", size_hint_x=self.content_size_hint_x[1])
+        row.add_widget(label)
+        self.per_s_label = DarkLabel(text="%s" % self.resource.per_s, size_hint_x=self.content_size_hint_x[2])
+        row.add_widget(self.per_s_label)
+        self.resource.per_s * self.app.resources_ratio
+        next_level = self.resource.per_s * self.app.resources_ratio
+        next_level = round(next_level, 2)
+        self.next_level_label = DarkLabel(text="%s" % (next_level),
+                          size_hint_x=self.content_size_hint_x[3])
+        self.resource.bind(per_s=self.update_labels)
+        row.add_widget(self.next_level_label)
+        self.add_widget(row)
+    
+    def update_labels(self, *args):
+        self.per_s_label.text = "%s" % round(self.resource.per_s, 2)
+        self.next_level_label.text = "%s" % round(self.resource.calc_next_level(), 2)
+
+
+class TimberCampMenu(ResourceMenu):
+    def __init__(self, **kwargs):
+        self.app = App.get_running_app()
+        self.building = self.app.timber_camp
+        self.resource = self.app.wood
+        super().__init__(**kwargs)
+
+
+class ClayPitMenu(ResourceMenu):
+    def __init__(self, **kwargs):
+        self.app = App.get_running_app()
+        self.building = self.app.clay_pit
+        self.resource = self.app.clay
+        super().__init__(**kwargs)
+
 
 class IronMineMenu(ResourceMenu):
     def __init__(self, **kwargs):
         self.app = App.get_running_app()
         self.building = self.app.iron_mine
         self.resource = self.app.iron
-        print(55)
         super().__init__(**kwargs)
-
-        print(57)
-        row = BoxLayout(orientation="horizontal")
-        print(58)
-        label = Image(source=self.resource.icon, size_hint_x=self.content_size_hint_x[0])
-        row.add_widget(label)
-        label = DarkLabel(text="Base production", size_hint_x=self.content_size_hint_x[1])
-        row.add_widget(label)
-        label = DarkLabel(text="Base production", size_hint_x=self.content_size_hint_x[2])
-        row.add_widget(label)
-        label = DarkLabel(text="Base production", size_hint_x=self.content_size_hint_x[3])
-        row.add_widget(label)
-        self.add_widget(row)
 
 
 class AvailableUnavailableMenu(Menu):

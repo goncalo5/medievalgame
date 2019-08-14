@@ -114,6 +114,11 @@ BUILDINGS = {
             "BASE": 30,
             "RATIO": 1.16
         },
+        "DESCRIPTION": """
+        Outside of your village in the dark forests
+        your lumberjacks cut massive trees to produce wood in the timber camp,
+        which is needed for buildings and weapons.
+        The higher its level the more wood is produced."""
     },
     "CLAY_PIT": {
         "NAME": "clay_pit",
@@ -134,7 +139,11 @@ BUILDINGS = {
         "PRODUCTION": {
             "BASE": 30,
             "RATIO": 1.16
-        }
+        },
+        "DESCRIPTION": """
+        In the clay pit your workers extract clay,
+        which is important for new buildings.
+        The higher its level the more clay is produced."""
     },
     "IRON_MINE": {
         "NAME": "iron_mine",
