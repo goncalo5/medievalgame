@@ -7,6 +7,7 @@ from kivy.uix.image import Image
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.gridlayout import GridLayout
 from kivy.uix.recycleview import RecycleView
 # self modules:
 from settings import *
@@ -91,6 +92,13 @@ class IronMineDescriptionMenu(DescriptionMenu):
         super().__init__(**kwargs)
 
 
+class RallyPointDescriptionMenu(DescriptionMenu):
+    def __init__(self, **kwargs):
+        self.app = App.get_running_app()
+        self.building = self.app.rally_point
+        super().__init__(**kwargs)
+
+
 # Resources Menus:
 class ResourceMenu(Menu):
     def __init__(self, **kwargs):
@@ -162,7 +170,7 @@ class AvailableUnavailableMenu(Menu):
         self.all_unavailable_rows = {}
 
 
-
+# Buildings Menus:
 class AllUnitsRecruit(AvailableUnavailableMenu):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -438,7 +446,6 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
                 self.add_1_available_row(building)
 
     def add_1_available_row(self, building):
-        print("add_1_available_row", building.name)
         row = BoxLayout(orientation="horizontal", size_hint_y=None, height=100)
         self.all_available_rows[building] = row
 
@@ -535,3 +542,68 @@ class AllBuildingsUpgrade(AvailableUnavailableMenu):
             if building.level < level_to_unlock:
                 return False
         return True
+
+
+class ScavengingPanel(Menu):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.app = App.get_running_app()
+        label = Label(text=self.app.rally_point.scavenging.get("DESCRIPTION"), size_hint_y=0.3, font_size=22)
+        self.add_widget(label)
+        box1 = GridLayout(cols=2)
+        self.add_widget(box1)
+
+        self.images = {}
+        self.collectible_resources = {}
+        for _type in self.app.rally_point.scavenging.get("ALL"):
+            scavenging_type = self.app.rally_point.scavenging.get("ALL").get(_type)
+            box2 = BoxLayout(orientation="vertical")
+            box1.add_widget(box2)
+            # image:
+            self.images[_type] = Image(source=scavenging_type.get("icon_gray"))
+            box2.add_widget(self.images[_type])
+            label = Label(text=_type)
+            box2.add_widget(label)
+            # collectible_resources:
+            self.collectible_resources[_type] = BoxLayout(orientation="vertical")
+            box2.add_widget(self.collectible_resources[_type])
+            image = Image(source=self.app.rally_point.scavenging.get("LOCK_ICON"))
+            self.collectible_resources[_type].add_widget(image)
+            button = Button(text="Unlock", id=_type)
+            button.bind(on_press=self.unlock)
+            box2.add_widget(button)
+
+        
+    def unlock(self, *args):
+        button = args[0]
+        _type = button.id
+        scavenging_type = self.app.rally_point.scavenging.get("ALL").get(_type)
+        print(scavenging_type)
+
+        # check if can buy:
+        if button.text.lower() == "unlock":
+            if self.app.wood.current >= scavenging_type.get("wood") and\
+                    self.app.clay.current >= scavenging_type.get("clay") and\
+                    self.app.iron.current >= scavenging_type.get("iron"):
+                print("can buy")
+                # update resources:
+                self.app.wood.current -= scavenging_type.get("wood")
+                self.app.clay.current -= scavenging_type.get("clay")
+                self.app.iron.current -= scavenging_type.get("iron")
+                # update image:
+                self.images[_type].source = scavenging_type.get("icon")
+                # update collectible_resources:
+                self.collectible_resources[_type].clear_widgets()
+                for resource in [self.app.wood, self.app.clay, self.app.iron]:
+                    box = BoxLayout(orientation="horizontal")
+                    self.collectible_resources[_type].add_widget(box) 
+                    icon = Image(source=resource.icon)
+                    box.add_widget(icon)
+                    label = Label(text="0")
+                    box.add_widget(label)
+
+
+                button.text = "Start"
+
+        elif button.text.lower() == "start":
+            print("start")

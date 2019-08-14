@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 WHITE = (1, 1, 1, 1)
 BLACK = (0, 0, 0, 1)
 
@@ -76,6 +78,51 @@ BUILDINGS = {
             "BASE": 5,
             "RATIO": 1.155
         },
+        "DESCRIPTION": """
+        On the rally point your fighters meet.
+        Here you can command your armies.""",
+        "SCAVENGING": {
+            "DESCRIPTION": """
+            Send your troops away to scavenge for resources surrounding your village.
+            The units will return when they collect enough resources -
+            but have in mind once you send the troops away you can't recall them.
+            """,
+            "LOCK_ICON": "img/Scavenging/lock.png",
+            "ALL": OrderedDict({
+                "Lackadaisical Looters": {
+                    "wood": 25,
+                    "clay": 30,
+                    "iron": 25,
+                    "time": 30,
+                    "icon": "img/Scavenging/lackadaisical_looters.png",
+                    "icon_gray": "img/Scavenging/lackadaisical_looters_gray.png",
+                },
+                "Humble Haulers": {
+                    "wood": 250,
+                    "clay": 300,
+                    "iron": 250,
+                    "time": 3600,
+                    "icon": "img/Scavenging/humble_haulers.png",
+                    "icon_gray": "img/Scavenging/humble_haulers_gray.png",
+                },
+                "Clever Collectors": {
+                    "wood": 1000,
+                    "clay": 1200,
+                    "iron": 1000,
+                    "time": 3600*3,
+                    "icon": "img/Scavenging/clever_collectors.png",
+                    "icon_gray": "img/Scavenging/clever_collectors_gray.png",
+                },
+                "Great Gatherers": {
+                    "wood": 10000,
+                    "clay": 12000,
+                    "iron": 10000,
+                    "time": 3600*6,
+                    "icon": "img/Scavenging/great_gatherers.png",
+                    "icon_gray": "img/Scavenging/great_gatherers_gray.png",
+                }
+            })
+        }
     },
     "STATUE": {
         "NAME": "statue",

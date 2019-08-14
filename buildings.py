@@ -92,6 +92,7 @@ class RallyPoint(Building):
     def __init__(self):
         self.settings = BUILDINGS.get("RALLY_POINT")
         super().__init__()
+        self.scavenging = self.settings.get("SCAVENGING")
 
 
 class Statue(Building):

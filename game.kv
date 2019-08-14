@@ -1,4 +1,5 @@
 #:import RESOURCES settings.RESOURCES
+#:import settings settings
 
 <DarkLabel>:
     font_size: 25
@@ -91,7 +92,7 @@
     ImageButton:
         source: "img/Buildings/Place1.png"
         pos_hint: {"center_x": .65, "center_y": .45}
-        on_press: root.manager.current = "main"
+        on_press: root.manager.current = "rally_point_screen"
     ImageButton:
         source: "img/Buildings/Statue1.png"
         pos_hint: {"center_x": .5, "center_y": .35}
@@ -199,6 +200,36 @@
         HeaderBoxLayout
         IronMineDescriptionMenu
         IronMineMenu
+<RallyPointScreen@Screen>:
+    canvas.before:
+        Color:
+            rgba: 1, 242/255, 179/255, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        HeaderBoxLayout
+        RallyPointDescriptionMenu:
+            size_hint_y: 0.2
+        TabbedPanel:
+            do_default_tab: False
+            tab_width: self.width / 5
+            size_hint_y: 0.8
+
+            TabbedPanelItem:
+                text: "Commands"
+            TabbedPanelItem:
+                text: "Troops"
+            TabbedPanelItem:
+                text: "Scavenging"
+                ScavengingPanel
+                            
+            TabbedPanelItem:
+                text: "Simulator"
+            TabbedPanelItem:
+                text: "Troop templates"
+                font_size: 22
 
 <Game>:
     id: screen_manager
@@ -208,6 +239,7 @@
     timber_camp_screen: timber_camp_screen
     clay_pit_screen: clay_pit_screen
     iron_mine_screen: iron_mine_screen
+    rally_point_screen: rally_point_screen
     Overview:
         id: overview
         name: "overview"
@@ -231,4 +263,8 @@
     BarracksScreen:
         id: barracks_screen
         name: "barracks_screen"
+        manager: screen_manager
+    RallyPointScreen:
+        id: rally_point_screen
+        name: "rally_point_screen"
         manager: screen_manager
