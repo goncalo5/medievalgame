@@ -37,6 +37,8 @@ class Resource(Widget):
 
 class Unit(EventDispatcher):
     n = kp.NumericProperty(0)
+    n_str = kp.StringProperty("0")
+    icon = kp.StringProperty()
     def __init__(self, name):
         super().__init__()
         self.settings = UNITS.get(name)
@@ -51,6 +53,9 @@ class Unit(EventDispatcher):
         self.capacity = self.settings.get("CAPACITY")
         self.special_abilities = self.settings.get("SPECIAL_ABILITIES")
     
+    def on_n(self, *args):
+        self.n_str = str(self.n)
+
     def recruit(self, n):
         n = int(n)
         app = App.get_running_app()
@@ -122,6 +127,13 @@ class GameApp(App):
     noble = kp.ObjectProperty(Unit("NOBLE"))
     militia = kp.ObjectProperty(Unit("MILITIA"))
 
+    def build_config(self, *args):
+        self.units = [
+            self.spear_fighter, self.swordsman, self.axeman, self.archer, 
+            self.scout, self.light_cavalry, self.mounted_archer, self.heavy_cavalry, 
+            self.ram, self.catapult, self.paladin, self.noble, self.militia
+        ]
+
     def build(self):
         self.game = Game(transition=NoTransition())
         self.resources = [self.wood, self.clay, self.iron]
@@ -130,15 +142,10 @@ class GameApp(App):
             self.timber_camp, self.clay_pit, self.iron_mine]
         self.max_population = BUILDINGS.get("FARM").get("POPULATION_INIT")
         self.max_capacity = BUILDINGS.get("WAREHOUSE").get("CAPACITY_INIT")
-        self.units = [
-            self.spear_fighter, self.swordsman, self.axeman, self.archer, 
-            self.scout, self.light_cavalry, self.mounted_archer, self.heavy_cavalry, 
-            self.ram, self.catapult, self.paladin, self.noble, self.militia
-        ]
         self.calc_current_population()
         Clock.schedule_interval(self.update_resources, .1)
         return self.game
-    
+
     def calc_current_population(self):
         self.current_population = 0
         for building in self.buildings:

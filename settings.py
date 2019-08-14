@@ -88,6 +88,9 @@ BUILDINGS = {
             but have in mind once you send the troops away you can't recall them.
             """,
             "LOCK_ICON": "img/Scavenging/lock.png",
+            "POSSIBLE_UNITS": [
+                "spear_fighter", "swordsman", "axeman", "archer",
+                "light_cavalry", "mounted_archer", "heavy_cavalry", "paladin"],
             "ALL": OrderedDict({
                 "Lackadaisical Looters": {
                     "wood": 25,
@@ -96,6 +99,7 @@ BUILDINGS = {
                     "time": 30,
                     "icon": "img/Scavenging/lackadaisical_looters.png",
                     "icon_gray": "img/Scavenging/lackadaisical_looters_gray.png",
+                    "loot_factor": 0.1
                 },
                 "Humble Haulers": {
                     "wood": 250,
@@ -104,6 +108,7 @@ BUILDINGS = {
                     "time": 3600,
                     "icon": "img/Scavenging/humble_haulers.png",
                     "icon_gray": "img/Scavenging/humble_haulers_gray.png",
+                    "loot_factor": 0.25
                 },
                 "Clever Collectors": {
                     "wood": 1000,
@@ -112,6 +117,7 @@ BUILDINGS = {
                     "time": 3600*3,
                     "icon": "img/Scavenging/clever_collectors.png",
                     "icon_gray": "img/Scavenging/clever_collectors_gray.png",
+                    "loot_factor": 0.5
                 },
                 "Great Gatherers": {
                     "wood": 10000,
@@ -120,6 +126,7 @@ BUILDINGS = {
                     "time": 3600*6,
                     "icon": "img/Scavenging/great_gatherers.png",
                     "icon_gray": "img/Scavenging/great_gatherers_gray.png",
+                    "loot_factor": 0.75
                 }
             })
         }
@@ -274,7 +281,7 @@ BUILDINGS = {
     "BARRACKS": {
         "NAME": "barracks",
         "ICON": "img/Buildings/Barracks1.png",
-        "LEVEL": 0,
+        "LEVEL": 1,
         "MAX_LEVEL": 25,
         "REQUIREMENTS": {
             "WOOD": 200,
@@ -439,7 +446,7 @@ BUILDINGS = {
 UNITS = {
     "SPEAR_FIGHTER": {
         "NAME": "spear_fighter",
-        "ICON": "img/Unit_spear_60.png",
+        "ICON": "img/Units/Icon/unit_spear.png",
         "TYPE": "general",
         "REQUIREMENTS": {
             "WOOD": 50,
@@ -461,7 +468,7 @@ UNITS = {
     },
     "SWORDSMAN": {
         "NAME": "swordsman",
-        "ICON": "img/Unit_sword_60.png",
+        "ICON": "img/Units/Icon/unit_sword.png",
         "TYPE": "general",
         "REQUIREMENTS": {
             "WOOD": 30,
@@ -483,7 +490,7 @@ UNITS = {
     },
     "AXEMAN": {
         "NAME": "axeman",
-        "ICON": "img/Unit_axe_60.png",
+        "ICON": "img/Units/Icon/unit_axe.png",
         "TYPE": "general",
         "REQUIREMENTS": {
             "WOOD": 60,
@@ -505,7 +512,7 @@ UNITS = {
     },
     "ARCHER": {
         "NAME": "archer",
-        "ICON": "img/Unit_archer_60.png",
+        "ICON": "img/Units/Icon/unit_archer.png",
         "TYPE": "archer",
         "REQUIREMENTS": {
             "WOOD": 100,
@@ -528,6 +535,7 @@ UNITS = {
     },
     "SCOUT": {
         "NAME": "scout",
+        "ICON": "img/Units/Icon/unit_spy.png",
         "TYPE": "cavalry",
         "REQUIREMENTS": {
             "WOOD": 50,
@@ -553,6 +561,7 @@ UNITS = {
     },
     "LIGHT_CAVALRY": {
         "NAME": "light_cavalry",
+        "ICON": "img/Units/Icon/unit_light.png",
         "TYPE": "cavalry",
         "REQUIREMENTS": {
             "WOOD": 125,
@@ -579,6 +588,7 @@ UNITS = {
     },
     "MOUNTED_ARCHER": {
         "NAME": "mounted_archer",
+        "ICON": "img/Units/Icon/unit_marcher.png",
         "TYPE": "archer",
         "REQUIREMENTS": {
             "WOOD": 250,
@@ -605,6 +615,7 @@ UNITS = {
     },
     "HEAVY_CAVALRY": {
         "NAME": "heavy_cavalry",
+        "ICON": "img/Units/Icon/unit_heavy.png",
         "TYPE": "cavalry",
         "REQUIREMENTS": {
             "WOOD": 200,
@@ -632,6 +643,7 @@ UNITS = {
     },
     "RAM": {
         "NAME": "ram",
+        "ICON": "img/Units/Icon/unit_ram.png",
         "TYPE": "general",
         "REQUIREMENTS": {
             "WOOD": 300,
@@ -661,6 +673,7 @@ UNITS = {
     },
     "CATAPULT": {
         "NAME": "catapult",
+        "ICON": "img/Units/Icon/unit_catapult.png",
         "TYPE": "general",
         "REQUIREMENTS": {
             "WOOD": 320,
@@ -691,6 +704,7 @@ UNITS = {
     },
     "PALADIN": {
         "NAME": "paladin",
+        "ICON": "img/Units/Icon/unit_knight.png",
         "TYPE": "cavalry",
         "REQUIREMENTS": {
             "WOOD": 20,
@@ -718,6 +732,7 @@ UNITS = {
     },
     "NOBLE": {
         "NAME": "noble",
+        "ICON": "img/Units/Icon/unit_snob.png",
         "TYPE": "general",
         "REQUIREMENTS": {
             "WOOD": 40000,
@@ -745,6 +760,7 @@ UNITS = {
     },
     "MILITIA": {
         "NAME": "militia",
+        "ICON": "img/Units/Icon/unit_militia.png",
         "TYPE": "general",
         "REQUIREMENTS": {
             "WOOD": 0,

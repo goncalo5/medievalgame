@@ -548,13 +548,34 @@ class ScavengingPanel(Menu):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = App.get_running_app()
-        label = Label(text=self.app.rally_point.scavenging.get("DESCRIPTION"), size_hint_y=0.3, font_size=22)
+        label = Label(text=self.app.rally_point.scavenging.get("DESCRIPTION"), size_hint_y=0.25, font_size=22)
         self.add_widget(label)
+
+        # units:
+        units_icons = BoxLayout(orientation="horizontal", size_hint_y=0.08)
+        self.add_widget(units_icons)
+        self.units_inputs = BoxLayout(orientation="horizontal", size_hint_y=0.08)
+        self.add_widget(self.units_inputs)
+        units_n_labes = BoxLayout(orientation="horizontal", size_hint_y=0.08)
+        self.add_widget(units_n_labes)
+        for unit in self.app.units:
+            if unit.name not in self.app.rally_point.scavenging.get("POSSIBLE_UNITS"):
+                continue
+            icon = Image(source=unit.icon)
+            units_icons.add_widget(icon)
+            unit_input = TextInput(text="", id=unit.name)
+            unit_input.bind(text=self.unit_input_change)
+            self.units_inputs.add_widget(unit_input)
+            unit_n_label = Label(text=str(unit.n))
+            unit.bind(n_str=unit_n_label.setter("text"))
+            units_n_labes.add_widget(unit_n_label)
+
+        # types:
         box1 = GridLayout(cols=2)
         self.add_widget(box1)
-
         self.images = {}
         self.collectible_resources = {}
+        self.gain_label = {}
         for _type in self.app.rally_point.scavenging.get("ALL"):
             scavenging_type = self.app.rally_point.scavenging.get("ALL").get(_type)
             box2 = BoxLayout(orientation="vertical")
@@ -573,19 +594,45 @@ class ScavengingPanel(Menu):
             button.bind(on_press=self.unlock)
             box2.add_widget(button)
 
+    
+    def unit_input_change(self, *args):
+        for _type in self.app.rally_point.scavenging.get("ALL"):
+            capacity_per_resource = self.calc_capacity_per_resource(_type)
+            self.update_resources_labels(_type, capacity_per_resource)
+
+    def calc_capacity_per_resource(self, _type):
+        scavenging_type = self.app.rally_point.scavenging.get("ALL").get(_type)
+
+        total_capacity = 0
+        for unit_input in self.units_inputs.children:
+            unit = getattr(self.app, unit_input.id)
+            try:
+                total_capacity += int(unit_input.text) * unit.capacity
+            except ValueError:
+                continue
+        capacity_with_factor = total_capacity * scavenging_type.get("loot_factor")
+        capacity_per_resource = capacity_with_factor / 3
+        return capacity_per_resource
         
+    def update_resources_labels(self, _type, capacity_per_resource):
+        try:
+            for resource_label in self.gain_label[_type].values():
+                resource_label.text = "%s" % round(capacity_per_resource)
+        except KeyError:
+            pass
+
     def unlock(self, *args):
         button = args[0]
         _type = button.id
         scavenging_type = self.app.rally_point.scavenging.get("ALL").get(_type)
-        print(scavenging_type)
+
+        capacity_per_resource = self.calc_capacity_per_resource(_type)
 
         # check if can buy:
         if button.text.lower() == "unlock":
             if self.app.wood.current >= scavenging_type.get("wood") and\
                     self.app.clay.current >= scavenging_type.get("clay") and\
                     self.app.iron.current >= scavenging_type.get("iron"):
-                print("can buy")
                 # update resources:
                 self.app.wood.current -= scavenging_type.get("wood")
                 self.app.clay.current -= scavenging_type.get("clay")
@@ -594,16 +641,30 @@ class ScavengingPanel(Menu):
                 self.images[_type].source = scavenging_type.get("icon")
                 # update collectible_resources:
                 self.collectible_resources[_type].clear_widgets()
+                self.gain_label[_type] = {}
                 for resource in [self.app.wood, self.app.clay, self.app.iron]:
                     box = BoxLayout(orientation="horizontal")
                     self.collectible_resources[_type].add_widget(box) 
                     icon = Image(source=resource.icon)
                     box.add_widget(icon)
-                    label = Label(text="0")
-                    box.add_widget(label)
-
+                    self.gain_label[_type][resource] = Label(text="%s" % round(capacity_per_resource))
+                    box.add_widget(self.gain_label[_type][resource])
 
                 button.text = "Start"
 
         elif button.text.lower() == "start":
-            print("start")
+            # check if you have the units:
+            
+            for unit_input in self.units_inputs.children:
+                unit = getattr(self.app, unit_input.id)
+                if unit.name not in self.app.rally_point.scavenging.get("POSSIBLE_UNITS"):
+                    continue
+                if not unit_input.text:
+                    continue
+                if unit.n < int(unit_input.text):
+                    return
+            # update resources:
+            for resource in [self.app.wood, self.app.clay, self.app.iron]:
+                resource.current += capacity_per_resource
+            
+            
