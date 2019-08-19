@@ -311,6 +311,8 @@ class AllUnitsRecruit(AvailableUnavailableMenu):
             app.wood.current -= app.spear_fighter.requirements.get("WOOD") * n
             app.spear_fighter.n += n
             self.all_labels.get("spear_fighter").text = "%s/%s" % (app.spear_fighter.n, app.spear_fighter.n)
+            self.app.population["units"] += n
+            self.app.population["total"] += n
 
 
 class AllBuildingsUpgrade(AvailableUnavailableMenu):

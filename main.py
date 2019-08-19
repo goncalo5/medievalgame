@@ -46,6 +46,7 @@ class Unit(EventDispatcher):
         self.icon = self.settings.get("ICON")
         self._type = self.settings.get("TYPE", "general")
         self.requirements = self.settings.get("REQUIREMENTS")
+        self.population = self.requirements.get("POPULATION")
         self.unlock = self.requirements.get("UNLOCK")
         self.atk = self.settings.get("ATK")
         self.defence = self.settings.get("DEFENCE")
@@ -63,7 +64,6 @@ class Unit(EventDispatcher):
         if app.wood.current >= self.requirements.get("WOOD") * n:
             app.wood.current -= self.requirements.get("WOOD") * n
             self.n += n
-
 
 class Game(ScreenManager):
     overview = kp.ObjectProperty(None)
@@ -86,8 +86,12 @@ class GameApp(App):
     iron = kp.ObjectProperty(Resource("IRON"))
     population_icon = kp.StringProperty(RESOURCES.get("ICON").get("POPULATION"))
     resources_ratio = kp.NumericProperty(RESOURCES.get("RATIO"))
-    current_population = kp.NumericProperty(0)
-    max_population = kp.NumericProperty(0)
+    population = kp.DictProperty({
+        "max": BUILDINGS.get("FARM").get("POPULATION_INIT"),
+        "buildings": 0,
+        "units": 0,
+        "total": 0,
+    })
     max_capacity = kp.NumericProperty()
     # buildings:
     headquarters = kp.ObjectProperty(Headquarters())
@@ -143,16 +147,18 @@ class GameApp(App):
     def build(self):
         self.game = Game(transition=NoTransition())
         self.resources = [self.wood, self.clay, self.iron]
-        self.max_population = BUILDINGS.get("FARM").get("POPULATION_INIT")
         self.max_capacity = BUILDINGS.get("WAREHOUSE").get("CAPACITY_INIT")
         self.calc_current_population()
         Clock.schedule_interval(self.update_resources, .1)
         return self.game
 
     def calc_current_population(self):
-        self.current_population = 0
         for building in self.buildings:
-            self.current_population += building.population
+            self.population["buildings"] += building.population
+        for unit in self.units:
+            self.population["units"] += unit.n * unit.population
+
+        self.population["total"] = self.population["buildings"] + self.population["units"]
 
     def upgrade_building(self, building):
         if self.is_upgrading:
@@ -208,7 +214,7 @@ class GameApp(App):
         if self.current_upgrading.name == "iron_mine":
             self.iron.per_s *= self.resources_ratio
         if self.current_upgrading.name == "farm":
-            self.max_population *= self.farm.population_ratio
+            self.population["max"] *= self.farm.population_ratio
         if self.current_upgrading.name == "warehouse":
             self.max_capacity = self.warehouse.capacity0 * self.warehouse.capacity_ratio**(self.warehouse.level - 1)
         # update:

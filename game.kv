@@ -53,7 +53,7 @@
     Image:
         source: RESOURCES.get("ICON").get("POPULATION")
     DarkLabel:
-        text: "%s/%s" % (int(app.current_population), int(app.max_population))
+        text: "%s/%s" % (int(app.population["total"]), int(app.population["max"]))
 
 
 <BarracksScreen@Screen>:
@@ -228,7 +228,7 @@
                         text: "Maximum population"
                         size_hint_x: 0.7
                     DarkLabel:
-                        text: "%s" % app.max_population
+                        text: "%s" % app.population["max"]
                         size_hint_x: 0.2
                 BoxLayout:
                     orientation: "horizontal"
@@ -236,10 +236,10 @@
                         source: app.population_icon
                         size_hint_x: 0.1
                     DarkLabel:
-                        text: "Maximum population at level %s" % (app.farm.level + 1)
+                        text: "Maximum population at level %s" % int(app.farm.level + 1)
                         size_hint_x: 0.7
                     DarkLabel:
-                        text: "%s" % int(app.max_population * app.farm.population_ratio)
+                        text: "%s" % int(app.population["max"] * app.farm.population_ratio)
                         size_hint_x: 0.2
                 DarkLabel:
                     text: "Current population"
@@ -249,7 +249,7 @@
                         text: "Buildings (includes the building queue)"
                         size_hint_x: 0.8
                     DarkLabel:
-                        text: "%s" % 0
+                        text: "%s" % int(app.population["buildings"])
                         size_hint_x: 0.2
                 BoxLayout:
                     orientation: "horizontal"
@@ -257,7 +257,7 @@
                         text: "Troops"
                         size_hint_x: 0.8
                     DarkLabel:
-                        text: "%s" % 0
+                        text: "%s" % app.population["units"]
                         size_hint_x: 0.2
                 BoxLayout:
                     orientation: "horizontal"
@@ -273,7 +273,7 @@
                         text: "All"
                         size_hint_x: 0.8
                     DarkLabel:
-                        text: "%s" % 0
+                        text: "%s" % int(app.population["total"])
                         size_hint_x: 0.2
                 BoxLayout:
                     orientation: "horizontal"
