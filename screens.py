@@ -264,13 +264,13 @@ class AllUnitsRecruit(AvailableUnavailableMenu):
         row.add_widget(label)
 
         # In the\nvillage/total:
-        self.all_labels[unit.name] = Label(text="0/0", size_hint_x=0.15, font_size=24)
-        row.add_widget(self.all_labels[unit.name])
+        self.all_labels[unit] = Label(text="0/0", size_hint_x=0.15, font_size=24)
+        row.add_widget(self.all_labels[unit])
 
         # Recruit:
-        self.all_inputs[unit.name] = TextInput(size_hint_x=0.1)
+        self.all_inputs[unit] = TextInput(size_hint_x=0.1)
         label = Label(text="(%s)" % "", size_hint_x=0.05, font_size=24)
-        row.add_widget(self.all_inputs[unit.name])
+        row.add_widget(self.all_inputs[unit])
         row.add_widget(label)
         box.add_widget(row)
 
@@ -303,16 +303,23 @@ class AllUnitsRecruit(AvailableUnavailableMenu):
     def check(self, *args):
         if not self.all_inputs:
             return
-        n = self.all_inputs.get("spear_fighter").text
-        n = int(n)
         app = App.get_running_app()
-        # check if can recruit:
-        if app.wood.current >= app.spear_fighter.requirements.get("WOOD") * n:
-            app.wood.current -= app.spear_fighter.requirements.get("WOOD") * n
-            app.spear_fighter.n += n
-            self.all_labels.get("spear_fighter").text = "%s/%s" % (app.spear_fighter.n, app.spear_fighter.n)
-            self.app.population["units"] += n
-            self.app.population["total"] += n
+        for unit, unit_input in self.all_inputs.items():
+            n = unit_input.text
+            if not n:
+                continue
+            n = int(n)
+            # check if can recruit:
+            if app.wood.current >= unit.requirements.get("WOOD") * n and\
+                    app.clay.current >= unit.requirements.get("CLAY") * n and\
+                    app.iron.current >= unit.requirements.get("IRON") * n:
+                app.wood.current -= unit.requirements.get("WOOD") * n
+                app.clay.current -= unit.requirements.get("CLAY") * n
+                app.iron.current -= unit.requirements.get("IRON") * n
+                unit.n += n
+                self.all_labels.get(unit).text = "%s/%s" % (unit.n, unit.n)
+                self.app.population["units"] += n
+                self.app.population["total"] += n
 
 
 class AllBuildingsUpgrade(AvailableUnavailableMenu):
