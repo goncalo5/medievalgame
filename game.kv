@@ -96,7 +96,7 @@
     ImageButton:
         source: "img/Buildings/Statue1.png"
         pos_hint: {"center_x": .5, "center_y": .35}
-        on_press: root.manager.current = "main"
+        on_press: root.manager.current = "statue_screen"
     ImageButton:
         source: "img/Buildings/Wood1.png"
         pos_hint: {"center_x": .9, "center_y": .1}
@@ -381,6 +381,112 @@
             TabbedPanelItem:
                 text: "Troop templates"
                 font_size: 22
+<StatueScreen@Screen>:
+    canvas.before:
+        Color:
+            rgba: 1, 242/255, 179/255, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        HeaderBoxLayout
+        StatueDescriptionMenu
+        TabbedPanel:
+            do_default_tab: False
+            tab_width: self.width / 5
+            TabbedPanelItem:
+                text: "Resident"
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: str(app.paladin.level)
+                        size_hint_y: 0.05
+                    BoxLayout:
+                        orientation: "horizontal"
+                        size_hint_y: 0.95
+                        BoxLayout:
+                            orientation: "vertical"
+                            Label:
+                                text: "Offense"
+                                canvas.before:
+                                    Color:
+                                        rgba: .5, 0, 0, 1
+                                    Rectangle:
+                                        pos: self.pos
+                                        size: self.size
+                            Image:
+                                source: "img/knight/skills/offense1.png"
+                            Label:
+                                text: "%s/4" % 0
+                            Image:
+                                source: "img/knight/skills/offense2.png"
+                            Label:
+                                text: "%s/4" % 0
+                            Image:
+                                source: "img/knight/skills/offense3.png"
+                            Label:
+                                text: "%s/4" % 0
+                            Image:
+                                source: "img/knight/skills/offense4.png"
+                            Label:
+                                text: "%s/4" % 0
+                        BoxLayout:
+                            orientation: "vertical"
+                            Label:
+                                text: "Village"
+                                canvas.before:
+                                    Color:
+                                        rgba: 0, 0.5, 0, 1
+                                    Rectangle:
+                                        pos: self.pos
+                                        size: self.size
+                            Image:
+                                source: "img/knight/skills/village1.png"
+                            Label:
+                                text: "%s/4" % 0
+                            Image:
+                                source: "img/knight/skills/village2.png"
+                            Label:
+                                text: "%s/4" % 0
+                            Image:
+                                source: "img/knight/skills/village3.png"
+                            Label:
+                                text: "%s/4" % 0
+                            Image:
+                                source: "img/knight/skills/village4.png"
+                            Label:
+                                text: "%s/4" % 0
+                        BoxLayout:
+                            orientation: "vertical"
+                            Label:
+                                text: "defense"
+                                canvas.before:
+                                    Color:
+                                        rgba: 0, 0, .5, 1
+                                    Rectangle:
+                                        pos: self.pos
+                                        size: self.size
+                            Image:
+                                source: "img/knight/skills/defense1.png"
+                            Label:
+                                text: "%s/4" % 0
+                            Image:
+                                source: "img/knight/skills/defense2.png"
+                            Label:
+                                text: "%s/4" % 0
+                            Image:
+                                source: "img/knight/skills/defense3.png"
+                            Label:
+                                text: "%s/4" % 0
+                            Image:
+                                source: "img/knight/skills/defense4.png"
+                            Label:
+                                text: "%s/4" % 0
+
+            TabbedPanelItem:
+                text: "Overview"
+
 
 <Game>:
     id: screen_manager
@@ -396,6 +502,18 @@
     Overview:
         id: overview
         name: "overview"
+        manager: screen_manager
+    Main:
+        id: main
+        name: "main"
+        manager: screen_manager
+    RallyPointScreen:
+        id: rally_point_screen
+        name: "rally_point_screen"
+        manager: screen_manager
+    StatueScreen:
+        id: statue_screen
+        name: "statue_screen"
         manager: screen_manager
     TimberCampScreen:
         id: timber_camp_screen
@@ -417,15 +535,7 @@
         id: warehouse_screen
         name: "warehouse_screen"
         manager: screen_manager
-    Main:
-        id: main
-        name: "main"
-        manager: screen_manager
     BarracksScreen:
         id: barracks_screen
         name: "barracks_screen"
-        manager: screen_manager
-    RallyPointScreen:
-        id: rally_point_screen
-        name: "rally_point_screen"
         manager: screen_manager

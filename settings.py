@@ -147,6 +147,12 @@ BUILDINGS = {
             "BASE": 5,
             "RATIO": 1.155
         },
+        "DESCRIPTION": """
+        At the statue you can recruit a paladin
+        if you do not have one yet in this village and
+        if you have an available slot.
+        Conquer more villages to obtain new paladin slots.
+        """
     },
     "TIMBER_CAMP": {
         "NAME": "timber_camp",

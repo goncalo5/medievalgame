@@ -41,10 +41,11 @@ class Unit(EventDispatcher):
     n = kp.NumericProperty(0)
     n_str = kp.StringProperty("0")
     icon = kp.StringProperty()
-    def __init__(self, name):
+    def __init__(self, **kwargs):
         super().__init__()
-        self.settings = UNITS.get(name)
-        self.name = name.lower()
+        self.name = kwargs.get("name").upper()
+        self.settings = UNITS.get(self.name)
+        self.name = self.name.lower()
         self.icon = self.settings.get("ICON")
         self._type = self.settings.get("TYPE", "general")
         self.requirements = self.settings.get("REQUIREMENTS")
@@ -66,6 +67,13 @@ class Unit(EventDispatcher):
         if app.wood.current >= self.requirements.get("WOOD") * n:
             app.wood.current -= self.requirements.get("WOOD") * n
             self.n += n
+
+
+class Paladin(Unit):
+    level = kp.NumericProperty()
+    def __init__(self):
+        super().__init__(name="PALADIN")
+
 
 class Game(ScreenManager):
     overview = kp.ObjectProperty(None)
@@ -118,19 +126,19 @@ class GameApp(App):
     cancel = kp.BooleanProperty(False)
     is_upgrading = kp.BooleanProperty(False)
     # Units:
-    spear_fighter = kp.ObjectProperty(Unit("SPEAR_FIGHTER"))
-    swordsman = kp.ObjectProperty(Unit("SWORDSMAN"))
-    axeman = kp.ObjectProperty(Unit("AXEMAN"))
-    archer = kp.ObjectProperty(Unit("ARCHER"))
-    scout = kp.ObjectProperty(Unit("SCOUT"))
-    light_cavalry = kp.ObjectProperty(Unit("LIGHT_CAVALRY"))
-    mounted_archer = kp.ObjectProperty(Unit("MOUNTED_ARCHER"))
-    heavy_cavalry = kp.ObjectProperty(Unit("HEAVY_CAVALRY"))
-    ram = kp.ObjectProperty(Unit("RAM"))
-    catapult = kp.ObjectProperty(Unit("CATAPULT"))
-    paladin = kp.ObjectProperty(Unit("PALADIN"))
-    noble = kp.ObjectProperty(Unit("NOBLE"))
-    militia = kp.ObjectProperty(Unit("MILITIA"))
+    spear_fighter = kp.ObjectProperty(Unit(name="SPEAR_FIGHTER"))
+    swordsman = kp.ObjectProperty(Unit(name="SWORDSMAN"))
+    axeman = kp.ObjectProperty(Unit(name="AXEMAN"))
+    archer = kp.ObjectProperty(Unit(name="ARCHER"))
+    scout = kp.ObjectProperty(Unit(name="SCOUT"))
+    light_cavalry = kp.ObjectProperty(Unit(name="LIGHT_CAVALRY"))
+    mounted_archer = kp.ObjectProperty(Unit(name="MOUNTED_ARCHER"))
+    heavy_cavalry = kp.ObjectProperty(Unit(name="HEAVY_CAVALRY"))
+    ram = kp.ObjectProperty(Unit(name="RAM"))
+    catapult = kp.ObjectProperty(Unit(name="CATAPULT"))
+    paladin = kp.ObjectProperty(Paladin())
+    noble = kp.ObjectProperty(Unit(name="NOBLE"))
+    militia = kp.ObjectProperty(Unit(name="MILITIA"))
 
     def build_config(self, *args):
         self.units = [

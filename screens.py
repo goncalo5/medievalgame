@@ -113,6 +113,13 @@ class RallyPointDescriptionMenu(DescriptionMenu):
         super().__init__(**kwargs)
 
 
+class StatueDescriptionMenu(DescriptionMenu):
+    def __init__(self, **kwargs):
+        self.app = App.get_running_app()
+        self.building = self.app.statue
+        super().__init__(**kwargs)
+
+
 # Resources Menus:
 class ResourceMenu(Menu):
     def __init__(self, **kwargs):
