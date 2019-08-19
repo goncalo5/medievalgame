@@ -99,6 +99,13 @@ class FarmDescriptionMenu(DescriptionMenu):
         super().__init__(**kwargs)
 
 
+class WarehouseDescriptionMenu(DescriptionMenu):
+    def __init__(self, **kwargs):
+        self.app = App.get_running_app()
+        self.building = self.app.warehouse
+        super().__init__(**kwargs)
+
+
 class RallyPointDescriptionMenu(DescriptionMenu):
     def __init__(self, **kwargs):
         self.app = App.get_running_app()

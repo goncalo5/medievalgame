@@ -1,5 +1,9 @@
+# python modules:
+import datetime
+import time
 # kivy modules:
 from kivy.app import App
+from kivy.clock import Clock
 from kivy import properties as kp
     # uix:
 from kivy.uix.widget import Widget
@@ -129,11 +133,41 @@ class Farm(Building):
 
 
 class Warehouse(Building):
+    max_capacity = kp.NumericProperty()
+    time_to_full = kp.DictProperty({
+        "wood": "",
+        "clay": "",
+        "iron": ""
+    })
+    time_when_its_full = kp.DictProperty({
+        "wood": "",
+        "clay": "",
+        "iron": ""
+    })
     def __init__(self):
         self.settings = BUILDINGS.get("WAREHOUSE")
         super().__init__()
         self.capacity0 = self.settings.get("CAPACITY_INIT")
         self.capacity_ratio = self.settings.get("CAPACITY_RATIO")
+        self.max_capacity = self.calc_capacity(self.level)
+        self.bind(level=self.on_level)
+        Clock.schedule_interval(self.calc_when_is_full, .1)
+    
+    def calc_capacity(self, level):
+        return self.capacity0 * self.capacity_ratio**(level - 1)
+    
+    def on_level(self, *args):
+        self.max_capacity = self.calc_capacity(self.level)
+
+    def calc_when_is_full(self, *args):
+        self.app = App.get_running_app()
+        for resource in self.app.resources:
+            resource_until_full = self.max_capacity - resource.current
+            resource_until_full = max(resource_until_full, 0)
+            seconds_to_full = resource_until_full / resource.per_s
+            self.time_to_full[resource._type] = str(datetime.timedelta(seconds=int(seconds_to_full)))
+            self.time_when_its_full[resource._type] =\
+                datetime.datetime.fromtimestamp(time.time() + seconds_to_full).strftime('%H:%M:%S')
 
 
 class HidingPlace(Building):

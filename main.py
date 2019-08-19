@@ -24,8 +24,10 @@ from buildings import *
 class Resource(Widget):
     current = kp.NumericProperty(0)
     per_s = kp.NumericProperty(0)
+    _type = kp.StringProperty()
     def __init__(self, _type, **kwargs):
         super().__init__(**kwargs)
+        self._type = _type.lower()
         self.current = RESOURCES.get("INIT").get(_type)
         self.per_s = RESOURCES.get("PRODUCTION").get(_type)
         self.icon = RESOURCES.get("ICON").get(_type)
@@ -92,7 +94,6 @@ class GameApp(App):
         "units": 0,
         "total": 0,
     })
-    max_capacity = kp.NumericProperty()
     # buildings:
     headquarters = kp.ObjectProperty(Headquarters())
     rally_point = kp.ObjectProperty(RallyPoint())
@@ -147,7 +148,6 @@ class GameApp(App):
     def build(self):
         self.game = Game(transition=NoTransition())
         self.resources = [self.wood, self.clay, self.iron]
-        self.max_capacity = BUILDINGS.get("WAREHOUSE").get("CAPACITY_INIT")
         self.calc_current_population()
         Clock.schedule_interval(self.update_resources, .1)
         return self.game
@@ -215,9 +215,7 @@ class GameApp(App):
             self.iron.per_s *= self.resources_ratio
         if self.current_upgrading.name == "farm":
             self.population["max"] *= self.farm.population_ratio
-        if self.current_upgrading.name == "warehouse":
-            self.max_capacity = self.warehouse.capacity0 * self.warehouse.capacity_ratio**(self.warehouse.level - 1)
-        # update:
+
         self.current_upgrading = ""
         self.is_upgrading = False
     
@@ -225,11 +223,10 @@ class GameApp(App):
         if self.is_upgrading:
             self.cancel = True
 
-
     def update_resources(self, dt):
         for resource in self.resources:
             resource.current += resource.per_s * dt
-            resource.current = min(resource.current, self.max_capacity)
+            resource.current = min(resource.current, self.warehouse.max_capacity)
 
 
 if __name__ == "__main__":

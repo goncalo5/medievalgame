@@ -262,8 +262,12 @@ BUILDINGS = {
             "BASE": 0,
             "RATIO": 1.
         },
-        "CAPACITY_INIT": 10000,
+        "CAPACITY_INIT": 5020,
         "CAPACITY_RATIO": 1.2295,
+        "DESCRIPTION": """
+        The warehouse stores your resources.
+        The higher its level the more resources can be stored.
+        """
     },
     "HIDING_PLACE": {
         "NAME": "hiding_place",

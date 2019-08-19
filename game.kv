@@ -49,7 +49,7 @@
     Image:
         source: RESOURCES.get("ICON").get("BOOTY")
     DarkLabel:
-        text: "%s" % int(app.max_capacity)
+        text: "%s" % int(app.warehouse.max_capacity)
     Image:
         source: RESOURCES.get("ICON").get("POPULATION")
     DarkLabel:
@@ -116,7 +116,7 @@
     ImageButton:
         source: "img/Buildings/Storage1.png"
         pos_hint: {"center_x": .25, "center_y": .55}
-        on_press: root.manager.current = "main"
+        on_press: root.manager.current = "warehouse_screen"
     ImageButton:
         source: "img/Buildings/Hide1.png"
         pos_hint: {"center_x": .5, "center_y": .8}
@@ -286,6 +286,70 @@
                 Button:
                     text: "Establish militia"
 
+<WarehouseScreen@Screen>:
+    canvas.before:
+        Color:
+            rgba: 1, 242/255, 179/255, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        HeaderBoxLayout
+        WarehouseDescriptionMenu
+        BoxLayout:
+            orientation: "vertical"
+            BoxLayout:
+                orientation: "horizontal"
+                DarkLabel:
+                    text: "Storage capacity"
+                DarkLabel:
+                    text: "Units per resource"
+            BoxLayout:
+                orientation: "horizontal"
+                DarkLabel:
+                    text: "Current storage capacity"
+                DarkLabel:
+                    text: "%s" % int(app.warehouse.max_capacity)
+            BoxLayout:
+                orientation: "horizontal"
+                DarkLabel:
+                    text: "Storage capacity on level %s" % app.warehouse.level
+                DarkLabel:
+                    text: "%s" % int(app.warehouse.calc_capacity(app.warehouse.level + 1))
+            Label:
+            BoxLayout:
+                orientation: "horizontal"
+                DarkLabel:
+                    text: "Warehouse full"
+                DarkLabel:
+                    text: "Time (hh:mm:ss)"
+            BoxLayout:
+                orientation: "horizontal"
+                Image:
+                    source: app.wood.icon
+                DarkLabel:
+                    text: "%s" % app.warehouse.time_when_its_full["wood"]
+                DarkLabel:
+                    text: "%s" % app.warehouse.time_to_full["wood"]
+            BoxLayout:
+                orientation: "horizontal"
+                Image:
+                    source: app.clay.icon
+                DarkLabel:
+                    text: "%s" % app.warehouse.time_when_its_full["clay"]
+                DarkLabel:
+                    text: "%s" % app.warehouse.time_to_full["clay"]
+            BoxLayout:
+                orientation: "horizontal"
+                Image:
+                    source: app.iron.icon
+                DarkLabel:
+                    text: "%s" % app.warehouse.time_when_its_full["iron"]
+                DarkLabel:
+                    text: "%s" % app.warehouse.time_to_full["iron"]
+            
+                
 
 <RallyPointScreen@Screen>:
     canvas.before:
@@ -327,6 +391,7 @@
     clay_pit_screen: clay_pit_screen
     iron_mine_screen: iron_mine_screen
     farm_screen: farm_screen
+    warehouse_screen: warehouse_screen
     rally_point_screen: rally_point_screen
     Overview:
         id: overview
@@ -347,6 +412,10 @@
     FarmScreen:
         id: farm_screen
         name: "farm_screen"
+        manager: screen_manager
+    WarehouseScreen:
+        id: warehouse_screen
+        name: "warehouse_screen"
         manager: screen_manager
     Main:
         id: main
