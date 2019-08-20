@@ -4,6 +4,9 @@
 <DarkLabel>:
     font_size: 25
     color: 0, 0, 0, 1
+<GreyLabel@Label>:
+    font_size: 25
+    color: 0, 0, 0, 0.5
 
 <MenuLabel@DarkLabel>:
     width: app.width * 0.25
@@ -140,7 +143,7 @@
     ImageButton:
         source: "img/Buildings/Smith1.png"
         pos_hint: {"center_x": .4, "center_y": .25}
-        on_press: root.manager.current = "main"
+        on_press: root.manager.current = "smithy_screen"
     ImageButton:
         source: "img/Buildings/Market1.png"
         pos_hint: {"center_x": .4, "center_y": .65}
@@ -487,6 +490,151 @@
             TabbedPanelItem:
                 text: "Overview"
 
+<SmithyScreen@Screen>:
+    canvas.before:
+        Color:
+            rgba: 1, 242/255, 179/255, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        HeaderBoxLayout
+        SmithyDescriptionMenu
+        BoxLayout:
+            orientation: "horizontal"
+            BoxLayout:
+                orientation: "vertical"
+                DarkLabel:
+                    text: "Infantry"
+                BoxLayout:
+                    orientation: "horizontal"
+                    Image:
+                        id: smithy_image_spear_fighter
+                        source: "atlas://img/unit_big/unit_big/spear_fighter_cross"
+                    BoxLayout:
+                        orientation: "vertical"
+                        DarkLabel:
+                            text: "Spear Fighter"
+                        SmithyBox:
+                            unit: app.spear_fighter
+                            image: smithy_image_spear_fighter
+                BoxLayout:
+                    orientation: "horizontal"
+                    Image:
+                        id: smithy_image_swordsman
+                        source: "atlas://img/unit_big/unit_big/swordsman_cross"
+                    BoxLayout:
+                        orientation: "vertical"
+                        DarkLabel:
+                            text: "Swordsman"
+                        SmithyBox:
+                            unit: app.swordsman
+                            image: smithy_image_swordsman
+                BoxLayout:
+                    orientation: "horizontal"
+                    Image:
+                        id: smithy_image_axeman
+                        source: "atlas://img/unit_big/unit_big/axeman_cross"
+                    BoxLayout:
+                        orientation: "vertical"
+                        DarkLabel:
+                            text: "Axeman"
+                        SmithyBox:
+                            unit: app.axeman
+                            image: smithy_image_axeman
+                BoxLayout:
+                    orientation: "horizontal"
+                    Image:
+                        id: smithy_image_archer
+                        source: "atlas://img/unit_big/unit_big/archer_cross"
+                    BoxLayout:
+                        orientation: "vertical"
+                        DarkLabel:
+                            text: "Archer"
+                        SmithyBox:
+                            unit: app.archer
+                            image: smithy_image_archer
+            BoxLayout:
+                orientation: "vertical"
+                DarkLabel:
+                    text: "Cavalry"
+                BoxLayout:
+                    orientation: "horizontal"
+                    Image:
+                        id: smithy_image_scout
+                        source: "atlas://img/unit_big/unit_big/scout_cross"
+                    BoxLayout:
+                        orientation: "vertical"
+                        DarkLabel:
+                            text: "Scout"
+                        SmithyBox:
+                            unit: app.scout
+                            image: smithy_image_scout
+                BoxLayout:
+                    orientation: "horizontal"
+                    Image:
+                        id: smithy_image_light_cavalry
+                        source: "atlas://img/unit_big/unit_big/light_cavalry_cross"
+                    BoxLayout:
+                        orientation: "vertical"
+                        DarkLabel:
+                            text: "Light Cavalry"
+                        SmithyBox:
+                            unit: app.light_cavalry
+                            image: smithy_image_light_cavalry
+                BoxLayout:
+                    orientation: "horizontal"
+                    Image:
+                        id: smithy_image_mounted_archer
+                        source: "atlas://img/unit_big/unit_big/mounted_archer_cross"
+                    BoxLayout:
+                        orientation: "vertical"
+                        DarkLabel:
+                            text: "Mounted Archer"
+                        SmithyBox:
+                            unit: app.mounted_archer
+                            image: smithy_image_mounted_archer
+                BoxLayout:
+                    orientation: "horizontal"
+                    Image:
+                        id: smithy_image_heavy_cavalry
+                        source: "atlas://img/unit_big/unit_big/heavy_cavalry_cross"
+                    BoxLayout:
+                        orientation: "vertical"
+                        DarkLabel:
+                            text: "Heavy Cavalry"
+                        SmithyBox:
+                            unit: app.heavy_cavalry
+                            image: smithy_image_heavy_cavalry
+            BoxLayout:
+                orientation: "vertical"
+                DarkLabel:
+                    text: "Siege weapons"
+                BoxLayout:
+                    orientation: "horizontal"
+                    Image:
+                        id: smithy_image_ram
+                        source: "atlas://img/unit_big/unit_big/ram_cross"
+                    BoxLayout:
+                        orientation: "vertical"
+                        DarkLabel:
+                            text: "Ram"
+                        SmithyBox:
+                            unit: app.ram
+                            image: smithy_image_ram
+                BoxLayout:
+                    orientation: "horizontal"
+                    Image:
+                        id: smithy_image_catapult
+                        source: "atlas://img/unit_big/unit_big/catapult_cross"
+                    BoxLayout:
+                        orientation: "vertical"
+                        DarkLabel:
+                            text: "Catapult"
+                        SmithyBox:
+                            unit: app.catapult
+                            image: smithy_image_catapult
 
 <Game>:
     id: screen_manager
@@ -538,4 +686,8 @@
     BarracksScreen:
         id: barracks_screen
         name: "barracks_screen"
+        manager: screen_manager
+    SmithyScreen:
+        id: smithy_screen
+        name: "smithy_screen"
         manager: screen_manager

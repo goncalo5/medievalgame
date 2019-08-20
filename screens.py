@@ -1,6 +1,8 @@
 # kivy modules:
 from kivy.app import App
 from kivy.core.window import Window
+from kivy.clock import Clock
+from kivy import properties as kp
     # uix:
 from kivy.uix.label import Label
 from kivy.uix.image import Image
@@ -117,6 +119,13 @@ class StatueDescriptionMenu(DescriptionMenu):
     def __init__(self, **kwargs):
         self.app = App.get_running_app()
         self.building = self.app.statue
+        super().__init__(**kwargs)
+
+
+class SmithyDescriptionMenu(DescriptionMenu):
+    def __init__(self, **kwargs):
+        self.app = App.get_running_app()
+        self.building = self.app.smithy
         super().__init__(**kwargs)
 
 
@@ -694,5 +703,59 @@ class ScavengingPanel(Menu):
             # update resources:
             for resource in [self.app.wood, self.app.clay, self.app.iron]:
                 resource.current += capacity_per_resource
-            
-            
+
+
+# smithy
+class SmithyBox(BoxLayout):
+    research = kp.BooleanProperty(False)
+    def __init__(self, **kwargs):
+        self.orientation = "vertical"
+        super().__init__(**kwargs)
+        Clock.schedule_once(self.update, 0)
+
+    def update(self, *args):
+        font_size = Window.width / 40
+        self.remove_all_widgets()
+        self.app = App.get_running_app()
+        for building_name, building_level in self.unit.requirements.get("UNLOCK"):
+            building = getattr(self.app, building_name)
+            if building.level < building_level:
+                text = "Requirements:\n"
+                for building_name, building_level in self.unit.requirements.get("UNLOCK"):
+                    text += "%s (%s)\n" % (building_name, building_level)
+                building.bind(level=self.update)
+                label = DarkLabel(text=text, font_size=font_size)
+                self.add_widget(label)
+                break
+        else:  # no break
+            if self.research or "RESEARCH" not in self.unit.requirements:
+                text = "Researched"
+                label = DarkLabel(text=text, font_size=font_size)
+                self.add_widget(label)
+                self.image.source = "atlas://img/unit_big/unit_big/%s" % self.unit.name
+            else:
+                self.image.source = "atlas://img/unit_big/unit_big/%s_grey" % self.unit.name
+                self.wood = self.unit.requirements.get("RESEARCH").get("WOOD")
+                self.clay = self.unit.requirements.get("RESEARCH").get("CLAY")
+                self.iron = self.unit.requirements.get("RESEARCH").get("IRON")
+                text = "%s %s %s" % (self.wood, self.clay, self.iron)
+                label = DarkLabel(text=text, font_size=font_size)
+                self.add_widget(label)
+                button = Button(text="Research")
+                self.add_widget(button)
+                button.bind(on_press=self.start_research)
+    
+    def start_research(self, *args):
+        if self.wood < self.app.wood.current and self.clay < self.app.clay.current\
+                and self.iron < self.app.iron.current:
+            self.app.wood.current -= self.wood
+            self.app.clay.current -= self.clay
+            self.app.iron.current -= self.iron
+            self.research = True
+            self.update()
+
+    def remove_all_widgets(self):
+        for widget in self.children.copy():
+            self.remove_widget(widget)
+
+

@@ -214,12 +214,13 @@ class Academy(Building):
 
 
 class Smithy(Building):
+
     def __init__(self):
         self.settings = BUILDINGS.get("SMITHY")
         super().__init__()
         self.speed_factor0 = self.settings.get("SPEED_FACTOR_INIT")
         self.speed_factor_ratio = self.settings.get("SPEED_FACTOR_RATIO")
-        self.unlock = self.settings.get("UNLOCK")
+        self.unlock = self.settings.get("UNLOCK")        
 
 
 class Market(Building):

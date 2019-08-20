@@ -410,7 +410,11 @@ BUILDINGS = {
         "UNLOCK": [
             ["Headquarters", 5],
             ["Barracks", 1],
-        ]
+        ],
+        "DESCRIPTION": """
+        In the smithy you can research and improve weapons.
+        Upgrading the smithy allows the research of better weapons and decreases the research time.
+        """
     },
     "MARKET": {
         "NAME": "Market",
@@ -515,7 +519,12 @@ UNITS = {
             "POPULATION": 1,
             "UNLOCK": [
                 ["smithy", 2]
-            ]
+            ],
+            "RESEARCH": {
+                "WOOD": 700,
+                "CLAY": 840,
+                "IRON": 820
+            }
         },
         "ATK": 40,
         "DEFENCE": {
@@ -538,7 +547,12 @@ UNITS = {
             "UNLOCK": [
                 ["barracks", 5],
                 ["smithy", 5]
-            ]
+            ],
+            "RESEARCH": {
+                "WOOD": 640,
+                "CLAY": 560,
+                "IRON": 740
+            }
         },
         "ATK": 15,
         "DEFENCE": {
@@ -560,7 +574,12 @@ UNITS = {
             "POPULATION": 2,
             "UNLOCK": [
                 ["stable", 1]
-            ]
+            ],
+            "RESEARCH": {
+                "WOOD": 560,
+                "CLAY": 480,
+                "IRON": 480
+            }
         },
         "ATK": 0,
         "DEFENCE": {
