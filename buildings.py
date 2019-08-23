@@ -96,7 +96,7 @@ class Headquarters(Building):
 class RallyPoint(Building):
     attacker = kp.DictProperty(defaultdict(int))
     defender = kp.DictProperty(defaultdict(int))
-    units_kills = kp.DictProperty(defaultdict(int))
+    units_kills_atk = kp.DictProperty(defaultdict(int))
     units_kills_def = kp.DictProperty(defaultdict(int))
     def __init__(self):
         self.settings = BUILDINGS.get("RALLY_POINT")
@@ -197,8 +197,8 @@ class RallyPoint(Building):
             try:
                 ratio_units = (self.attacker[unit] * unit.population) / total_population_per_type[unit._type]
                 print("ratio_units", ratio_units)
-                self.units_kills[unit] = total_killed_units_per_type[unit._type] * ratio_units / unit.population
-                self.units_kills[unit] = min(round(self.units_kills[unit]), self.attacker[unit])
+                self.units_kills_atk[unit] = total_killed_units_per_type[unit._type] * ratio_units / unit.population
+                self.units_kills_atk[unit] = min(round(self.units_kills_atk[unit]), self.attacker[unit])
             except ZeroDivisionError:
                 continue
             # defender:
@@ -209,7 +209,7 @@ class RallyPoint(Building):
                 self.units_kills_def[unit] = min(round(self.units_kills_def[unit]), self.defender[unit])
             except ZeroDivisionError:
                 continue
-        print("self.units_kills", self.units_kills)
+        print("self.units_kills_atk", self.units_kills_atk)
         print("self.units_kills_def", self.units_kills_def)
 
 

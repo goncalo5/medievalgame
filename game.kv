@@ -446,32 +446,32 @@
                         orientation: "horizontal"
                         size_hint_y: 0.05
                         Label:
-                            text: "%s" % convert_to_0_if_None(app.spear_fighter, app.rally_point.units_kills)
-                            # text: "%s" % (int(app.rally_point.units_kills[app.spear_fighter]) if app.spear_fighter in app.rally_point.units_kills else "0")
+                            text: "%s" % convert_to_0_if_None(app.spear_fighter, app.rally_point.units_kills_atk)
+                            # text: "%s" % (int(app.rally_point.units_kills_atk[app.spear_fighter]) if app.spear_fighter in app.rally_point.units_kills_atk else "0")
                         Label:
-                            text: "%s" % (app.rally_point.units_kills[app.swordsman] if app.swordsman in app.rally_point.units_kills else "0")
+                            text: "%s" % (app.rally_point.units_kills_atk[app.swordsman] if app.swordsman in app.rally_point.units_kills_atk else "0")
                         Label:
-                            text: "%s" % (app.rally_point.units_kills[app.axeman] if app.axeman in app.rally_point.units_kills else "0")
+                            text: "%s" % (app.rally_point.units_kills_atk[app.axeman] if app.axeman in app.rally_point.units_kills_atk else "0")
                         Label:
-                            text: "%s" % (app.rally_point.units_kills[app.archer] if app.archer in app.rally_point.units_kills else "0")
+                            text: "%s" % (app.rally_point.units_kills_atk[app.archer] if app.archer in app.rally_point.units_kills_atk else "0")
                         Label:
-                            text: "%s" % (app.rally_point.units_kills[app.scout] if app.scout in app.rally_point.units_kills else "0")
+                            text: "%s" % (app.rally_point.units_kills_atk[app.scout] if app.scout in app.rally_point.units_kills_atk else "0")
                         Label:
-                            text: "%s" % (app.rally_point.units_kills[app.light_cavalry] if app.light_cavalry in app.rally_point.units_kills else "0")
+                            text: "%s" % (app.rally_point.units_kills_atk[app.light_cavalry] if app.light_cavalry in app.rally_point.units_kills_atk else "0")
                         Label:
-                            text: "%s" % (app.rally_point.units_kills[app.mounted_archer] if app.mounted_archer in app.rally_point.units_kills else "0")
+                            text: "%s" % (app.rally_point.units_kills_atk[app.mounted_archer] if app.mounted_archer in app.rally_point.units_kills_atk else "0")
                         Label:
-                            text: "%s" % (app.rally_point.units_kills[app.heavy_cavalry] if app.heavy_cavalry in app.rally_point.units_kills else "0")
+                            text: "%s" % (app.rally_point.units_kills_atk[app.heavy_cavalry] if app.heavy_cavalry in app.rally_point.units_kills_atk else "0")
                         Label:
-                            text: "%s" % (app.rally_point.units_kills[app.ram] if app.ram in app.rally_point.units_kills else "0")
+                            text: "%s" % (app.rally_point.units_kills_atk[app.ram] if app.ram in app.rally_point.units_kills_atk else "0")
                         Label:
-                            text: "%s" % (app.rally_point.units_kills[app.catapult] if app.catapult in app.rally_point.units_kills else "0")
+                            text: "%s" % (app.rally_point.units_kills_atk[app.catapult] if app.catapult in app.rally_point.units_kills_atk else "0")
                         Label:
-                            text: "%s" % (app.rally_point.units_kills[app.paladin] if app.paladin in app.rally_point.units_kills else "0")
+                            text: "%s" % (app.rally_point.units_kills_atk[app.paladin] if app.paladin in app.rally_point.units_kills_atk else "0")
                         Label:
-                            text: "%s" % (app.rally_point.units_kills[app.noble] if app.noble in app.rally_point.units_kills else "0")
+                            text: "%s" % (app.rally_point.units_kills_atk[app.noble] if app.noble in app.rally_point.units_kills_atk else "0")
                         Label:
-                            text: "%s" % (app.rally_point.units_kills[app.militia] if app.militia in app.rally_point.units_kills else "0")
+                            text: "%s" % (app.rally_point.units_kills_atk[app.militia] if app.militia in app.rally_point.units_kills_atk else "0")
                     BoxLayout:
                         orientation: "horizontal"
                         size_hint_y: 0.05
@@ -534,6 +534,35 @@
                     BoxLayout:
                         orientation: "horizontal"
                         size_hint_y: 0.75
+                        BoxLayout:
+                            orientation: "vertical"
+                            size_hint_x: 0.1
+                            Image:
+                                source: app.spear_fighter.icon
+                            Image:
+                                source: app.swordsman.icon
+                            Image:
+                                source: app.axeman.icon
+                            Image:
+                                source: app.archer.icon
+                            Image:
+                                source: app.scout.icon
+                            Image:
+                                source: app.light_cavalry.icon
+                            Image:
+                                source: app.mounted_archer.icon
+                            Image:
+                                source: app.heavy_cavalry.icon
+                            Image:
+                                source: app.ram.icon
+                            Image:
+                                source: app.catapult.icon
+                            Image:
+                                source: app.paladin.icon
+                            Image:
+                                source: app.noble.icon
+                            Image:
+                                source: app.militia.icon
                         BoxLayout:
                             orientation: "vertical"
                             Label:
