@@ -459,8 +459,25 @@ BUILDINGS = {
         "FACTOR_FOR_DEFENDING_TROOPS_RATIO": 1.08,
         "UNLOCK": [
             ["barracks", 1]
-        ]
+        ],
+        "BASIC_DEFENSE": 25
     },
+}
+
+DICT_WITH_ALL_UNITS = {
+    "spear_fighter": 0,
+    "swordsman": 0,
+    "axeman": 0,
+    "archer": 0,
+    "scout": 0,
+    "light_cavalry": 0,
+    "mounted_archer": 0,
+    "heavy_cavalry": 0,
+    "ram": 0,
+    "catapult": 0,
+    "paladin": 0,
+    "noble": 0,
+    "militia": 0,
 }
 
 UNITS = {

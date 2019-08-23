@@ -1,6 +1,7 @@
 # python modules:
 import datetime
 import time
+from collections import defaultdict
 # kivy modules:
 from kivy.app import App
 from kivy.clock import Clock
@@ -93,10 +94,125 @@ class Headquarters(Building):
 
 
 class RallyPoint(Building):
+    attacker = kp.DictProperty(defaultdict(int))
+    defender = kp.DictProperty(defaultdict(int))
+    units_kills = kp.DictProperty(defaultdict(int))
+    units_kills_def = kp.DictProperty(defaultdict(int))
     def __init__(self):
         self.settings = BUILDINGS.get("RALLY_POINT")
         super().__init__()
         self.scavenging = self.settings.get("SCAVENGING")
+    
+    def calc_simulator(self, *args):
+        print("simulator", args)
+        attacker_inputs = args[0]
+        attacker_inputs = list(reversed(attacker_inputs.children[:-1]))
+        defender_inputs = args[1]
+        defender_inputs = list(reversed(defender_inputs.children[:-1]))
+        app = args[2]
+
+        # attacker = defaultdict(int)
+        attacker_power_per_type = defaultdict(int)
+        total_defender_power_per_type = defaultdict(lambda: app.wall.basic_defense)
+        defender_power_per_type = defaultdict(int)
+        total_population_per_type = defaultdict(int)
+        total_population_per_type_def = defaultdict(int)
+        perc_population_per_type = defaultdict(int)
+        _types = ["general", "cavalry", "archer"]
+
+        # get input units:
+        for i, unit in enumerate(app.units):
+            try:
+                self.attacker[unit] = int(attacker_inputs[i].text)
+            except ValueError:
+                self.attacker[unit] = 0
+            try:
+                self.defender[unit] = int(defender_inputs[i].text)
+            except ValueError:
+                self.defender[unit] = 0
+
+        print("attacker", self.attacker)
+        print("defender", self.defender)
+
+        # calc total power done for all units per type:
+        for i, unit in enumerate(app.units):
+            attacker_power_per_type[unit._type] += self.attacker[unit] * unit.atk
+            for _type in _types:
+                total_defender_power_per_type[_type] += self.defender[unit] * unit.defence.get(_type.upper())
+        print("attacker_power_per_type", attacker_power_per_type)
+        print("total_defender_power_per_type", total_defender_power_per_type)
+
+        # calc total_population_per_type:
+        for i, unit in enumerate(app.units):
+            total_population_per_type[unit._type] += self.attacker[unit] * unit.population
+            total_population_per_type_def[unit._type] += self.defender[unit] * unit.population
+        print("total_population_per_type", total_population_per_type)
+        print("total_population_per_type_def", total_population_per_type_def)
+        
+        # calc perc_population_per_type:
+        total_all_types_population = sum(total_population_per_type.values())
+        try:
+            for _type in _types:
+                perc_population_per_type[_type] += total_population_per_type[_type] / total_all_types_population
+        except ZeroDivisionError:
+            return
+        print("perc_population_per_type", perc_population_per_type)
+
+        # calc defender power after aply perc_population_per_type:
+        for _type in _types:
+            defender_power_per_type[_type] = total_defender_power_per_type[_type] * perc_population_per_type[_type]
+        print("defender_power_per_type", defender_power_per_type)
+
+        # calc total_killed_units_per_type by type:
+        total_killed_units_per_type = defaultdict(int)
+        total_killed_units_per_type_def = defaultdict(int)
+        for _type in _types:
+            print(_type)
+            if attacker_power_per_type[_type] == 0:
+                continue
+            if total_population_per_type[_type] == 0:
+                continue
+            x = attacker_power_per_type[_type] / defender_power_per_type[_type]
+            x_defender = defender_power_per_type[_type] / attacker_power_per_type[_type]
+            print("x", x)
+            print("x_defender", x_defender)
+            ratio = 1 / x**0.5
+            ratio_defender = 1 / x_defender**0.5
+            print("ratio", ratio)
+            print("ratio_defender", ratio_defender)
+            damage_done_by_def = ratio * defender_power_per_type[_type]
+            damage_done_by_atk = ratio_defender * attacker_power_per_type[_type]
+            print("damage_done_by_def", damage_done_by_def)
+            print("damage_done_by_atk", damage_done_by_atk)
+            total_killed_units_per_type[_type] =\
+                damage_done_by_def / attacker_power_per_type[_type] * total_population_per_type[_type]
+            total_killed_units_per_type_def[_type] =\
+                damage_done_by_atk / defender_power_per_type[_type] * total_population_per_type[_type]
+        print("total_killed_units_per_type", total_killed_units_per_type)
+        print("total_killed_units_per_type_def", total_killed_units_per_type_def)
+
+        # calc units_kills: split the type % for all units
+        for i, unit in enumerate(app.units):
+            # attacker:
+            try:
+                ratio_units = (self.attacker[unit] * unit.population) / total_population_per_type[unit._type]
+                print("ratio_units", ratio_units)
+                self.units_kills[unit] = total_killed_units_per_type[unit._type] * ratio_units / unit.population
+                self.units_kills[unit] = min(round(self.units_kills[unit]), self.attacker[unit])
+            except ZeroDivisionError:
+                continue
+            # defender:
+            try:
+                ratio_units_def = (self.defender[unit] * unit.population) / total_population_per_type_def[unit._type]
+                print("ratio_units_def", ratio_units_def)
+                self.units_kills_def[unit] = total_killed_units_per_type_def[unit._type] * ratio_units_def / unit.population
+                self.units_kills_def[unit] = min(round(self.units_kills_def[unit]), self.defender[unit])
+            except ZeroDivisionError:
+                continue
+        print("self.units_kills", self.units_kills)
+        print("self.units_kills_def", self.units_kills_def)
+
+
 
 
 class Statue(Building):
@@ -237,4 +353,5 @@ class Wall(Building):
         self.speed_factor0 = self.settings.get("SPEED_FACTOR_INIT")
         self.speed_factor_ratio = self.settings.get("SPEED_FACTOR_RATIO")
         self.unlock = self.settings.get("UNLOCK")
+        self.basic_defense = self.settings.get("BASIC_DEFENSE")
 

@@ -57,6 +57,9 @@ class Unit(EventDispatcher):
         self.capacity = self.settings.get("CAPACITY")
         self.special_abilities = self.settings.get("SPECIAL_ABILITIES")
     
+    def __repr__(self):
+        return "Unit(name=%s)" % self.name
+    
     def on_n(self, *args):
         self.n_str = str(self.n)
 
